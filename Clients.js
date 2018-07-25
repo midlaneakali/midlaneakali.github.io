@@ -1,4 +1,4 @@
-var wss;
+var ws;
 var MyPlayerId;
 var Live = false;
 function Connect() {
@@ -6,16 +6,16 @@ function Connect() {
   if ("WebSocket" in window) {
 
 
-    wss = new WebSocket("wss://synosure.me:9002");
+    ws = new WebSocket("ws://146.115.179.81:8080");
 
-    wss.onopen = function () {
+    ws.onopen = function () {
 
       Live = true;
       //Edit this later
 
     };
 
-    wss.onmessage = function (evt) {
+    ws.onmessage = function (evt) {
       var received_msg = evt.data;
 
       var Packet = JSON.parse(received_msg);
@@ -150,7 +150,7 @@ function Connect() {
       }
     };
 
-    wss.onclose = function () {
+    ws.onclose = function () {
       Live = false;
       // websocket is closed.
       //alert("Connection is closed..."); 
@@ -167,7 +167,7 @@ function Connect() {
 }
 
 function SendToServer(message) {
-  wss.send(message);
+  ws.send(message);
 }
 
 function LeaveGame() {
