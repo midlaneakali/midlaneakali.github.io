@@ -1,0 +1,105 @@
+<html>
+
+<head>
+  <title>Minesweeper Flags</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1" />
+  <meta name="description" content="HTML5 online Multiplayer Minesweeper Flags">
+  <meta name="keywords" content="minesweeper,flags,online,multiplayer,html5,game">
+  <script type="text/javascript" src="Clients.js"></script>
+
+  <script type="text/javascript" src="Canvas.js"></script>
+  <script type="text/javascript" src="https://rawgit.com/pshihn/rough/master/dist/rough.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="Client.css">
+  <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <link href="https://fonts.googleapis.com/css?family=Amatic+SC" rel="stylesheet">
+  <link rel="icon" type="image/png" href="minesweeper_favicon.png">
+
+
+</head>
+
+<body style="background-color: #757582">
+
+  <!-- <canvas id="BackgroundCanvas">
+//1.4-2.1 
+  </canvas> -->
+  <div id="Login" hidden>
+    <!-- <button type="button" onclick="JoinQueue()" class="btn btn-info">Join Queue</button> -->
+  </div>
+  <div id="GamePlay">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-11 col-md-11 col-sm-11 col-xs-11">
+          <canvas id="CanvasGameboard" width="900" height="850">
+
+          </canvas>
+
+        </div>
+
+      </div>
+      <div class="row">
+
+        <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+          <h4>My Id:</h4>
+          <h4>Turn:</h4>
+          <h4>My Score:</h4>
+          <h4>Opponent Score</h4>
+
+
+        </div>
+        <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+          <h4 id="MyId">-</h4>
+          <h4 id="Turn">-</h4>
+          <h4 id="MyScore">-</h4>
+          <h4 id="ApponentScore">-</h4>
+
+        </div>
+
+        <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+          <button type="button" onclick="RequestChallenge()" class="btn btn-info">Request Challenge</button>
+          <button type="button" onclick="ToggleRequests()" class="btn btn-info">Toggle Requests</button>
+
+          <button type="button" onclick="JoinQueue()" class="btn btn-info">Join Queue</button>
+          <button type="button" onClick="LeaveGame()" class="btn btn-danger">Leave Game</button>
+        </div>
+        <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
+          <input type="text" id="ChallengerIdBox" name="ChallengeId" value="Player Id To Challenge">
+        </div>
+
+      </div>
+    </div>
+  </div>
+    
+
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+      crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+</body>
+
+<script type="text/javascript">
+
+  // var CanvasGameboard;
+  var GameboardContext;
+  var CanvasBackground;
+  var rc;
+  var ClickSound;
+  var MineSound;
+
+  window.onload = function () {
+    // CanvasBackground = document.getElementById("BackgroundCanvas");
+    // CanvasBackground.width = window.innerWidth;
+    // CanvasBackground.height =window.innerHeight
+    CanvasGameboard = document.getElementById("CanvasGameboard");
+    rc = rough.canvas(CanvasGameboard);
+    GameboardContext = CanvasGameboard.getContext("2d");
+    ClickSound = new Audio("tileclick.mp3");
+    MineSound = new Audio("tilemine.mp3");
+
+    Connect();
+    Initialise();
+
+  }
+</script>
+
+</html>
