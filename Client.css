@@ -1,3 +1,9 @@
 body{
   margin: 0;
 }
+#PlayerIdList{
+  width: 50%;
+  height: 100%;
+  overflow: scroll;
+
+}

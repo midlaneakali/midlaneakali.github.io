@@ -1,6 +1,7 @@
 var ws;
 var MyPlayerId;
 var Live = false;
+var PlayersInSession;
 function Connect() {
   //
   if ("WebSocket" in window) {
@@ -12,6 +13,7 @@ function Connect() {
 
       Live = true;
       //Edit this later
+      PlayersInSession = new Array();
 
     };
 
@@ -144,6 +146,13 @@ function Connect() {
             }
           }
           break;
+          case 19:{
+            HandlePlayerList(Packet);
+            
+          }
+          break;
+
+          break;
         default:
           console.log("Packet id not found");
           break;
@@ -165,6 +174,7 @@ function Connect() {
   }
 
 }
+
 
 function SendToServer(message) {
   ws.send(message);
@@ -209,6 +219,58 @@ function ToggleRequests() {
     alert("Challenge requests disabled");
 
 }
+function HandlePlayerList(Packet){
+  var Count = 0;
+  var Table = document.getElementsByTagName("table")[0];
+  Packet.Id.forEach(element => {
+    //PlayersInSession.push(element.Id);
+    console.log(element.PlayerId + " Joined the server");
+
+    var Row = Table.insertRow(1);
+    var UpdatedCount = Count++;
+    Row.id = "PlayerTableRow" + UpdatedCount;
+    var Id = Row.insertCell(0);
+    var InGame = Row.insertCell(1);
+    Id.innerHTML = element.PlayerId;
+    InGame.innerHTML = element.Game ? "Yes" : "No";
+    });
+}
+
+
+function GetPlayers(){
+  var Packet = {
+    PacketId: 19
+  };
+  SendToServer(JSON.stringify(Packet));
+  ClearPlayerList();
+}
+
+
+function TogglePlayerList(){
+  
+  
+  //$("#table tbody tr").remove(); 
+  GetPlayers();
+  $("#PlayerIdList").slideToggle("slow");
+  document.getElementById("GameBoard").hidden = !document.getElementById("GameBoard").hidden;
+}
+function ClearPlayerList()
+{
+  var Table = document.getElementsByTagName("table")[0];
+  for(var Index = 0; Index < Table.rows.length+1; ++Index)
+  {
+    var Name = "#PlayerTableRow" + Index;
+    $(Name).remove();
+  }
+}
+
+function HidePlayerList(){
+  
+  $("#PlayerIdList").slideToggle("slow");
+  document.getElementById("GameBoard").hidden = !document.getElementById("GameBoard").hidden;
+}
+
+
 function Login(){
   // document.getElementById("GamePlay").hidden = false;
   // document.getElementById("Login").hidden = true;
@@ -236,6 +298,7 @@ enum PacketId
   CHALLENGE_REQUEST == 16
   CHALLENGE_RESPONSE == 17
   TOGGLE_REQUEST == 18
+  ALL_PLAYERS == 19
 };
 
 */
