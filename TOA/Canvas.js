@@ -52,11 +52,9 @@ function DrawGameboard() {
 
 function DrawRectangle(XPosition, YPosition) {
     rc.rectangle(XPosition, YPosition, GameboardCell.width, GameboardCell.height, {
-        fill: "#36393F",
+      //  fill: "#66a5ad",
         roughness: 2.5,
-        bowing: 1,
-         // solid fill
-        fillStyle: "solid"
+        bowing: 1 // solid fill
     });
 }
 function MineHit(XPosition,YPosition,MyScore)
