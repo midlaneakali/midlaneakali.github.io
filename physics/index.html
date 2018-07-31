@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<title>Cells</title>
+	<style type="text/css">
+		body {
+			margin: 0;
+			overflow: hidden;
+		}
+  </style>
+  <script type="text/javascript" src="matter.js"></script>
+  <script type="text/javascript" src="canvas.js"></script>
+  
+</head>
+
+<body>
+	<canvas id="GameboardCanvas"></canvas>
+	
+</body>
+<script>
+
+	var Canvas;
+	var Context;
+	window.onload = function () {
+		Canvas = document.getElementById("GameboardCanvas");
+		Canvas.width = window.innerWidth;
+		Canvas.height = window.innerHeight
+		Context = Canvas.getContext("2d");
+		Init();
+	}
+
+
+</script>
+
+</html>
