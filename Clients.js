@@ -44,7 +44,7 @@ function Connect() {
         case 3:
           {
             document.getElementById("Turn").innerHTML = "Yours";
-            
+
           }
           break;
         case 4:
@@ -144,6 +144,32 @@ function Connect() {
             }
           }
           break;
+        case 19: {
+
+        }
+          break;
+        case 20: {
+          switch (Packet.ServerResponseMessage) {
+            case 0:
+              {
+
+                Packet.Coordinates.forEach(element => {
+
+                  DrawMines(element.X, element.Y);
+                });
+              }
+              break;
+            case 1: {
+              Packet.Coordinates.forEach(element => {
+                DrawZeros(element.X, element.Y);
+              });
+
+            }
+              break;
+            default:
+          }
+        }
+          break;
         default:
           console.log("Packet id not found");
           break;
@@ -209,7 +235,7 @@ function ToggleRequests() {
     alert("Challenge requests disabled");
 
 }
-function Login(){
+function Login() {
   // document.getElementById("GamePlay").hidden = false;
   // document.getElementById("Login").hidden = true;
 }
@@ -236,6 +262,8 @@ enum PacketId
   CHALLENGE_REQUEST == 16
   CHALLENGE_RESPONSE == 17
   TOGGLE_REQUEST == 18
+  ALL_PLAYERS = 19
+  NOP = 20
 };
 
 */

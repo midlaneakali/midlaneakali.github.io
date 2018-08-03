@@ -63,6 +63,7 @@ function MineHit(XPosition,YPosition,MyScore)
 {
     var x = XPosition * GameboardCell.width;
     var y = YPosition * GameboardCell.height;
+    GameboardContext.clearRect(x,y,GameboardCell.width,GameboardCell.height);
     if(MyScore){
         rc.rectangle(x, y, GameboardCell.width, GameboardCell.height, {
             fill: "#0000aa",
@@ -81,9 +82,32 @@ function MineHit(XPosition,YPosition,MyScore)
     }
     
 }
+function DrawZeros(XPosition,YPosition){
+    var x = XPosition * GameboardCell.width;
+    var y = YPosition * GameboardCell.height;
+    GameboardContext.clearRect(x,y,GameboardCell.width,GameboardCell.height);
+    rc.rectangle(x, y, GameboardCell.width, GameboardCell.height, {
+        fill: "#A569BD",
+        //fillStyle: 'solid',
+        roughness: 2.5,
+        bowing: 1
+    });
+}
+function DrawMines(XPosition,YPosition){
+    var x = XPosition * GameboardCell.width;
+    var y = YPosition * GameboardCell.height;
+    GameboardContext.clearRect(x,y,GameboardCell.width,GameboardCell.height);
+    rc.rectangle(x, y, GameboardCell.width, GameboardCell.height, {
+        fill: "#F39C12",
+        //fillStyle: 'solid',
+        roughness: 2.5,
+        bowing: 1
+    });
+}
 function DisableCell(XPosition, YPosition, CellValue) {
     var x = XPosition * GameboardCell.width;
     var y = YPosition * GameboardCell.height;
+    GameboardContext.clearRect(x,y,GameboardCell.width,GameboardCell.height);
     rc.rectangle(x, y, GameboardCell.width, GameboardCell.height, {
         fill: "#b4b8c8",
 
