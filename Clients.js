@@ -133,7 +133,7 @@ function Connect() {
         case 13:
           {
             alert("Game Over!");
-            DrawHUD(MyPlayerId);
+           // DrawHUD(MyPlayerId);
             // document.getElementById("Turn").innerHTML = "-";
           }
           break;
