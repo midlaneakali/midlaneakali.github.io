@@ -59,6 +59,7 @@ function HandleHUDClick(evt) {
     }
     else if(Colour.Red == 0xf3 && Colour.Green == 0xbc && Colour.Blue == 0x11){
         console.log("Challenge");
+        RequestChallenge();
     }
     else
     {

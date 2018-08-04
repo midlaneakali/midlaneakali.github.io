@@ -271,11 +271,16 @@ function JoinQueue() {
   DrawHUD(MyPlayerId,"Queueing");
 }
 function RequestChallenge() {
-  console.log(document.getElementById("ChallengerIdBox").value);
+  var Entered = prompt("Enter Player ID To challenge",0);
+  if(Entered == null || Entered == "")
+    return;
+  TargetId = parseInt(Entered,10);
+
   var Packet = {
     PacketId: 16,
-    Id: parseInt(document.getElementById("ChallengerIdBox").value, 10)
+    Id: TargetId
   };
+  console.log(Packet);
   SendToServer(JSON.stringify(Packet));
 }
 var Toggle = true;
