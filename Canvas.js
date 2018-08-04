@@ -126,6 +126,8 @@ function DrawGameboard() {
 
     //CanvasGameboard.addEventListener("ontouchstart", HandleClickevent, false);
     GameboardContext.clearRect(0, 0, CanvasGameboard.width, CanvasGameboard.height);
+    LastCellValue = "";
+    IsFirstMove = true;
     for (var Row = 0; Row < GameboardCell.Rows; ++Row) {
         for (var Cols = 0; Cols < GameboardCell.Cols; ++Cols) {
             var x = Cols * GameboardCell.width;
@@ -217,7 +219,6 @@ function DisableCell(XPosition, YPosition, CellValue) {
         IsFirstMove = false;
     }
 
-    console.log("X:" + LastHitX + "," + LastHitY);
     if (CellValue != -1) {
         // "#6999B0";
         //GameboardContext.fillStyle = "#0E8203"
