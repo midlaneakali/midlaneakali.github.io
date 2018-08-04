@@ -1,6 +1,9 @@
 var ws;
 var MyPlayerId;
 var Live = false;
+var MyScore;
+var OpponentScore;
+
 function Connect() {
   //
   if ("WebSocket" in window) {
@@ -19,19 +22,26 @@ function Connect() {
       var received_msg = evt.data;
 
       var Packet = JSON.parse(received_msg);
+      console.log(Packet.PacketId);
       switch (Packet.PacketId) {
         case 0:
           {
-            document.getElementById("MyScore").innerHTML = "Winner";
-            document.getElementById("ApponentScore").innerHTML = "Loser";
+            // document.getElementById("MyScore").innerHTML = "Winner";
+            // document.getElementById("ApponentScore").innerHTML = "Loser";
+            DrawHUD(MyPlayerId,null,null,null,"Winner");
           }
           break;
+
+
         case 1: //Player lost the game but tell them nicely.
           {
-            document.getElementById("MyScore").innerHTML = "Loser";
-            document.getElementById("ApponentScore").innerHTML = "Winner";
+            // document.getElementById("MyScore").innerHTML = "Loser";
+            // document.getElementById("ApponentScore").innerHTML = "Winner";
+            DrawHUD(MyPlayerId,null,null,null,"Loser");
           }
           break;
+
+
         case 2:
           {
             Packet.Position.forEach(element => {
@@ -41,25 +51,45 @@ function Connect() {
             ClickSound.play();
           }
           break;
+
+
         case 3:
           {
-            document.getElementById("Turn").innerHTML = "Yours";
+
+            // document.getElementById("Turn").innerHTML = "Yours";
+            DrawHUD(MyPlayerId,"Yours",MyScore == 0 ? null : MyScore,OpponentScore == 0 ? null : OpponentScore);
 
           }
           break;
+
+
         case 4:
           {
-            document.getElementById("Turn").innerHTML = "Opponent's";
+            // document.getElementById("Turn").innerHTML = "Opponent's";
+            DrawHUD(MyPlayerId,"Opponent's",MyScore,OpponentScore);
           }
           break;
+
+
         case 5:
           {
+            MyScore = 0;
+            OpponentScore = 0;
+            DrawHUD(MyPlayerId);
+            MineSound.play();
             DrawGameboard();
             alert("Game has begun!");
-            document.getElementById("MyScore").innerHTML = "-";
-            document.getElementById("ApponentScore").innerHTML = "-";
+            
+            // document.getElementById("MyScore").innerHTML = "-";
+            // document.getElementById("ApponentScore").innerHTML = "-";
             //Redraw Canvas here later on.
-            MineSound.play();
+            
+          }
+          break;
+
+          case 7:
+          {
+
           }
           break;
         case 11:
@@ -68,34 +98,48 @@ function Connect() {
               console.log("Score from:" + element.Id);
               if (element.Id == MyPlayerId) {
                 MineHit(element.XPosition, element.YPosition, true);
-                document.getElementById("MyScore").innerHTML = element.Score;
+                // document.getElementById("MyScore").innerHTML = element.Score;
+                MyScore = element.Score;
+                DrawHUD(MyPlayerId,"Yours",MyScore,OpponentScore);
               }
               else {
                 MineHit(element.XPosition, element.YPosition, false);
-                document.getElementById("ApponentScore").innerHTML = element.Score;
+                // document.getElementById("ApponentScore").innerHTML = element.Score;
+                OpponentScore = element.Score;
+                DrawHUD(MyPlayerId,"Opponent's",MyScore,OpponentScore);
               }
             });
             MineSound.play();
           }
           break;
+
+
         case 9:
           {
             console.log("My Id:" + Packet.Id);
             MyPlayerId = Packet.Id;
-            document.getElementById("MyId").innerHTML = MyPlayerId;
+            DrawHUD(MyPlayerId);
           }
           break;
+
+
         case 12:
           {
             alert(Packet.Message);
           }
           break;
+
+
         case 13:
           {
             alert("Game Over!");
-            document.getElementById("Turn").innerHTML = "-";
+            DrawHUD(MyPlayerId);
+            // document.getElementById("Turn").innerHTML = "-";
           }
           break;
+
+
+          
         case 16:
           {
             switch (Packet.RequestType) {
@@ -137,6 +181,9 @@ function Connect() {
             }
           }
           break;
+
+
+
         case 17:
           {
             if (Packet.RequestType == 0) {
@@ -144,10 +191,15 @@ function Connect() {
             }
           }
           break;
+
+
+
         case 19: {
 
         }
           break;
+
+
         case 20: {
           switch (Packet.ServerResponseMessage) {
             case 0:
@@ -166,10 +218,12 @@ function Connect() {
 
             }
               break;
+
             default:
           }
         }
           break;
+
         default:
           console.log("Packet id not found");
           break;
@@ -201,18 +255,20 @@ function LeaveGame() {
     PacketId: 14
   };
   SendToServer(JSON.stringify(Packet));
-  document.getElementById("Turn").innerHTML = "-";
-  document.getElementById("MyScore").innerHTML = "-";
-  document.getElementById("ApponentScore").innerHTML = "-";
+  // document.getElementById("Turn").innerHTML = "-";
+  // document.getElementById("MyScore").innerHTML = "-";
+  // document.getElementById("ApponentScore").innerHTML = "-";
+  DrawHUD(MyPlayerId);
 }
 function JoinQueue() {
   var Packet = {
     PacketId: 6
   };
   SendToServer(JSON.stringify(Packet));
-  document.getElementById("Turn").innerHTML = "Queueing";
-  document.getElementById("MyScore").innerHTML = "-";
-  document.getElementById("ApponentScore").innerHTML = "-";
+  // document.getElementById("Turn").innerHTML = "Queueing";
+  // document.getElementById("MyScore").innerHTML = "-";
+  // document.getElementById("ApponentScore").innerHTML = "-";
+  DrawHUD(MyPlayerId,"Queueing");
 }
 function RequestChallenge() {
   console.log(document.getElementById("ChallengerIdBox").value);

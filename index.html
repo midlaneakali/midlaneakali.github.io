@@ -29,15 +29,20 @@
   <div id="GamePlay">
     <div class="container">
       <div class="row">
-        <div class="col-lg-11 col-md-11 col-sm-11 col-xs-11">
-          <canvas id="CanvasGameboard" width="900" height="850">
-
-          </canvas>
+        <div class="col-lg-12 col-md-10 col-sm-6 col-xs-4">
+            
+          <canvas id="HUD" width="900" height="100"></canvas>
+          <canvas id="CanvasGameboard" width="900" height="850"></canvas>
+          <div id="HiddenOverlay" hidden>
+              <canvas id="HitCanvas" ></canvas>
+          </div>
+          
+          
 
         </div>
 
       </div>
-      <div class="row">
+      <!-- <div class="row">
 
         <div class="col-lg-2 col-md-2 col-sm-2 col-xs-2">
           <font color="#000000">
@@ -72,7 +77,7 @@
           <input type="text" id="ChallengerIdBox" name="ChallengeId" value="Player Id To Challenge">
         </div>
 
-      </div>
+      </div> -->
     </div>
   </div>
     
@@ -88,6 +93,11 @@
   // var CanvasGameboard;
   var GameboardContext;
   var CanvasBackground;
+  var CanvasHit;
+  var HitContext;
+
+  var HUDContext;
+  var CanvasHUD;
   var rc;
   var ClickSound;
   var MineSound;
@@ -97,8 +107,16 @@
     // CanvasBackground.width = window.innerWidth;
     // CanvasBackground.height =window.innerHeight
     CanvasGameboard = document.getElementById("CanvasGameboard");
+    CanvasHUD = document.getElementById("HUD");
+    CanvasHit = document.getElementById("HitCanvas");
+    CanvasHit.width = window.innerWidth;
+    CanvasHit.height = window.innerHeight;
     rc = rough.canvas(CanvasGameboard);
     GameboardContext = CanvasGameboard.getContext("2d");
+    HUDContext = CanvasHUD.getContext("2d");
+    HitContext = CanvasHit.getContext("2d");
+
+
     ClickSound = new Audio("tileclick.mp3");
     MineSound = new Audio("tilemine.mp3");
 
