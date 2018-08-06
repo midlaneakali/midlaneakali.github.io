@@ -271,10 +271,10 @@ function JoinQueue() {
   DrawHUD(MyPlayerId,"Queueing");
 }
 function RequestChallenge() {
-  var Entered = prompt("Enter Player ID To challenge",0);
-  if(Entered == null || Entered == "")
-    return;
-  TargetId = parseInt(Entered,10);
+  // var Entered = prompt("Enter Player ID To challenge",0);
+  // if(Entered == null || Entered == "")
+  //   return;
+  TargetId = parseInt(PlayerIdInput.value(),10);
 
   var Packet = {
     PacketId: 16,

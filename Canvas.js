@@ -66,6 +66,7 @@ function HandleHUDClick(evt) {
 
     }
 }
+var PlayerIdInput;
 
 function DrawHUD(playerid, turn, myscore, opponentscore,result) {
     HUDContext.clearRect(0, 0, CanvasHUD.width, CanvasHUD.height);
@@ -111,6 +112,14 @@ function DrawHUD(playerid, turn, myscore, opponentscore,result) {
     if(result)
         HUDContext.fillText("Result: " + result, 600, 15, 150);
 
+        PlayerIdInput = new CanvasInput({
+            canvas: document.getElementById('HUD'),
+            x: 400,
+            y: 30,
+            width: 140,
+            height: 10,
+            placeHolder: 'Enter Player ID'
+          });
 }
 
 function Initialise() {
