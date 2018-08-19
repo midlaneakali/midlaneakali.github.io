@@ -109,8 +109,14 @@ function DrawHUD(playerid, turn, myscore, opponentscore,result) {
     HitContext.fillStyle = "#f3bc11";
     HitContext.fillRect(400, 0, 150, 20);
 
+
+    HUDContext.fillText("Objective: Hit 26 mines!", 600, 15, 150);
     if(result)
-        HUDContext.fillText("Result: " + result, 600, 15, 150);
+    {
+        HUDContext.fillText("Game Over!", 600, 45, 150);
+         HUDContext.fillText("Result: " + result, 600, 75, 150);
+    }
+       
 
         PlayerIdInput = new CanvasInput({
             canvas: document.getElementById('HUD'),

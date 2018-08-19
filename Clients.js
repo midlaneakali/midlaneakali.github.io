@@ -17,7 +17,7 @@ function Connect() {
       //Edit this later
 
     };
-
+    //Stream test! 
     ws.onmessage = function (evt) {
       var received_msg = evt.data;
 
@@ -28,7 +28,7 @@ function Connect() {
           {
             // document.getElementById("MyScore").innerHTML = "Winner";
             // document.getElementById("ApponentScore").innerHTML = "Loser";
-            DrawHUD(MyPlayerId,null,null,null,"Winner");
+            DrawHUD(MyPlayerId,null,MyScore,OpponentScore,"Winner");
           }
           break;
 
@@ -37,7 +37,7 @@ function Connect() {
           {
             // document.getElementById("MyScore").innerHTML = "Loser";
             // document.getElementById("ApponentScore").innerHTML = "Winner";
-            DrawHUD(MyPlayerId,null,null,null,"Loser");
+            DrawHUD(MyPlayerId,null,MyScore,OpponentScore,"Loser");
           }
           break;
 
@@ -132,8 +132,7 @@ function Connect() {
 
         case 13:
           {
-            alert("Game Over!");
-           // DrawHUD(MyPlayerId);
+           // alert("Game Over!");
             // document.getElementById("Turn").innerHTML = "-";
           }
           break;
