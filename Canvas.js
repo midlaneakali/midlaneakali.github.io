@@ -1,4 +1,5 @@
-
+var RecordingStream;
+var Recording;
 var GameboardCell =
 {
     Rows: 16,
@@ -32,6 +33,44 @@ function HandleClickevent(evt) {
     SendToServer(JSON.stringify(Packet));
 }
 
+function openAttachment() {
+
+    document.getElementById('attachment').click();
+}
+function setIntervalX(callback, delay, repetitions) {
+    var x = 0;
+    var intervalID = window.setInterval(function () {
+
+       callback();
+
+       if (++x === repetitions) {
+           window.clearInterval(intervalID);
+       }
+    }, delay);
+}
+function PlayPackets(Packets) {
+
+    var Index = 0;
+    setIntervalX(function () {
+        HandlePacketId(Packets[Index++]);
+
+    }, 1000, Packets.length);
+}
+
+
+function fileSelected(e) {
+    var file = e.files[0];
+    if (!file) {
+        return;
+    }
+    var reader = new FileReader();
+    reader.onload = function (e) {
+        PlayPackets(e.target.result.split("\r\n"));
+    };
+    reader.readAsText(file);
+
+}
+
 function HandleHUDClick(evt) {
     rect = CanvasHUD.getBoundingClientRect();
 
@@ -44,31 +83,66 @@ function HandleHUDClick(evt) {
         Blue: canvasColor[2]
     }
 
-    if(Colour.Red == 0xfa && Colour.Green == 0xbc && Colour.Blue == 0x12){
+    if (Colour.Red == 0xfa && Colour.Green == 0xbc && Colour.Blue == 0x12) {
         console.log("Leave game");
         LeaveGame();
     }
 
-    else if(Colour.Red == 0xf1 && Colour.Green == 0xbc && Colour.Blue == 0x11){
+    else if (Colour.Red == 0xf1 && Colour.Green == 0xbc && Colour.Blue == 0x11) {
         console.log("Join Queue");
         JoinQueue();
     }
-    else if(Colour.Red == 0xf2 && Colour.Green == 0xbc && Colour.Blue == 0x12){
+    else if (Colour.Red == 0xf2 && Colour.Green == 0xbc && Colour.Blue == 0x12) {
         console.log("Toggle Requests");
         ToggleRequests();
     }
-    else if(Colour.Red == 0xf3 && Colour.Green == 0xbc && Colour.Blue == 0x11){
+    else if (Colour.Red == 0xf3 && Colour.Green == 0xbc && Colour.Blue == 0x11) {
         console.log("Challenge");
         RequestChallenge();
     }
-    else
-    {
+    else if (Colour.Red == 0xf3 && Colour.Green == 0xbc && Colour.Blue == 0x12) {
+
+        Recording = !Recording;
+        DrawStartStopRecord();
+
+        if (Recording) {
+            RecordingStream = "";
+        }
+        else {
+            var blob = new Blob([RecordingStream], { type: "text/plain;charset=utf-8" });
+            var timestamp = new Date();
+            var timestampformat = timestamp.toTimeString().split(' ')[0];
+            saveAs(blob, MyPlayerId + "-" + timestampformat);
+        }
+
+    }
+    else if (Colour.Red == 0xf4 && Colour.Green == 0xbc && Colour.Blue == 0x11) {
+        openAttachment();
+    }
+    else {
 
     }
 }
 var PlayerIdInput;
+function DrawStartStopRecord() {
+    HUDContext.clearRect(400, 60, 150, 20);
+    if (!Recording) {
+        HUDContext.fillText("Record", 425, 75, 150);
+        HUDContext.strokeStyle = "#99aabb";
+        HUDContext.strokeRect(400, 60, 150, 20);
+        HitContext.fillStyle = "#f3bc12";
+        HitContext.fillRect(400, 60, 150, 20);
+    }
 
-function DrawHUD(playerid, turn, myscore, opponentscore,result) {
+    else {
+        HUDContext.fillText("Stop", 425, 75, 150);
+        HUDContext.strokeStyle = "#99aabb";
+        HUDContext.strokeRect(400, 60, 150, 20);
+        HitContext.fillStyle = "#f3bc12";
+        HitContext.fillRect(400, 60, 150, 20);
+    }
+}
+function DrawHUD(playerid, turn, myscore, opponentscore, result) {
     HUDContext.clearRect(0, 0, CanvasHUD.width, CanvasHUD.height);
 
     HUDContext.fillStyle = "#000000";
@@ -76,13 +150,13 @@ function DrawHUD(playerid, turn, myscore, opponentscore,result) {
 
     HUDContext.fillText("My Id: " + playerid, 0, 20, 150);
 
-    if(turn)
+    if (turn)
         HUDContext.fillText("Turn: " + turn, 0, 40, 150);
 
-    if(myscore)
+    if (myscore)
         HUDContext.fillText("My Score: " + myscore, 0, 60, 150);
 
-    if(opponentscore)
+    if (opponentscore)
         HUDContext.fillText("Opponent's Score: " + opponentscore, 0, 80, 150);
 
     HUDContext.fillText("Leave Game", 225, 15, 150);
@@ -111,21 +185,27 @@ function DrawHUD(playerid, turn, myscore, opponentscore,result) {
 
 
     HUDContext.fillText("Objective: Hit 26 mines!", 600, 15, 150);
-    if(result)
-    {
-        HUDContext.fillText("Game Over!", 600, 45, 150);
-         HUDContext.fillText("Result: " + result, 600, 75, 150);
+    if (result) {
+        HUDContext.fillText("Result: " + result, 600, 45, 150);
     }
-       
 
-        PlayerIdInput = new CanvasInput({
-            canvas: document.getElementById('HUD'),
-            x: 400,
-            y: 30,
-            width: 140,
-            height: 10,
-            placeHolder: 'Enter Player ID'
-          });
+
+    PlayerIdInput = new CanvasInput({
+        canvas: document.getElementById('HUD'),
+        x: 400,
+        y: 30,
+        width: 140,
+        height: 10,
+        placeHolder: 'Enter Player ID'
+    });
+
+    DrawStartStopRecord();
+
+    HUDContext.fillText("Playback", 625, 75, 150);
+    HUDContext.strokeStyle = "#99aabb";
+    HUDContext.strokeRect(600, 60, 150, 20);
+    HitContext.fillStyle = "#f4bc11";
+    HitContext.fillRect(600, 60, 150, 20);
 }
 
 function Initialise() {
@@ -133,6 +213,7 @@ function Initialise() {
     CanvasHUD.addEventListener("click", HandleHUDClick, false);
 
     //DrawHUD(MyPlayerId,0,0,0);
+    Recording = false;
     DrawGameboard();
 
 }
@@ -207,7 +288,7 @@ function DrawMines(XPosition, YPosition) {
     });
 }
 function DisableCell(XPosition, YPosition, CellValue) {
-    console.log("Disable cell:"+XPosition+","+YPosition);
+    console.log("Disable cell:" + XPosition + "," + YPosition);
     var x = XPosition * GameboardCell.width;
     var y = YPosition * GameboardCell.height;
     GameboardContext.clearRect(x, y, GameboardCell.width, GameboardCell.height);
