@@ -51,21 +51,29 @@ function setIntervalX(callback, delay, repetitions) {
        }
     }, delay);
 }
-function IterationCount(){
-    console.log("hello");
-}
-function PlayPackets(Packets) {
+
+function PlayRedundantPackets(Packets) {
 
     var Index = 0;
-    var Delay = 1000;
+    var Delay = 0;
+    DrawGameboard();
     setIntervalX(function () {
-        
         HandlePacketId(Packets[Index++]);
         
 
     }, Delay, Packets.length-1);
 }
+function PlayRelevantPackets(Packets) {
 
+    var Index = 0;
+    var Delay = 1000;
+    DrawGameboard();
+    setIntervalX(function () {
+        HandlePacketId(Packets[Index++]);
+        
+
+    }, Delay, Packets.length-1);
+}
 /*
 function myFunction() {
     var str = "Hello world, welcome to the universe.";
@@ -74,6 +82,11 @@ function myFunction() {
     document.getElementById("demo").innerHTML = s;
 }
 */
+function PlayPacketsFromBeginning(Packets){
+
+    PlayRedundantPackets(Packets[0].split("\r\n"));
+    PlayRelevantPackets(Packets[1].split("\r\n"));
+}
 function fileSelected(e) {
     var file = e.files[0];
 
@@ -86,7 +99,7 @@ function fileSelected(e) {
     reader.readAsText(file);
 
     reader.onload = function (e) {
-        PlayPackets(e.target.result.split("\r\n"));
+        PlayPacketsFromBeginning(e.target.result.split("\r\n\r\n"));
     };
     
 
@@ -135,7 +148,7 @@ function HandleHUDClick(evt) {
         DrawStartStopRecord();
 
         if (Recording) {
-            RecordingStream = "";
+            RecordingStream += "\r\n";
         }
         else {
             var blob = new Blob([RecordingStream], { type: "text/plain;charset=utf-8" });

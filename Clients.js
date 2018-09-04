@@ -185,6 +185,9 @@ function HandlePacketId(received_msg) {
 
     case 5:
       {
+        if(!Recording){
+          RecordingStream = "";
+        }
         HandleBeginGamePacket(Packet);
 
       }
