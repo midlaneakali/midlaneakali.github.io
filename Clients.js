@@ -43,7 +43,7 @@ function HandleBeginGamePacket(Packet) {
 }
 function HandleScorePacket(Packet) {
   Packet.Position.forEach(element => {
-    console.log("Score from:" + element.Id);
+   // console.log("Score from:" + element.Id);
     if (element.Id == MyPlayerId) {
       MineHit(element.XPosition, element.YPosition, true);
       // document.getElementById("MyScore").innerHTML = element.Score;
@@ -62,7 +62,7 @@ function HandleScorePacket(Packet) {
 
 }
 function HandleMyIdPacket(Packet) {
-  console.log("My Id:" + Packet.Id);
+//  console.log("My Id:" + Packet.Id);
   MyPlayerId = Packet.Id;
   DrawHUD(MyPlayerId);
 

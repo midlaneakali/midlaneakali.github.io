@@ -35,7 +35,10 @@ function HandleClickevent(evt) {
 
 function openAttachment() {
 
-    document.getElementById('attachment').click();
+    document.getElementById('attachment').value = "";
+   var Attachment =  document.getElementById('attachment');
+
+   Attachment.click();
 }
 function setIntervalX(callback, delay, repetitions) {
     var x = 0;
@@ -48,27 +51,53 @@ function setIntervalX(callback, delay, repetitions) {
        }
     }, delay);
 }
+function IterationCount(){
+    console.log("hello");
+}
 function PlayPackets(Packets) {
 
     var Index = 0;
+    var Delay = 1000;
     setIntervalX(function () {
+        
         HandlePacketId(Packets[Index++]);
+        
 
-    }, 1000, Packets.length);
+    }, Delay, Packets.length-1);
 }
 
-
+/*
+function myFunction() {
+    var str = "Hello world, welcome to the universe.";
+    var n = str.indexOf("welcome");
+    var s = str.substring(n);
+    document.getElementById("demo").innerHTML = s;
+}
+*/
 function fileSelected(e) {
     var file = e.files[0];
+
     if (!file) {
         return;
     }
+
     var reader = new FileReader();
+
+    reader.readAsText(file);
+
     reader.onload = function (e) {
         PlayPackets(e.target.result.split("\r\n"));
     };
-    reader.readAsText(file);
+    
 
+    reader.onloadend = function(e){
+        console.log("Finished reading");
+    };
+
+    reader.onerror = function(e){
+        console.log("Error occured");
+    }
+    
 }
 
 function HandleHUDClick(evt) {
@@ -288,7 +317,7 @@ function DrawMines(XPosition, YPosition) {
     });
 }
 function DisableCell(XPosition, YPosition, CellValue) {
-    console.log("Disable cell:" + XPosition + "," + YPosition);
+    //("Disable cell:" + XPosition + "," + YPosition);
     var x = XPosition * GameboardCell.width;
     var y = YPosition * GameboardCell.height;
     GameboardContext.clearRect(x, y, GameboardCell.width, GameboardCell.height);
