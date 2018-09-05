@@ -340,7 +340,7 @@ function DisableCell(XPosition, YPosition, CellValue) {
     var y = YPosition * GameboardCell.height;
     GameboardContext.clearRect(x, y, GameboardCell.width, GameboardCell.height);
     rc.rectangle(x, y, GameboardCell.width, GameboardCell.height, {
-        fill: "#b4b8c8",
+        fill: "#23223d",
 
         roughness: 2.5,
         bowing: 1 // solid fill
@@ -349,7 +349,7 @@ function DisableCell(XPosition, YPosition, CellValue) {
     if (!IsFirstMove && LastCellValue != -1) {
         GameboardContext.clearRect(LastHitX, LastHitY, GameboardCell.width, GameboardCell.height);
         rc.rectangle(LastHitX, LastHitY, GameboardCell.width, GameboardCell.height, {
-            fill: "#b4b8c8",
+            fill: "#23223d",
 
             roughness: 2.5,
             bowing: 1
