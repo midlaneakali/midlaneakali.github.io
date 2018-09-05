@@ -12,7 +12,7 @@ var LastHitY = 0;
 var LastCellValue = "";
 var IsFirstMove = true;
 var RecordPlayback;
-
+var RedundantPlayback;
 function InBounds(XPos, YPos) {
     return XPos >= 0 && YPos >= 0
         && XPos < GameboardCell.Cols && YPos < GameboardCell.Rows;
@@ -44,10 +44,13 @@ function openAttachment() {
 function setIntervalX(callback, delay, repetitions) {
     var x = 0;
     var intervalID = window.setInterval(function () {
-
+    if(x == 0){
+        RecordPlayback = true;
+    }
        callback();
 
        if (++x === repetitions) {
+           RedundantPlayback = false;
            RecordPlayback = false;
            window.clearInterval(intervalID);
        }
@@ -85,9 +88,8 @@ function myFunction() {
 }
 */
 function PlayPacketsFromBeginning(Packets){
-    RecordPlayback = true;
+    RedundantPlayback = true;
     PlayRedundantPackets(Packets[0].split("\r\n"));
-    RecordPlayback = true;
     PlayRelevantPackets(Packets[1].split("\r\n"));
 }
 function fileSelected(e) {

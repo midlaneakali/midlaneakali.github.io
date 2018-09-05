@@ -15,9 +15,32 @@ function HandleMovePacket(Packet) {
   Packet.Position.forEach(element => {
 
     DisableCell(element.XPosition, element.YPosition, element.Cell);
+    console.log("Move:"+element.XPosition+","+element.YPosition);
   });
-  if(!RecordPlayback)
-    ClickSound.play();
+  if(Packet.PlayerScored == true){
+    if(Packet.Id == MyPlayerId){
+      MineHit(Packet.Position[0].XPosition,Packet.Position[0].YPosition,true);
+      MyScore = Packet.TotalScore;
+      DrawHUD(MyPlayerId,"Yours",MyScore,OpponentScore);
+      console.log("I scored: "+MyScore);
+    }
+    else{
+      MineHit(Packet.Position[0].XPosition,Packet.Position[0].YPosition,false);
+      OpponentScore = Packet.TotalScore;
+      DrawHUD(MyPlayerId,"Opponent's",MyScore,OpponentScore);
+      console.log("Opponent Scored: "+OpponentScore);
+    }
+    if(!RedundantPlayback){
+      MineSound.play();
+    }
+  }
+  else{
+    if(!RedundantPlayback){
+      ClickSound.play();
+    }
+    
+  }
+  
 
 }
 function HandleYourTurnPacket(Packet) {
@@ -208,7 +231,7 @@ function HandlePacketId(received_msg) {
       break;
     case 11:
       {
-        HandleScorePacket(Packet);
+       // HandleScorePacket(Packet);
       }
       break;
 
