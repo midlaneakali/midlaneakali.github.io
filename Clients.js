@@ -16,7 +16,8 @@ function HandleMovePacket(Packet) {
 
     DisableCell(element.XPosition, element.YPosition, element.Cell);
   });
-  ClickSound.play();
+  if(!RecordPlayback)
+    ClickSound.play();
 
 }
 function HandleYourTurnPacket(Packet) {
@@ -32,9 +33,11 @@ function HandleBeginGamePacket(Packet) {
   MyScore = 0;
   OpponentScore = 0;
   DrawHUD(MyPlayerId);
-  MineSound.play();
+  if(!RecordPlayback)
+    MineSound.play();
   DrawGameboard();
-  alert("Game has begun!");
+  if(!RecordPlayback)
+    alert("Game has begun!");
 
   // document.getElementById("MyScore").innerHTML = "-";
   // document.getElementById("ApponentScore").innerHTML = "-";
@@ -58,7 +61,8 @@ function HandleScorePacket(Packet) {
       DrawHUD(MyPlayerId, "Opponent's", MyScore, OpponentScore);
     }
   });
-  MineSound.play();
+  if(!RecordPlayback)
+    MineSound.play();
 
 }
 function HandleMyIdPacket(Packet) {
@@ -68,6 +72,8 @@ function HandleMyIdPacket(Packet) {
 
 }
 function HandleChallengeRequestPacket(Packet) {
+  if(RecordPlayback)
+    return;
   switch (Packet.RequestType) {
     case 0:
       alert("Player Id does not exist");
@@ -108,6 +114,8 @@ function HandleChallengeRequestPacket(Packet) {
 
 }
 function HandleChallengeResponsePacket(Packet) {
+  if(RecordPlayback)
+    return;
   if (Packet.RequestType == 0) {
     alert("Player denied your challenge request");
   }
@@ -221,7 +229,8 @@ function HandlePacketId(received_msg) {
 
     case 13:
       {
-        alert("Game Over!");
+        if(!RecordPlayback)
+          alert("Game Over!");
         // document.getElementById("Turn").innerHTML = "-";
       }
       break;

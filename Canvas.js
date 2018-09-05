@@ -11,6 +11,7 @@ var LastHitX = 0;
 var LastHitY = 0;
 var LastCellValue = "";
 var IsFirstMove = true;
+var RecordPlayback;
 
 function InBounds(XPos, YPos) {
     return XPos >= 0 && YPos >= 0
@@ -47,6 +48,7 @@ function setIntervalX(callback, delay, repetitions) {
        callback();
 
        if (++x === repetitions) {
+           RecordPlayback = false;
            window.clearInterval(intervalID);
        }
     }, delay);
@@ -83,8 +85,9 @@ function myFunction() {
 }
 */
 function PlayPacketsFromBeginning(Packets){
-
+    RecordPlayback = true;
     PlayRedundantPackets(Packets[0].split("\r\n"));
+    RecordPlayback = true;
     PlayRelevantPackets(Packets[1].split("\r\n"));
 }
 function fileSelected(e) {
