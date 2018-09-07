@@ -1,4 +1,4 @@
-//Test cache change
+
 var RecordingStream;
 var Recording;
 var GameboardCell =
@@ -80,14 +80,7 @@ function PlayRelevantPackets(Packets) {
 
     }, Delay, Packets.length-1);
 }
-/*
-function myFunction() {
-    var str = "Hello world, welcome to the universe.";
-    var n = str.indexOf("welcome");
-    var s = str.substring(n);
-    document.getElementById("demo").innerHTML = s;
-}
-*/
+
 function PlayPacketsFromBeginning(Packets){
     RedundantPlayback = true;
     PlayRedundantPackets(Packets[0].split("\r\n"));
