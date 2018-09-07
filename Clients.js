@@ -294,6 +294,7 @@ function HandlePacketId(received_msg) {
 }
 function Connect() {
   //
+  window.location.reload(true);
   if ("WebSocket" in window) {
 
 
