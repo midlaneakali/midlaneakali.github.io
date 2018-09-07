@@ -257,7 +257,7 @@ function DrawHUD(playerid, turn, myscore, opponentscore, result) {
 }
 
 function Initialise() {
-    window.location.reload(true);
+    
     CanvasGameboard.addEventListener("click", HandleClickevent, false);
     CanvasHUD.addEventListener("click", HandleHUDClick, false);
 

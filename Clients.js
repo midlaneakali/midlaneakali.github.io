@@ -3,6 +3,43 @@ var MyPlayerId;
 var Live = false;
 var MyScore;
 var OpponentScore;
+function Connect() {
+  //
+  if ("WebSocket" in window) {
+
+
+    ws = new WebSocket("wss://synosure.me:8080");
+
+    ws.onopen = function () {
+
+      Live = true;
+      //Edit this later
+
+    };
+    //RecordingStream test! 
+    ws.onmessage = function (evt) {
+      var received_msg = evt.data;
+      RecordingStream+=received_msg+"\r\n";
+      
+      //console.log(Packet.PacketId);
+      HandlePacketId(received_msg);
+    };
+
+    ws.onclose = function () {
+      Live = false;
+      // websocket is closed.
+      //alert("Connection is closed..."); 
+      alert("Server offline try again soon!");
+      // document.getElementById("GamePlay").hidden = true;
+      // document.getElementById("Login").hidden = false;
+    };
+  } else {
+
+    // The browser doesn't support WebSocket
+
+  }
+
+}
 function HandleWinPacket(Packet) {
   DrawHUD(MyPlayerId, null, MyScore, OpponentScore, "Winner");
 
@@ -292,44 +329,7 @@ function HandlePacketId(received_msg) {
       break;
   }
 }
-function Connect() {
-  //
-  window.location.reload(true);
-  if ("WebSocket" in window) {
 
-
-    ws = new WebSocket("wss://synosure.me:8080");
-
-    ws.onopen = function () {
-
-      Live = true;
-      //Edit this later
-
-    };
-    //RecordingStream test! 
-    ws.onmessage = function (evt) {
-      var received_msg = evt.data;
-      RecordingStream+=received_msg+"\r\n";
-      
-      //console.log(Packet.PacketId);
-      HandlePacketId(received_msg);
-    };
-
-    ws.onclose = function () {
-      Live = false;
-      // websocket is closed.
-      //alert("Connection is closed..."); 
-      alert("Server offline try again soon!");
-      // document.getElementById("GamePlay").hidden = true;
-      // document.getElementById("Login").hidden = false;
-    };
-  } else {
-
-    // The browser doesn't support WebSocket
-
-  }
-
-}
 
 function SendToServer(message) {
   ws.send(message);
