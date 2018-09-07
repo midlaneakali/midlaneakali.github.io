@@ -78,7 +78,9 @@
     else
       localStorage.removeItem('firstLoad');
   }
-  localStorage['uniqueid'] = uuidv4();
+  if(!localStorage.getItem['uniqueid']){
+    localStorage['uniqueid'] = uuidv4();
+  }
 })();
     CanvasGameboard = document.getElementById("CanvasGameboard");
     CanvasHUD = document.getElementById("HUD");
