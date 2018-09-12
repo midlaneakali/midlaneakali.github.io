@@ -8,7 +8,7 @@ function Connect() {
   if ("WebSocket" in window) {
 
 
-    ws = new WebSocket("wss://synosure.me:8080");
+    ws = new WebSocket("wss://cynosure.pw:8080");
 
     ws.onopen = function () {
 
