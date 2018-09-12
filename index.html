@@ -65,19 +65,10 @@
   )
 }
 
-  window.onload = function () {
-    (function()
-{
-  if( window.localStorage )
+  window.onload = function () 
   {
-    if( !localStorage.getItem('firstLoad') )
-    {
-      localStorage['firstLoad'] = true;
-      window.location.reload();
-    }  
-    else
-      localStorage.removeItem('firstLoad');
-  }
+    (function(){
+
   if(!localStorage.getItem['uniqueid']){
     localStorage['uniqueid'] = uuidv4();
   }
