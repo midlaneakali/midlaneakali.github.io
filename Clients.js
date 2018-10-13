@@ -132,20 +132,19 @@ function HandleMyIdPacket(Packet) {
 
 }
 function HandleChallengeRequestPacket(Packet) {
+  console.log(Packet.RequestType);
   if(RecordPlayback)
     return;
-  switch (Packet.RequestType) {
-    case 0:
-      alert("Player Id does not exist");
-      break;
-    case 1:
-      alert("The player is not accepting challenges");
-      break;
-    case 2:
+    if(Packet.RequestType == 2){
       alert("Challenge request sent");
-      break;
-    case 3:
-      // alert("Incoming challenge request from:" + Packet.ChallengerId);
+    }
+    else if(Packet.RequestType == 0){
+      alert("Player Id does not exist");
+    }
+    else if(Packet.RequestType == 1){
+      alert("The player is not accepting challenges");
+    }
+    else if(Packet.RequestType == 3){
       if (confirm("Incoming challenge request from:" + Packet.ChallengerId + "\nClick OK to accept otherwise click cancel")) {
         //console.log("Accepting challenge");
         var Packet = {
@@ -164,13 +163,47 @@ function HandleChallengeRequestPacket(Packet) {
         };
         SendToServer(JSON.stringify(Packet));
       }
-      break;
-    case 4:
+    }
+    else if(Packet.RequestType == 4){
       alert("You can't challenge yourself");
-      break;
-    default:
-      break;
-  }
+    }
+  // switch (Packet.RequestType) {
+  //   case 0:
+  //     alert("Player Id does not exist");
+  //     break;
+  //   case 1:
+  //     alert("The player is not accepting challenges");
+  //     break;
+  //   case 2:
+  //     alert("Challenge request sent");
+  //     break;
+  //   case 3:
+  //     // alert("Incoming challenge request from:" + Packet.ChallengerId);
+  //     if (confirm("Incoming challenge request from:" + Packet.ChallengerId + "\nClick OK to accept otherwise click cancel")) {
+  //       //console.log("Accepting challenge");
+  //       var Packet = {
+  //         PacketId: 17,
+  //         Status: true,
+  //         Id: Packet.ChallengerId
+  //       };
+  //       SendToServer(JSON.stringify(Packet));
+  //     }
+  //     else {
+  //       // console.log("Denying challenge");
+  //       var Packet = {
+  //         PacketId: 17,
+  //         Status: false,
+  //         Id: Packet.ChallengerId
+  //       };
+  //       SendToServer(JSON.stringify(Packet));
+  //     }
+  //     break;
+  //   case 4:
+  //     alert("You can't challenge yourself");
+  //     break;
+  //   default:
+  //     break;
+  // }
 
 }
 function HandleChallengeResponsePacket(Packet) {
