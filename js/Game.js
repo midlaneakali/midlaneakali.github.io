@@ -15,31 +15,26 @@ var Game = function(level, els) {
 //          mineCount: 80
 //       }
 //    }
-    this.levels = {
-        beginner: {
-        dimension: 16,
-        mineCount: 51
-        }
-    }
+   
 
    var elBoard = els.screen || '.game-board';
    var elTimer = els.timer || '.game-time';
    var elMine = els.mine || '.game-mines-count';
    var elRestartButton = els.restartButton || '.game-restart-button';
-   var elLevel = els.level || '.game-level';
+//    var elLevel = els.level || '.game-level';
 
    this.els = {}
    this.els.board = document.querySelector(elBoard);
    this.els.time = document.querySelector(elTimer);
    this.els.mine = document.querySelector(elMine);
    this.els.restartButton = document.querySelector(elRestartButton);
-   this.els.level = document.querySelector(elLevel);
+//    this.els.level = document.querySelector(elLevel);
 
-   this.dimension = 0;
-   this.mineCount = 0;
+   this.dimension = 16;
+   this.mineCount = 51;
    this.timer = null;
 
-   this.setLevel(level);
+//    this.setLevel(level);
 
    this.isGameOver = false;
    this.initialize = false;
@@ -51,13 +46,13 @@ var Game = function(level, els) {
 }
 
 Game.prototype.setLevel = function(level) {
-   var option;
+//    var option;
 
-   this.dimension = this.levels[level].dimension;
-   this.mineCount = this.levels[level].mineCount
+//    this.dimension = this.levels[level].dimension;
+//    this.mineCount = this.levels[level].mineCount
 
-   option = this.els.level.querySelector('option[value="'+ level +'"]');
-   option.selected = true;
+//    option = this.els.level.querySelector('option[value="'+ level +'"]');
+//    option.selected = true;
 }
 
 Game.prototype.startTimer = function() {
@@ -106,7 +101,7 @@ Game.prototype.gameover = function(isWin) {
 
 Game.prototype.listen = function() {
    this.els.restartButton.addEventListener('click', this.restartClickHandler.bind(this));
-   this.els.level.addEventListener('change', this.levelChangeHandler.bind(this));
+//    this.els.level.addEventListener('change', this.levelChangeHandler.bind(this));
    this.board.element.addEventListener('click', this.leftClickHandler.bind(this));
    this.board.element.addEventListener('contextmenu', this.rightClickHandler.bind(this));
 }
@@ -116,8 +111,8 @@ Game.prototype.restartClickHandler = function() {
 }
 
 Game.prototype.levelChangeHandler = function(event) {
-   this.setLevel(event.target.value);
-   this.init();
+//    this.setLevel(event.target.value);
+//    this.init();
 }
 
 Game.prototype.leftClickHandler = function(event) {
