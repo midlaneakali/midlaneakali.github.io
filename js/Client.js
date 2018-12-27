@@ -54,7 +54,14 @@ function HandleMovePacket(Packet) {
   Packet.Position.forEach(element => {
 
     let zone = game.board.zones[element.YPosition][element.XPosition];
-    zone.setMineCount(0);
+    if(element.Cell == -1){
+      zone.isMine = true;
+    }
+    else{
+      zone.setMineCount(element.Cell);
+      zone.isMine = false;
+    }
+    
     zone.reveal();
 
   });
