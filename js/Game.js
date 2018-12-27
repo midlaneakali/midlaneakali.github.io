@@ -120,7 +120,7 @@ Game.prototype.leftClickHandler = function(event) {
    }
 
    var zone = this.findZoneByEvent(event);
-   
+
    if (this.time == 0) {
       this.startTimer();
    }
@@ -164,10 +164,8 @@ Game.prototype.rightClickHandler = function(event) {
 }
 
 Game.prototype.findZoneByEvent = function(event) {
-
    var x = event.target.getAttribute('x');
    var y = event.target.getAttribute('y');
-   send({xposition:x,yposition:y});
    return this.board.zones[y][x];
 }
 

@@ -6,12 +6,11 @@ function Connect() {
   if ("WebSocket" in window) {
 
 
-    ws = new WebSocket("ws://cynosure.pw:8080");
+    ws = new WebSocket("ws://localhost:8080");
 
     ws.onopen = function () {
 
         new Game('beginner');
-        ws.send("hello world");
     };
     //RecordingStream test! 
     ws.onmessage = function (evt) {
