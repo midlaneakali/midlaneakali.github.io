@@ -89,10 +89,10 @@ var PacketId = {
   Status: 12,
 	GameOver: 13,
 	LeaveGame:  14,
-  Alert:      15,
+  Nop1:      15,
   ChallengeRequest: 16,
   ChallengeResponse:  17,
   ToggleRequests: 18,
   AllPlayers: 19,
-  ServerRequestInfo: 20
+  Nop2: 20
 };
