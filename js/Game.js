@@ -156,19 +156,19 @@ Game.prototype.leftClickHandler = function(event) {
 Game.prototype.rightClickHandler = function(event) {
    event.preventDefault();
 
-   if (this.isGameOver || ! event.target.classList.contains('zone')) {
-      return;
-   }
+//    if (this.isGameOver || ! event.target.classList.contains('zone')) {
+//       return;
+//    }
 
-   var zone = this.findZoneByEvent(event);
+//    var zone = this.findZoneByEvent(event);
 
-   if (zone.isFlagged) {
-      this.increaseLeftMineCount();
-      zone.setUnflagged();
-   } else {
-      this.decreaseLeftMineCount();
-      zone.setFlagged();
-   }
+//    if (zone.isFlagged) {
+//       this.increaseLeftMineCount();
+//       zone.setUnflagged();
+//    } else {
+//       this.decreaseLeftMineCount();
+//       zone.setFlagged();
+//    }
 }
 
 Game.prototype.findZoneByEvent = function(event) {

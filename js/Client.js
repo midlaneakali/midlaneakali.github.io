@@ -56,6 +56,7 @@ function HandleMovePacket(Packet) {
     let zone = game.board.zones[element.YPosition][element.XPosition];
     if(element.Cell == -1){
       zone.isMine = true;
+      game.decreaseLeftMineCount();
     }
     else{
       zone.setMineCount(element.Cell);
