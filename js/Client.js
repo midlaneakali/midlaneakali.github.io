@@ -38,7 +38,7 @@ function HandlePacketId(received_msg) {
   var Packet = JSON.parse(received_msg);
   switch (Packet.PacketId) {
 
-    case 2:
+    case PacketId.Move:
       {
         HandleMovePacket(Packet);
       }
@@ -71,4 +71,28 @@ function HandleMovePacket(Packet) {
 
 
 }
-  
+
+
+var PacketId = {
+  Win:  0,
+	Lose: 1,
+	Move: 2,
+	Turn: 3,
+	ApponentTurn: 4,
+	InGame: 5,
+	Rejoin: 6,
+	Time:   7,
+	Tie:  8,
+	MyId: 9,
+	Nop0: 10,
+	Score:  11,
+  Status: 12,
+	GameOver: 13,
+	LeaveGame:  14,
+  Alert:      15,
+  ChallengeRequest: 16,
+  ChallengeResponse:  17,
+  ToggleRequests: 18,
+  AllPlayers: 19,
+  ServerRequestInfo: 20
+};
