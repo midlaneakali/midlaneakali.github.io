@@ -89,12 +89,43 @@ a {
 .game-screen .game-footer .game-restart-button {
    border: 0;
    background: #efbd62;
-   color: #846c3e;
+   color: #eee;
    border-radius: .2em;
-   padding: .5rem 2rem;
+   padding: 1rem;
    font-size: .9rem;
    cursor: pointer;
    outline: 0;
+}
+
+.game-screen .game-footer .game-join-queue-button{
+    border: 0;
+    background: #eee;
+    color: #58a4de;
+    border-radius: .2em;
+    padding: 1rem;
+    font-size: .9rem;
+    cursor: pointer;
+    outline: 0;
+}
+.game-screen .game-footer .game-leave-game-button{
+    border: 0;
+    background: #eee;
+    color: #d44646;
+    border-radius: .2em;
+    padding: 1rem;
+    font-size: .9rem;
+    cursor: pointer;
+    outline: 0;
+}
+.game-screen .game-footer .game-toggle-requests-button{
+    border: 0;
+    background: #eee;
+    color: #52c5a7;
+    border-radius: .2em;
+    padding: 1rem;
+    font-size: .9rem;
+    cursor: pointer;
+    outline: 0;
 }
 
 .zone {

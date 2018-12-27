@@ -20,14 +20,14 @@ var Game = function(level, els) {
    var elBoard = els.screen || '.game-board';
    var elTimer = els.timer || '.game-time';
    var elMine = els.mine || '.game-mines-count';
-   var elRestartButton = els.restartButton || '.game-restart-button';
+//   var elRestartButton = els.restartButton || '.game-restart-button';
 //    var elLevel = els.level || '.game-level';
 
    this.els = {}
    this.els.board = document.querySelector(elBoard);
    this.els.time = document.querySelector(elTimer);
    this.els.mine = document.querySelector(elMine);
-   this.els.restartButton = document.querySelector(elRestartButton);
+//   this.els.restartButton = document.querySelector(elRestartButton);
 //    this.els.level = document.querySelector(elLevel);
 
    this.dimension = 16;
@@ -100,14 +100,14 @@ Game.prototype.gameover = function(isWin) {
 }
 
 Game.prototype.listen = function() {
-   this.els.restartButton.addEventListener('click', this.restartClickHandler.bind(this));
+//   this.els.restartButton.addEventListener('click', this.restartClickHandler.bind(this));
 //    this.els.level.addEventListener('change', this.levelChangeHandler.bind(this));
    this.board.element.addEventListener('click', this.leftClickHandler.bind(this));
    this.board.element.addEventListener('contextmenu', this.rightClickHandler.bind(this));
 }
 
 Game.prototype.restartClickHandler = function() {
-   this.init();
+//    this.init();
 }
 
 Game.prototype.levelChangeHandler = function(event) {
