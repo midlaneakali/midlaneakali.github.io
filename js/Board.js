@@ -136,25 +136,25 @@ var Board = function(element) {
    }
 
    this.calculate = function() {
-      var x, y, zone, mineCount;
+    //   var x, y, zone, mineCount;
 
-      for (y = 0; y < this.dimension; y++) {
-         for (x = 0; x < this.dimension; x++) {
-            zone = this.zones[y][x];
-            var zones = this.traverse(zone);
-            mineCount = 0;
+    //   for (y = 0; y < this.dimension; y++) {
+    //      for (x = 0; x < this.dimension; x++) {
+    //         zone = this.zones[y][x];
+    //         var zones = this.traverse(zone);
+    //         mineCount = 0;
 
-            if (! zone.isMine) {
-               Array.prototype.forEach.call(zones, function(zoneVal) {
-                  if (zoneVal.isMine) {
-                     mineCount++
-                  }
-               }.bind(this));
+    //         if (! zone.isMine) {
+    //            Array.prototype.forEach.call(zones, function(zoneVal) {
+    //               if (zoneVal.isMine) {
+    //                  mineCount++
+    //               }
+    //            }.bind(this));
 
-               (mineCount == 0) ? zone.setEmpty() : zone.setMineCount(mineCount);
-            }
-         }
-      }
+    //            (mineCount == 0) ? zone.setEmpty() : zone.setMineCount(mineCount);
+    //         }
+    //      }
+    //   }
    }
 
    this.getFlattenZones = function() {
