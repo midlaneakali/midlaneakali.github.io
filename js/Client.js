@@ -1,6 +1,6 @@
 var ws;
 var MyPlayerId;
-
+var game;
 function Connect() {
   //
   if ("WebSocket" in window) {
@@ -10,14 +10,12 @@ function Connect() {
 
     ws.onopen = function () {
 
-        new Game('beginner');
+        game = new Game('beginner');
     };
     //RecordingStream test! 
     ws.onmessage = function (evt) {
       var received_msg = evt.data;
-        console.log(received_msg);
-    
-
+      HandlePacketId(received_msg);
     };
 
     ws.onclose = function () {
@@ -34,3 +32,33 @@ function Connect() {
 function send(packet){
     ws.send(JSON.stringify(packet));
 }
+function HandlePacketId(received_msg) {
+  var Packet = JSON.parse(received_msg);
+  switch (Packet.PacketId) {
+
+    case 2:
+      {
+        HandleMovePacket(Packet);
+      }
+      break;
+
+
+    default:
+      console.log("Packet id not found");
+      break;
+  }
+}
+
+function HandleMovePacket(Packet) {
+  console.log(Packet);
+  Packet.Position.forEach(element => {
+
+    let zone = game.board.zones[element.YPosition][element.XPosition];
+    zone.setMineCount(0);
+    zone.reveal();
+
+  });
+
+
+}
+  

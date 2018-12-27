@@ -115,34 +115,36 @@ Game.prototype.levelChangeHandler = function(event) {
 }
 
 Game.prototype.leftClickHandler = function(event) {
-   if (this.isGameOver || ! event.target.classList.contains('zone')) {
+//    if (this.isGameOver || ! event.target.classList.contains('zone')) {
+//       return;
+//    }
+   if (!event.target.classList.contains('zone')) {
       return;
    }
+   let zone = this.findZoneByEvent(event);
+   send({PacketId:2,YPosition:parseInt(zone.y),XPosition:parseInt(zone.x)});
+//    if (this.time == 0) {
+//       this.startTimer();
+//    }
 
-   var zone = this.findZoneByEvent(event);
+//    if (zone.isFlagged) {
+//       return;
+//    }
 
-   if (this.time == 0) {
-      this.startTimer();
-   }
+//    if (zone.isMine) {
+//       zone.element.classList.add('is-clicked');
+//       return this.gameover();
+//    }
 
-   if (zone.isFlagged) {
-      return;
-   }
+//  zone.reveal();
 
-   if (zone.isMine) {
-      zone.element.classList.add('is-clicked');
-      return this.gameover();
-   }
+//    if (zone.isEmpty) {
+//       this.board.revealZoneNeighbors(zone);
+//    }
 
-   zone.reveal();
-
-   if (zone.isEmpty) {
-      this.board.revealZoneNeighbors(zone);
-   }
-
-   if (this.isWin()) {
-      return this.gameover(true);
-   }
+//    if (this.isWin()) {
+//       return this.gameover(true);
+//    }
 }
 
 Game.prototype.rightClickHandler = function(event) {
@@ -166,7 +168,6 @@ Game.prototype.rightClickHandler = function(event) {
 Game.prototype.findZoneByEvent = function(event) {
    var x = event.target.getAttribute('x');
    var y = event.target.getAttribute('y');
-   send({PacketId:2,YPosition:parseInt(y),XPosition:parseInt(x)});
    return this.board.zones[y][x];
 }
 
