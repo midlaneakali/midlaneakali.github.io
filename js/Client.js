@@ -59,6 +59,15 @@ function HandlePacketId(received_msg) {
       case PacketId.Lose:{
         alert("You lose!");
       }
+      break;
+      case PacketId.Turn:{
+        game.setTurn("Mine");
+      }
+      break;
+      case PacketId.ApponentTurn:{
+        game.setTurn("Opponent");
+      }
+      break;
     default:
       console.log("Packet id not found");
       break;

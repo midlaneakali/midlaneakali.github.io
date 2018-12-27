@@ -22,6 +22,7 @@ var Game = function(level) {
    var elMyId = els.myId || '.game-id-mine';
    var elMyScore = els.myScore || '.game-score-mine';
    var elOpponent = els.opponentScore || '.game-score-opponent';
+   //var elTurn = els.playerTurn || 'game-player-turn';
 //   var elRestartButton = els.restartButton || '.game-restart-button';
 //    var elLevel = els.level || '.game-level';
 
@@ -32,6 +33,7 @@ var Game = function(level) {
    this.els.myId = document.querySelector(elMyId);
    this.els.myScore = document.querySelector(elMyScore);
    this.els.opponentScore = document.querySelector(elOpponent);
+   //this.els.playerTurn = document.querySelector(elTurn);
 //   this.els.restartButton = document.querySelector(elRestartButton);
 //    this.els.level = document.querySelector(elLevel);
 
@@ -50,6 +52,10 @@ var Game = function(level) {
    this.board = new Board(this.els.board);
 
    this.init();
+}
+Game.prototype.setTurn = function(turn){
+    //this.els.playerTurn.textContent = "test";
+    document.getElementById("game-player-turn-id").textContent = turn;
 }
 Game.prototype.setSelfId = function(identification){
     this.els.myId.textContent = identification;
