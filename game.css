@@ -152,11 +152,11 @@ a {
 }
 
 .zone.is-mine {
-   background-image: url(images/mine.png);
+   background-image: url(images/flagblue.png);
 }
 
 .zone.is-mine-apponent {
-    background-image: url(images/mine.png);
+    background-image: url(images/flagblack.png);
  }
 
 .zone.is-mine.is-clicked {

@@ -23,9 +23,13 @@ var Zone = function(element, x, y) {
       this.setRevealed();
 
       if (this.isMine) {
+          console.log('self mine');
          return this.element.classList.add('is-mine');
       }
-
+      else if(this.isApponentMine){
+          console.log('Apponent mine');
+          return this.element.classList.add('is-mine-apponent');
+      }
       if (this.isEmpty) {
          return this.element.classList.add('is-empty');
       }

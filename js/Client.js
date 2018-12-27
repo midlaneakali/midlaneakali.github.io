@@ -36,6 +36,7 @@ function send(packet){
 }
 function HandlePacketId(received_msg) {
   var Packet = JSON.parse(received_msg);
+  console.log(Packet);
   switch (Packet.PacketId) {
 
     case PacketId.Move:
@@ -43,7 +44,12 @@ function HandlePacketId(received_msg) {
         HandleMovePacket(Packet);
       }
       break;
+      case PacketId.MyId:{
 
+        MyPlayerId = Packet.Id;
+        console.log(MyPlayerId+":"+Packet.Id)
+      }
+      break;
 
     default:
       console.log("Packet id not found");
@@ -53,16 +59,29 @@ function HandlePacketId(received_msg) {
 
 function HandleMovePacket(Packet) {
   console.log(Packet);
+
   Packet.Position.forEach(element => {
 
     let zone = game.board.zones[element.YPosition][element.XPosition];
-    if(element.Cell == -1){
-      zone.isMine = true;
+    
+    if(Packet.PlayerScored == true){
+      console.log(MyPlayerId);
+      console.log(Packet.Id);
+      if(Packet.Id == MyPlayerId){
+        zone.isMine = true;
+        zone.isApponentMine = false;
+      }
+      else{
+        zone.isApponentMine = true;
+        zone.isMine = false;
+      }
+      
       game.decreaseLeftMineCount();
     }
     else{
       zone.setMineCount(element.Cell);
       zone.isMine = false;
+      zone.isApponentMine = false;
     }
     
     zone.reveal();
