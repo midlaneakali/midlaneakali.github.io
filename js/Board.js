@@ -13,51 +13,51 @@ var Board = function(element) {
       this.calculate();
    }
 
-   this.traverse = function(zone) {
-      var zones = [];
+//    this.traverse = function(zone) {
+//       var zones = [];
 
-      // up
-      if (zone.y != 0) {
-         zones.push(this.zones[zone.y - 1][zone.x]);
-      }
+//       // up
+//       if (zone.y != 0) {
+//          zones.push(this.zones[zone.y - 1][zone.x]);
+//       }
 
-      // down
-      if (zone.y != this.dimension - 1) {
-         zones.push(this.zones[zone.y + 1][zone.x]);
-      }
+//       // down
+//       if (zone.y != this.dimension - 1) {
+//          zones.push(this.zones[zone.y + 1][zone.x]);
+//       }
 
-      // left
-      if (zone.x != 0) {
-         zones.push(this.zones[zone.y][zone.x - 1]);
-      }
+//       // left
+//       if (zone.x != 0) {
+//          zones.push(this.zones[zone.y][zone.x - 1]);
+//       }
 
-      // right
-      if (zone.x != this.dimension - 1) {
-         zones.push(this.zones[zone.y][zone.x + 1]);
-      }
+//       // right
+//       if (zone.x != this.dimension - 1) {
+//          zones.push(this.zones[zone.y][zone.x + 1]);
+//       }
 
-      // upper left
-      if (zone.y != 0 && zone.x != 0) {
-         zones.push(this.zones[zone.y - 1][zone.x - 1]);
-      }
+//       // upper left
+//       if (zone.y != 0 && zone.x != 0) {
+//          zones.push(this.zones[zone.y - 1][zone.x - 1]);
+//       }
 
-      // upper right
-      if (zone.y != 0 && zone.x != this.dimension - 1) {
-         zones.push(this.zones[zone.y - 1][zone.x + 1]);
-      }
+//       // upper right
+//       if (zone.y != 0 && zone.x != this.dimension - 1) {
+//          zones.push(this.zones[zone.y - 1][zone.x + 1]);
+//       }
 
-      // lower left
-      if (zone.y != this.dimension - 1 && zone.x != 0) {
-         zones.push(this.zones[zone.y + 1][zone.x - 1]);
-      }
+//       // lower left
+//       if (zone.y != this.dimension - 1 && zone.x != 0) {
+//          zones.push(this.zones[zone.y + 1][zone.x - 1]);
+//       }
 
-      // lower right
-      if (zone.y != this.dimension - 1 && zone.x != this.dimension - 1) {
-         zones.push(this.zones[zone.y + 1][zone.x + 1]);
-      }
+//       // lower right
+//       if (zone.y != this.dimension - 1 && zone.x != this.dimension - 1) {
+//          zones.push(this.zones[zone.y + 1][zone.x + 1]);
+//       }
 
-      return zones;
-   }
+//       return zones;
+//    }
 
    this.reveal = function() {
       for (var y = 0; y < this.dimension; y++) {
@@ -68,27 +68,27 @@ var Board = function(element) {
    }
 
    this.revealZoneNeighbors = function(zone) {
-      var x,
-      neighborZone,
-      neighbors = this.traverse(zone);
+    //   var x,
+    //   neighborZone,
+    //   neighbors = this.traverse(zone);
 
-      for (x = 0; x < neighbors.length; x++) {
-         neighborZone = neighbors[x];
+    //   for (x = 0; x < neighbors.length; x++) {
+    //      neighborZone = neighbors[x];
 
-         if (neighborZone.isRevealed || neighborZone.isFlagged || neighborZone.isMine) {
-            continue;
-         }
+    //      if (neighborZone.isRevealed || neighborZone.isFlagged || neighborZone.isMine) {
+    //         continue;
+    //      }
 
-         neighborZone.reveal();
+    //      neighborZone.reveal();
 
-         if (neighborZone.isEmpty) {
-            this.revealZoneNeighbors(neighborZone);
-         }
-      }
+    //      if (neighborZone.isEmpty) {
+    //         this.revealZoneNeighbors(neighborZone);
+    //      }
+    //   }
    }
 
    this.getRandomNumber = function(max) {
-      return Math.floor(Math.random() * (max - 1)) + 1;
+    //   return Math.floor(Math.random() * (max - 1)) + 1;
    }
 
    this.draw = function() {
