@@ -155,6 +155,10 @@ a {
    background-image: url(images/mine.png);
 }
 
+.zone.is-mine-apponent {
+    background-image: url(images/mine.png);
+ }
+
 .zone.is-mine.is-clicked {
    background-color: #d44646;
 }
