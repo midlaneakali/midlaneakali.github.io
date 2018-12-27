@@ -48,7 +48,7 @@ function HandlePacketId(received_msg) {
       case PacketId.MyId:{
 
         MyPlayerId = Packet.Id;
-        game.setSelfId(MyPlayerId);
+        // game.setSelfId(MyPlayerId);
       }
       break;
       case PacketId.InGame:{

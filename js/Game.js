@@ -19,7 +19,7 @@ var Game = function(level) {
    var elBoard = els.screen || '.game-board';
    var elTimer = els.timer || '.game-time';
    var elMine = els.mine || '.game-mines-count';
-   var elMyId = els.myId || '.game-id-mine';
+//    var elMyId = els.myId || '.game-id-mine';
    var elMyScore = els.myScore || '.game-score-mine';
    var elOpponent = els.opponentScore || '.game-score-opponent';
    //var elTurn = els.playerTurn || 'game-player-turn';
@@ -30,7 +30,7 @@ var Game = function(level) {
    this.els.board = document.querySelector(elBoard);
    this.els.time = document.querySelector(elTimer);
    this.els.mine = document.querySelector(elMine);
-   this.els.myId = document.querySelector(elMyId);
+//    this.els.myId = document.querySelector(elMyId);
    this.els.myScore = document.querySelector(elMyScore);
    this.els.opponentScore = document.querySelector(elOpponent);
    //this.els.playerTurn = document.querySelector(elTurn);
@@ -57,9 +57,9 @@ Game.prototype.setTurn = function(turn){
     //this.els.playerTurn.textContent = "test";
     document.getElementById("game-player-turn-id").textContent = turn;
 }
-Game.prototype.setSelfId = function(identification){
-    this.els.myId.textContent = identification;
-}
+// Game.prototype.setSelfId = function(identification){
+//     this.els.myId.textContent = identification;
+// }
 Game.prototype.updateSelfScore = function(){
     ++this.myScore;
     this.els.myScore.textContent = this.myScore;
