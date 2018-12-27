@@ -150,7 +150,9 @@ a {
 .zone:hover {
    background: #ddd;
 }
-
+.zone.last-move{
+    background: #d44646;
+}
 .zone.is-mine {
    background-image: url(images/flagblue.png);
 }

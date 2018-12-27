@@ -17,7 +17,7 @@ var Zone = function(element, x, y) {
       this.element.classList.add('is-revealed');
    }
 
-   this.reveal = function() {
+   this.reveal = function(last) {
       var className;
 
       this.setRevealed();
