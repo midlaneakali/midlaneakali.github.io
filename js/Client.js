@@ -1,13 +1,14 @@
 var ws;
 var MyPlayerId;
 var game;
+var first;
 function Connect() {
   //
   if ("WebSocket" in window) {
 
     game = new Game('beginner');
     ws = new WebSocket("ws://cynosure.hopto.org:8080");
-
+    first = true;
     ws.onopen = function () {
 
         
@@ -40,6 +41,7 @@ function HandlePacketId(received_msg) {
 
     case PacketId.Move:
       {
+        first = false;
         HandleMovePacket(Packet);
       }
       break;
@@ -51,6 +53,7 @@ function HandlePacketId(received_msg) {
       break;
       case PacketId.InGame:{
         alert("Game begun!");
+        first = true;
       }
       break;
       case PacketId.Win:{
