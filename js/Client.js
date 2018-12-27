@@ -5,12 +5,12 @@ function Connect() {
   //
   if ("WebSocket" in window) {
 
-
+    game = new Game('beginner');
     ws = new WebSocket("ws://localhost:8080");
 
     ws.onopen = function () {
 
-        game = new Game('beginner');
+        
         //reset the game with game.init();
         //game.init();
     };
