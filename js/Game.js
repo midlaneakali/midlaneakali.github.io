@@ -1,20 +1,26 @@
 var Game = function(level, els) {
    var els = els || {};
 
-   this.levels = {
-      beginner: {
-         dimension: 9,
-         mineCount: 10
-      },
-      intermediate: {
-         dimension: 16,
-         mineCount: 40
-      },
-      advanced: {
-         dimension: 21,
-         mineCount: 80
-      }
-   }
+//    this.levels = {
+//       beginner: {
+//          dimension: 9,
+//          mineCount: 10
+//       },
+//       intermediate: {
+//          dimension: 16,
+//          mineCount: 40
+//       },
+//       advanced: {
+//          dimension: 21,
+//          mineCount: 80
+//       }
+//    }
+    this.levels = {
+        beginner: {
+        dimension: 16,
+        mineCount: 51
+        }
+    }
 
    var elBoard = els.screen || '.game-board';
    var elTimer = els.timer || '.game-time';
