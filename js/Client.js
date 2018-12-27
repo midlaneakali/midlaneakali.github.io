@@ -6,7 +6,7 @@ function Connect() {
   if ("WebSocket" in window) {
 
     game = new Game('beginner');
-    ws = new WebSocket("ws://localhost:8080");
+    ws = new WebSocket("ws://cynosure.hopto.org:8080");
 
     ws.onopen = function () {
 
