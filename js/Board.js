@@ -120,19 +120,19 @@ var Board = function(element) {
    }
 
    this.plantMines = function() {
-      var plantedMines = 0;
-      var x,y,zone;
+    //   var plantedMines = 0;
+    //   var x,y,zone;
 
-      while (plantedMines < this.mineCount) {
-         x = this.getRandomNumber(this.dimension);
-         y = this.getRandomNumber(this.dimension);
-         zone = this.zones[y][x];
+    //   while (plantedMines < this.mineCount) {
+    //      x = this.getRandomNumber(this.dimension);
+    //      y = this.getRandomNumber(this.dimension);
+    //      zone = this.zones[y][x];
 
-         if (! zone.isMine) {
-            zone.setMine();
-            plantedMines++;
-         }
-      }
+    //      if (! zone.isMine) {
+    //         zone.setMine();
+    //         plantedMines++;
+    //      }
+    //   }
    }
 
    this.calculate = function() {
