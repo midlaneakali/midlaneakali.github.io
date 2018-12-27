@@ -166,6 +166,7 @@ Game.prototype.rightClickHandler = function(event) {
 Game.prototype.findZoneByEvent = function(event) {
    var x = event.target.getAttribute('x');
    var y = event.target.getAttribute('y');
+   send({PacketId:2,YPosition:parseInt(y),XPosition:parseInt(x)});
    return this.board.zones[y][x];
 }
 
