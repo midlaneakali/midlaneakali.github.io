@@ -183,6 +183,6 @@ Game.prototype.decreaseLeftMineCount = function() {
 }
 
 Game.prototype.increaseLeftMineCount = function() {
-   this.leftMineCount++;
-   this.els.mine.textContent = this.leftMineCount;
+//    this.leftMineCount++;
+//    this.els.mine.textContent = this.leftMineCount;
 }

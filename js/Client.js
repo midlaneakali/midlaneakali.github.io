@@ -11,6 +11,8 @@ function Connect() {
     ws.onopen = function () {
 
         game = new Game('beginner');
+        //reset the game with game.init();
+        //game.init();
     };
     //RecordingStream test! 
     ws.onmessage = function (evt) {
