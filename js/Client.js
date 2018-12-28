@@ -1,14 +1,14 @@
 var ws;
 var MyPlayerId;
 var game;
-var first;
+var lastZone;
 function Connect() {
   //
   if ("WebSocket" in window) {
 
     game = new Game('beginner');
-    ws = new WebSocket("ws://cynosure.hopto.org:8080");
-    first = true;
+    ws = new WebSocket("wss://cynosure.pw:8080");
+    lastZone = null;
     ws.onopen = function () {
 
         
@@ -41,7 +41,6 @@ function HandlePacketId(received_msg) {
 
     case PacketId.Move:
       {
-        first = false;
         HandleMovePacket(Packet);
       }
       break;
@@ -53,7 +52,6 @@ function HandlePacketId(received_msg) {
       break;
       case PacketId.InGame:{
         alert("Game begun!");
-        first = true;
       }
       break;
       case PacketId.Win:{
@@ -79,11 +77,15 @@ function HandlePacketId(received_msg) {
 
 function HandleMovePacket(Packet) {
   console.log(Packet);
-
+  var currentZone ;
+  currentZone.selected = false;
   Packet.Position.forEach(element => {
 
     let zone = game.board.zones[element.YPosition][element.XPosition];
-    
+    if(!currentZone.selected){
+      currentZone.selected = true;
+      currentZone = zone;
+    }
     if(Packet.PlayerScored == true){
       console.log(MyPlayerId);
       console.log(Packet.Id);
@@ -107,8 +109,13 @@ function HandleMovePacket(Packet) {
     zone.reveal();
 
   });
-
-
+  if(lastZone!=null){
+    lastZone.reveal();
+  }
+  lastZone = currentZone;
+  if(!Packet.PlayerScored){
+    zone.setLastMove();
+  }
 }
 
 

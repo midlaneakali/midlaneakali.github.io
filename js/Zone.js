@@ -17,17 +17,16 @@ var Zone = function(element, x, y) {
       this.element.classList.add('is-revealed');
    }
 
-   this.reveal = function(last) {
+   this.reveal = function() {
       var className;
 
       this.setRevealed();
 
       if (this.isMine) {
-          console.log('self mine');
          return this.element.classList.add('is-mine');
       }
       else if(this.isApponentMine){
-          console.log('Apponent mine');
+
           return this.element.classList.add('is-mine-apponent');
       }
       if (this.isEmpty) {
@@ -63,5 +62,8 @@ var Zone = function(element, x, y) {
 
    this.setMineCount = function(number) {
       this.mineCount = number;
+   }
+   this.setLastMove = function(){
+    this.element.classList.add('last-move');
    }
 }
