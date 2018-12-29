@@ -25,9 +25,11 @@ var Zone = function(element, x, y) {
       if(this.isLastMove){
         this.element.style.backgroundColor = "rgb(120,60,255)";
     }
-    else if(!this.isLastMove && !this.isEmpty)
-    {
-        this.element.style.backgroundColor = "rgb(238,238,238)";;
+    else if(!this.isLastMove && !this.isEmpty){
+        this.element.style.backgroundColor = "rgb(238,238,238)";
+    }
+    else if(!this.isLastMove && this.isEmpty){
+        this.element.style.backgroundColor = "rgba(239, 189, 98, 0.27)";
     }
       if (this.isMine) {
          return this.element.classList.add('is-mine');
@@ -37,8 +39,7 @@ var Zone = function(element, x, y) {
           return this.element.classList.add('is-mine-apponent');
       }
       if (this.isEmpty) {
-         //return this.element.classList.add('is-empty');
-         return this.element.style.backgroundColor = "rgba(239, 189, 98, 0.27)";
+         return this.element.classList.add('is-empty');
       }
       
 
