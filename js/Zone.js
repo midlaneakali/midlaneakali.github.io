@@ -37,7 +37,8 @@ var Zone = function(element, x, y) {
           return this.element.classList.add('is-mine-apponent');
       }
       if (this.isEmpty) {
-         return this.element.classList.add('is-empty');
+         //return this.element.classList.add('is-empty');
+         return this.element.style.backgroundColor = "rgba(239, 189, 98, 0.27)";
       }
       
 
