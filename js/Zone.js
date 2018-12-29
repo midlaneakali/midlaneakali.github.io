@@ -25,7 +25,7 @@ var Zone = function(element, x, y) {
       if(this.isLastMove){
         this.element.style.backgroundColor = "rgb(120,60,255)";
     }
-    else
+    else if(!this.isLastMove && !this.isEmpty)
     {
         this.element.style.backgroundColor = "rgb(238,238,238)";;
     }
