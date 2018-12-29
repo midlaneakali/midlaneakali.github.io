@@ -22,16 +22,24 @@ var Zone = function(element, x, y) {
 
       this.setRevealed();
 
+      if(this.isLastMove){
+        this.element.style.backgroundColor = "rgb(120,60,255)";
+    }
+    else
+    {
+        this.element.style.backgroundColor = "rgb(238,238,238)";;
+    }
       if (this.isMine) {
          return this.element.classList.add('is-mine');
       }
-      else if(this.isApponentMine){
+      if(this.isApponentMine){
 
           return this.element.classList.add('is-mine-apponent');
       }
       if (this.isEmpty) {
          return this.element.classList.add('is-empty');
       }
+      
 
       this.element.textContent = this.mineCount;
 
@@ -64,6 +72,6 @@ var Zone = function(element, x, y) {
       this.mineCount = number;
    }
    this.setLastMove = function(){
-    this.element.classList.add('last-move');
+    
    }
 }

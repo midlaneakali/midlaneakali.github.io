@@ -9,6 +9,7 @@ function Connect() {
     game = new Game('beginner');
     ws = new WebSocket("ws://cynosure.pw:8080");
     lastZone = null;
+    nextTurn = false;
     ws.onopen = function () {
 
         
@@ -77,14 +78,18 @@ function HandlePacketId(received_msg) {
 
 function HandleMovePacket(Packet) {
   console.log(Packet);
-  var currentZone ;
-  currentZone.selected = false;
+  var selected = false;
+  if(lastZone != null){
+    lastZone.isLastMove = false;
+    lastZone.reveal();
+  }
   Packet.Position.forEach(element => {
 
     let zone = game.board.zones[element.YPosition][element.XPosition];
-    if(!currentZone.selected){
-      currentZone.selected = true;
-      currentZone = zone;
+    if(!selected && !Packet.PlayerScored){
+      lastZone = zone;
+      zone.isLastMove = true;
+      selected = true;
     }
     if(Packet.PlayerScored == true){
       console.log(MyPlayerId);
@@ -107,15 +112,10 @@ function HandleMovePacket(Packet) {
       zone.setEmpty();
     }
     zone.reveal();
-
+    
   });
-  if(lastZone!=null){
-    lastZone.reveal();
-  }
-  lastZone = currentZone;
-  if(!Packet.PlayerScored){
-    zone.setLastMove();
-  }
+    
+
 }
 
 
