@@ -71,6 +71,13 @@ function HandlePacketId(received_msg) {
         game.setTurn("Opponent");
       }
       break;
+      case PacketId.Nop2:{
+        Packet.Coordinates.forEach(element =>{
+          let zone = game.board.zones[element.Y][element.X];
+          zone.Nop2();
+        });
+      }
+      break;
     default:
       console.log("Packet id not found");
       break;

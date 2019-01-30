@@ -56,6 +56,9 @@ var Zone = function(element, x, y) {
       this.element.classList.add(className);
    }
 
+   this.Nop2 = function(){
+    this.element.style.backgroundColor = "rgb(242,143,142)";
+   }
    this.setFlagged = function() {
       this.isFlagged = true;
       this.element.classList.add('is-flagged');
