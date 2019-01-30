@@ -58,6 +58,7 @@ function HandlePacketId(received_msg) {
       case PacketId.Win:{
         alert("You win!");
       }
+      break;
       case PacketId.Lose:{
         alert("You lose!");
       }
