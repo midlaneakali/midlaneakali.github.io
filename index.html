@@ -17,7 +17,7 @@
       ga('send', 'pageview');
    </script>
 </head>
-<body>  
+<body onload="innitconnection()">  
    <h1>Minesweeper Flags</h1>
    <div class="game-wrapper">
       <!-- <div class="select-style">
@@ -66,9 +66,9 @@
 
          <div class="game-footer">
             <!-- <button class="game-restart-button">Restart</button> -->
-            <button class="game-join-queue-button">Join Queue</button>
-            <button class="game-leave-game-button">Leave Game</button>
-            <button class="game-toggle-requests-button">Toggle Requests</button>
+            <button class="game-join-queue-button" onclick="badalert()">Join Queue</button>
+            <button class="game-leave-game-button" onclick="badalert()">Leave Game</button>
+            <button class="game-toggle-requests-button" onclick="badalert()">Toggle Requests</button>
          </div>
       </div>
    </div>
@@ -81,6 +81,12 @@
    <script src="js/Game.js"></script>
    <script src="js/Client.js"></script>
 
-   <script>Connect();</script>
+   <script>function innitconnection(){
+       Connect();
+       }
+       function badalert(){
+           alert("Button not implemented...Speak to the lazy developer probably on RS");
+       }
+       </script>
 </body>
 </html>
