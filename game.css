@@ -127,7 +127,16 @@ a {
     cursor: pointer;
     outline: 0;
 }
-
+.game-screen .game-footer .game-request-challenge-button{
+    border: 0;
+    background: #eee;
+    color: #efbd62;
+    border-radius: .2em;
+    padding: 1rem;
+    font-size: .9rem;
+    cursor: pointer;
+    outline: 0;
+}
 .zone {
    background: #eee;
    background-size: contain !important;
