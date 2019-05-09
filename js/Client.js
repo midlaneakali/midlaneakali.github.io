@@ -1,3 +1,6 @@
+/*
+Clint revision 2.0 Compliant with server revision 2.0
+*/
 var ws;
 var MyPlayerId;
 var game;
@@ -104,15 +107,24 @@ function HandlePacketId(received_msg) {
           break;
           case 3:{
             if(confirm("Accept challenge from: "+Packet.ChallengerId.toString(16))){
-              
+              send({PacketId: PacketId.ChallengeResponse,Id: Packet.ChallengerId, Status: true});
             }
             else{
-
+              send({PacketId: PacketId.ChallengeResponse,Id: Packet.ChallengerId, Status: false});
             }
           }
           break;
           case 4:{
             alert("Don't challenge yourself, you maniac!");
+          }
+          break;
+        }
+      }
+      break;
+      case PacketId.ChallengeResponse:{
+        switch(Packet.RequestType){
+          case 0:{
+            alert("Player denied your challenge request :(");
           }
           break;
         }
