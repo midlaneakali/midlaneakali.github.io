@@ -60,6 +60,7 @@ function HandlePacketId(received_msg) {
       case PacketId.InGame:{
         alert("Game begun!");
         document.getElementById("my-game-status").innerText = "In Game"
+        game = new Game('beginner');
       }
       break;
       case PacketId.Win:{
@@ -74,6 +75,7 @@ function HandlePacketId(received_msg) {
         
         alert("Game Over");
         document.getElementById("my-game-status").innerText = "Lobby";
+        
       }
       break;
       case PacketId.Turn:{
