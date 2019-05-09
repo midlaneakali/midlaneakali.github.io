@@ -38,6 +38,7 @@ function send(packet){
 }
 function HandlePacketId(received_msg) {
   var Packet = JSON.parse(received_msg);
+  console.log(Packet);
   switch (Packet.PacketId) {
 
     case PacketId.Move:
@@ -48,11 +49,13 @@ function HandlePacketId(received_msg) {
       case PacketId.MyId:{
 
         MyPlayerId = Packet.Id;
+        document.getElementById("my-player-id").innerText = MyPlayerId.toString(16);
         // game.setSelfId(MyPlayerId);
       }
       break;
       case PacketId.InGame:{
         alert("Game begun!");
+        document.getElementById("my-game-status").innerText = "In Game"
       }
       break;
       case PacketId.Win:{
@@ -63,12 +66,56 @@ function HandlePacketId(received_msg) {
         alert("You lose!");
       }
       break;
+      case PacketId.GameOver:{
+        
+        alert("Game Over");
+        document.getElementById("my-game-status").innerText = "Lobby";
+      }
+      break;
       case PacketId.Turn:{
         game.setTurn("Mine");
       }
       break;
+      case PacketId.AllPlayers:{
+        document.getElementById("online-player-count").innerText = Packet.PlayerCount;
+      }
+      break;
       case PacketId.ApponentTurn:{
         game.setTurn("Opponent");
+      }
+      break;
+      case PacketId.ToggleRequests:{
+        alert("Allow Requests: "+Packet.allowed);
+      }
+      break;
+      case PacketId.ChallengeRequest:{
+        switch(Packet.RequestType){
+          case 0:{
+            alert("Player id does not exist");
+          }
+          break;
+          case 1:{
+            alert("Target is not accepting challenge requests");
+          }
+          break;
+          case 2:{
+            alert("Challenge request sent!");
+          }
+          break;
+          case 3:{
+            if(confirm("Accept challenge from: "+Packet.ChallengerId.toString(16))){
+              
+            }
+            else{
+
+            }
+          }
+          break;
+          case 4:{
+            alert("Don't challenge yourself, you maniac!");
+          }
+          break;
+        }
       }
       break;
       case PacketId.Nop2:{
@@ -79,7 +126,7 @@ function HandlePacketId(received_msg) {
       }
       break;
     default:
-      console.log("Packet id not found");
+      console.log("Packet id not found:"+Packet.PacketId);
       break;
   }
 }

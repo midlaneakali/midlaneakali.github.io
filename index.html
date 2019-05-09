@@ -72,6 +72,14 @@
 
             <div class="game-board"></div>
             <div class="game-header">
+                    <div class="game-status">
+                            <div id="my-game-status">
+                                Lobby
+                            </div>
+                            <div>
+                                Status
+                            </div>
+                        </div>
                 <div class="player-count">
                     <div id="online-player-count">
                         0
@@ -100,10 +108,10 @@
             <div class="game-footer">
                 <!-- <button class="game-restart-button">Restart</button> -->
                 
-                <button class="game-join-queue-button" onclick="badalert()">Join Queue</button>
-                <button class="game-leave-game-button" onclick="badalert()">Leave Game</button>
-                <button class="game-toggle-requests-button" onclick="badalert()">Toggle Requests</button>
-                <button class="game-request-challenge-button" onclick="badalert()">Request Challenge</button>
+                <button class="game-join-queue-button" onclick="joinqueue()">Join Queue</button>
+                <button class="game-leave-game-button" onclick="leavegame()">Leave</button>
+                <button class="game-toggle-requests-button" onclick="togglerequests()">Toggle Requests</button>
+                <button class="game-request-challenge-button" onclick="requestchallenge()">Request Challenge</button>
             </div>
         </div>
     </div>
@@ -123,6 +131,27 @@
 
         function badalert() {
             alert("Button not implemented...Speak to the lazy developer probably on RS");
+        }
+        function leavegame(){
+            send({PacketId: PacketId.LeaveGame});
+            document.getElementById("my-game-status").innerText = "Lobby"
+        }
+        function joinqueue(){
+            send({PacketId: PacketId.Rejoin});
+            document.getElementById("my-game-status").innerText = "In Queue"
+        }
+        function togglerequests(){
+            send({PacketId: PacketId.ToggleRequests});
+        }
+        function requestchallenge(){
+            var id = document.getElementById("player-challenge-request").value;
+            if( id == ""){
+                return;
+            }
+            
+            send({PacketId: PacketId.ChallengeRequest,Id: parseInt(id,16)});  
+
+
         }
     </script>
 </body>
