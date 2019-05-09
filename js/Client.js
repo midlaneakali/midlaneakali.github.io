@@ -1,5 +1,6 @@
 /*
-Clint revision 2.0 Compliant with server revision 2.0
+Clint revision 2.1 Compliant with server revision 2.1
+Using ssl
 */
 var ws;
 var MyPlayerId;
@@ -10,7 +11,7 @@ function Connect() {
   if ("WebSocket" in window) {
 
     game = new Game('beginner');
-    ws = new WebSocket("ws://cynosure.pw:8080");
+    ws = new WebSocket("wss://cynosure.pw:8080");
     lastZone = null;
     nextTurn = false;
     ws.onopen = function () {
