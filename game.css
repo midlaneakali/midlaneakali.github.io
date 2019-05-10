@@ -82,6 +82,16 @@ a {
    flex-grow: 1;
 }
 
+.game-screen .game-lower-header {
+    display: flex;
+    margin-bottom: 1rem;
+    color: #000000;
+ }
+ 
+ .game-screen .game-lower-header > div {
+    flex-grow: 1;
+ }
+
 .game-screen .game-board {
    margin-bottom: 1rem;
 }

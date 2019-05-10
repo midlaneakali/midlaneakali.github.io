@@ -60,6 +60,10 @@ function HandlePacketId(received_msg) {
       case PacketId.InGame:{
         alert("Game begun!");
         document.getElementById("my-game-status").innerText = "In Game"
+        var parent = document.getElementsByClassName("game-board")[0];
+        while(parent.lastChild){
+          parent.removeChild(parent.lastChild);
+        }
         game = new Game('beginner');
       }
       break;
