@@ -1,6 +1,5 @@
 /*
-Clint revision 2.1 Compliant with server revision 2.1
-Using ssl
+Protocol revision 2.2
 */
 var ws;
 var MyPlayerId;
@@ -58,6 +57,7 @@ function HandlePacketId(received_msg) {
       }
       break;
       case PacketId.InGame:{
+        ingame = true;
         alert("Game begun!");
         document.getElementById("my-game-status").innerText = "In Game"
         var parent = document.getElementsByClassName("game-board")[0];
@@ -65,25 +65,41 @@ function HandlePacketId(received_msg) {
           parent.removeChild(parent.lastChild);
         }
         game = new Game('beginner');
+        document.getElementById("join-leave-game-queue").innerText = "Leave";
+      }
+      break;
+      case PacketId.Rejoin:{
+        ingame = true;
+        document.getElementById("join-leave-game-queue").innerText = "Leave";
       }
       break;
       case PacketId.Win:{
+        ingame = false;
         alert("You win!");
+        document.getElementById("join-leave-game-queue").innerText = "Join Queue";
       }
       break;
       case PacketId.Lose:{
+        ingame = false;
         alert("You lose!");
+        document.getElementById("join-leave-game-queue").innerText = "Join Queue";
       }
       break;
       case PacketId.GameOver:{
-        
+        ingame = false;
         alert("Game Over");
         document.getElementById("my-game-status").innerText = "Lobby";
-        
+        document.getElementById("join-leave-game-queue").innerText = "Join Queue";
+
       }
       break;
       case PacketId.Turn:{
         game.setTurn("Mine");
+      }
+      break;
+      case PacketId.LeaveGame:{
+        ingame = false;
+        document.getElementById("join-leave-game-queue").innerText = "Join Queue";
       }
       break;
       case PacketId.AllPlayers:{

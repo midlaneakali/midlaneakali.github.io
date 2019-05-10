@@ -108,8 +108,8 @@
             <div class="game-footer">
                 <!-- <button class="game-restart-button">Restart</button> -->
                 
-                <button class="game-join-queue-button" onclick="joinqueue()">Join Queue</button>
-                <button class="game-leave-game-button" onclick="leavegame()">Leave</button>
+                <button class="game-join-queue-button" id="join-leave-game-queue" onclick="joinqueue()">Join Queue</button>
+                <!-- <button class="game-leave-game-button" id="leave-game-queue" onclick="leavegame()">Leave</button> -->
                 <button class="game-toggle-requests-button" onclick="togglerequests()">Toggle Requests</button>
                 <button class="game-request-challenge-button" onclick="requestchallenge()">Request Challenge</button>
             </div>
@@ -125,6 +125,7 @@
     <script src="js/Client.js"></script>
 
     <script>
+        var ingame = false;
         function innitconnection() {
             Connect();
         }
@@ -132,13 +133,17 @@
         function badalert() {
             alert("Button not implemented...Speak to the lazy developer probably on RS");
         }
-        function leavegame(){
-            send({PacketId: PacketId.LeaveGame});
-            document.getElementById("my-game-status").innerText = "Lobby"
-        }
         function joinqueue(){
-            send({PacketId: PacketId.Rejoin});
-            document.getElementById("my-game-status").innerText = "In Queue"
+            if(ingame == false){
+                send({PacketId: PacketId.Rejoin});
+                document.getElementById("my-game-status").innerText = "In Queue"
+            }
+            else{
+                send({PacketId: PacketId.LeaveGame});
+                document.getElementById("my-game-status").innerText = "Lobby"
+            }
+            
+
         }
         function togglerequests(){
             send({PacketId: PacketId.ToggleRequests});
