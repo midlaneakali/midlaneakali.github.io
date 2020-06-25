@@ -26,95 +26,116 @@
 </head>
 
 <body onload="innitconnection()">
+    <audio id="tickaudio">
+        <source src="tick.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+      </audio>
+      <audio id="notaudio">
+        <source src="not.mp3" type="audio/mpeg">
+            Your browser does not support the audio element.
+        </audio>
     <h1>Minesweeper Flags</h1>
-    <div class="game-wrapper">
-        <!-- <div class="select-style">
-         <select class="game-level">
-            <option value="beginner" selected>Beginner</option>
-            <option value="intermediate">Intermediate</option>
-            <option value="advanced">Advanced</option>
-         </select>
-      </div> -->
-        <div class="game-screen">
+    <div class="left_side">
+        <div class="messages">
 
-            <div class="game-header">
+        </div>
+        <div class="inputbox">
+                <input class="round" type="text" id="player-send-message" required minlength="0" maxlength="100" size="50%" placeholder="Message" onkeypress="sendstringmessage(event)"> 
 
-                <div class="game-mines">
-                    <div class="game-mines-count">0</div>
-                    <div>Mines</div>
+        </div>
+    </div>
+    <div class="rightside">
+        <div class="game-wrapper">
+            <!-- <div class="select-style">
+             <select class="game-level">
+                <option value="beginner" selected>Beginner</option>
+                <option value="intermediate">Intermediate</option>
+                <option value="advanced">Advanced</option>
+             </select>
+          </div> -->
+          
+            <div class="game-screen">
+                
+                <div class="game-header">
+    
+                    <div class="game-mines">
+                        <div class="game-mines-count">0</div>
+                        <div>Mines</div>
+                    </div>
+                    <hr>
+                    <div class="game-timer">
+                        <div class="game-time">0</div>
+                        <div>Time</div>
+                    </div>
+                    <hr>
+                    <!-- <div class="game-my-id">
+                    <div class="game-id-mine">0</div>
+                    <div>My Id</div>
+                </div> -->
+                    <div class="game-turn">
+                        <div class="game-player-turn" id="game-player-turn-id">0</div>
+                        <div>Turn</div>
+                    </div>
+                    <hr>
+                    <div class="game-my-score">
+                        <div class="game-score-mine">0</div>
+                        <div>My Score</div>
+                    </div>
+                    <hr>
+                    <div class="game-opp-score">
+                        <div class="game-score-opponent">0</div>
+                        <div>Opponent Score</div>
+                    </div>
                 </div>
-                <hr>
-                <div class="game-timer">
-                    <div class="game-time">0</div>
-                    <div>Time</div>
-                </div>
-                <hr>
-                <!-- <div class="game-my-id">
-                <div class="game-id-mine">0</div>
-                <div>My Id</div>
-            </div> -->
-                <div class="game-turn">
-                    <div class="game-player-turn" id="game-player-turn-id">0</div>
-                    <div>Turn</div>
-                </div>
-                <hr>
-                <div class="game-my-score">
-                    <div class="game-score-mine">0</div>
-                    <div>My Score</div>
-                </div>
-                <hr>
-                <div class="game-opp-score">
-                    <div class="game-score-opponent">0</div>
-                    <div>Opponent Score</div>
-                </div>
-            </div>
-
-
-            <div class="game-board"></div>
-            <div class="game-lower-header">
-                    <div class="game-status">
-                            <div id="my-game-status">
-                                Lobby
+    
+    
+                <div class="game-board"></div>
+                <div class="game-lower-header">
+                        <div class="game-status">
+                                <div id="my-game-status">
+                                    Lobby
+                                </div>
+                                <div>
+                                    Status
+                                </div>
                             </div>
-                            <div>
-                                Status
-                            </div>
+                    <div class="player-count">
+                        <div id="online-player-count">
+                            0
                         </div>
-                <div class="player-count">
-                    <div id="online-player-count">
-                        0
+                        <div>
+                            Players Online
+                        </div>
                     </div>
-                    <div>
-                        Players Online
+                    <div class="player-id">
+                        <div id="my-player-id">
+                            0
+                        </div>
+                        <div>
+                            My Player Id
+                        </div>
                     </div>
+                    <div class="challenge-request">
+                        <input type="text" id="player-challenge-request" required minlength="0" maxlength="16" size="16" placeholder="Player Id">
+                        <div>
+                            Challenge Player
+                        </div>
+                    </div>
+                    
                 </div>
-                <div class="player-id">
-                    <div id="my-player-id">
-                        0
-                    </div>
-                    <div>
-                        My Player Id
-                    </div>
+    
+                <div class="game-footer">
+                    <!-- <button class="game-restart-button">Restart</button> -->
+                    
+                    <button class="game-join-queue-button" id="join-leave-game-queue" onclick="joinqueue()">Join Queue</button>
+                    <!-- <button class="game-leave-game-button" id="leave-game-queue" onclick="leavegame()">Leave</button> -->
+                    <button class="game-toggle-requests-button" onclick="togglerequests()">Toggle Requests</button>
+                    <button class="game-request-challenge-button" onclick="requestchallenge()">Request Challenge</button>
                 </div>
-                <div class="challenge-request">
-                    <input type="text" id="player-challenge-request" required minlength="0" maxlength="16" size="16" placeholder="Player Id">
-                    <div>
-                        Challenge Player
-                    </div>
-                </div>
-                
-            </div>
-
-            <div class="game-footer">
-                <!-- <button class="game-restart-button">Restart</button> -->
-                
-                <button class="game-join-queue-button" id="join-leave-game-queue" onclick="joinqueue()">Join Queue</button>
-                <!-- <button class="game-leave-game-button" id="leave-game-queue" onclick="leavegame()">Leave</button> -->
-                <button class="game-toggle-requests-button" onclick="togglerequests()">Toggle Requests</button>
-                <button class="game-request-challenge-button" onclick="requestchallenge()">Request Challenge</button>
             </div>
         </div>
     </div>
+    
 
     <div class="clearfix"></div>
 

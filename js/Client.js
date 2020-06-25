@@ -1,5 +1,5 @@
 /*
-Protocol revision 2.2
+Protocol revision 2.5
 */
 var ws;
 var MyPlayerId;
@@ -10,12 +10,12 @@ function Connect() {
   if ("WebSocket" in window) {
 
     game = new Game('beginner');
-    ws = new WebSocket("wss://cynosure.pw:8080");
+    ws = new WebSocket("wss://jdragon.me:8080");
     lastZone = null;
     nextTurn = false;
     ws.onopen = function () {
 
-        
+
         //reset the game with game.init();
         //game.init();
     };
@@ -57,6 +57,7 @@ function HandlePacketId(received_msg) {
       }
       break;
       case PacketId.InGame:{
+
         ingame = true;
         alert("Game begun!");
         document.getElementById("my-game-status").innerText = "In Game"
@@ -160,6 +161,37 @@ function HandlePacketId(received_msg) {
         });
       }
       break;
+      case PacketId.sendstringmessage:{
+
+        let chatcontainer = document.getElementsByClassName("messages")[0];
+      
+        if(Packet.Id ==MyPlayerId){
+          let mymessage = document.createElement("p");
+          mymessage.className = "from-me";
+          mymessage.appendChild(document.createTextNode(Packet.Chat));
+          chatcontainer.appendChild(mymessage);
+          document.getElementById("player-send-message").value = "";
+        }else{
+        //  let notify = document.getElementById("notaudio");
+         // notify.play();
+        //  notify.onended = function(){
+            
+          //}
+
+            let mymessage = document.createElement("p");
+            mymessage.className = "from-them";
+            mymessage.appendChild(document.createTextNode(Packet.Chat));
+            chatcontainer.appendChild(mymessage);
+
+        }
+        chatcontainer.scrollTop = chatcontainer.scrollHeight; 
+        
+        if(chatcontainer.childNodes.length>15){
+          chatcontainer.removeChild(chatcontainer.firstChild);
+        }
+        
+      }
+      break;
     default:
       console.log("Packet id not found:"+Packet.PacketId);
       break;
@@ -167,7 +199,7 @@ function HandlePacketId(received_msg) {
 }
 
 function HandleMovePacket(Packet) {
-  console.log(Packet);
+  document.getElementById("tickaudio").play();
   var selected = false;
   if(lastZone != null){
     lastZone.isLastMove = false;
@@ -182,8 +214,6 @@ function HandleMovePacket(Packet) {
       selected = true;
     }
     if(Packet.PlayerScored == true){
-      console.log(MyPlayerId);
-      console.log(Packet.Id);
       if(Packet.Id == MyPlayerId){
         zone.isMine = true;
         game.updateSelfScore();
@@ -207,8 +237,25 @@ function HandleMovePacket(Packet) {
     
 
 }
+function gethhmmss(){
+  var today = new Date();
+  var h = today.getHours();
+  var m = today.getMinutes();
+  var s = today.getSeconds();
+  return ""+h+":"+m+":"+s;
+}
+function sendstringmessage(event){
+  if(event.which == 13){
+    m = document.getElementById("player-send-message");
+    //console.log(m.value);
+    packet  = {
+      PacketId: 21,
+      Chat: m.value
+    };
+    ws.send(JSON.stringify(packet));
+  }
 
-
+}
 var PacketId = {
   Win:  0,
 	Lose: 1,
@@ -230,5 +277,6 @@ var PacketId = {
   ChallengeResponse:  17,
   ToggleRequests: 18,
   AllPlayers: 19,
-  Nop2: 20
+  Nop2: 20,
+  sendstringmessage: 21,
 };
