@@ -158,8 +158,8 @@ function HandlePacketId(received_msg) {
       }
       break;
       case PacketId.Nop2:{
-        Packet.Coordinates.forEach(element =>{
-          let zone = game.board.zones[element.Y][element.X];
+        Packet.Position.forEach(element =>{
+          let zone = game.board.zones[element.YPosition][element.XPosition];
           zone.Nop2();
         });
       }
