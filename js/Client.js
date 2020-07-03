@@ -65,9 +65,16 @@ function HandlePacketId(received_msg) {
         while(parent.lastChild){
           parent.removeChild(parent.lastChild);
         }
-        game = new Game('beginner');
+        game = new Game("blue");
         document.getElementById("join-leave-game-queue").innerText = "Leave";
         document.getElementById("my-session-id").innerText = Packet.SessionId.toString(16);
+        game.destroystats();
+        game.initgamestats();
+      }
+      break;
+      case PacketId.SpectateStarted:{
+        game.destroystats();
+        game.initspectatorstats();
       }
       break;
       case PacketId.Rejoin:{
@@ -92,16 +99,18 @@ function HandlePacketId(received_msg) {
         alert("Game Over");
         document.getElementById("my-game-status").innerText = "Lobby";
         document.getElementById("join-leave-game-queue").innerText = "Join Queue";
-
+        game.destroystats();
       }
       break;
       case PacketId.Turn:{
-        game.setTurn("You");
+        game.setturn("You");
       }
       break;
+      
       case PacketId.LeaveGame:{
         ingame = false;
         document.getElementById("join-leave-game-queue").innerText = "Join Queue";
+        game.destroystats();
       }
       break;
       case PacketId.AllPlayers:{
@@ -109,7 +118,7 @@ function HandlePacketId(received_msg) {
       }
       break;
       case PacketId.ApponentTurn:{
-        game.setTurn("Them");
+        game.setturn("Them");
 
         
       }
@@ -217,16 +226,16 @@ function HandleMovePacket(Packet) {
       selected = true;
     }
     if(Packet.PlayerScored == true){
-      if(Packet.Id == MyPlayerId){
+      if(Packet.Id == MyPlayerId || Packet.Colour == ColourId.kBlue){
         zone.isMine = true;
-        game.updateSelfScore();
+        game.incrementselfscore();
       }
       else{
         zone.isApponentMine = true;
-        game.updateOpponentScore();
+        game.incrementapponentscore();
       }
       
-      game.decreaseLeftMineCount();
+      game.decreaseminecount();
     }
     else{
       zone.setMineCount(element.Cell);
@@ -261,11 +270,12 @@ function sendstringmessage(event){
 }
 
 var ColourId = {
-  kBlack: 0,
+  kNone: 0,
   kBlue: 1,
-  kRed: 2,
-  kGreen: 3,
-  kNone: 4
+  kBlack: 2,
+  kRed: 3,
+  kGreen: 4,
+  
 
 }
 var PacketId = {
