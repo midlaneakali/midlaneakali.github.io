@@ -73,6 +73,7 @@ function HandlePacketId(received_msg) {
       }
       break;
       case PacketId.SpectateStarted:{
+        game = new Game("blue");
         game.destroystats();
         game.initspectatorstats();
       }
@@ -103,7 +104,13 @@ function HandlePacketId(received_msg) {
       }
       break;
       case PacketId.Turn:{
-        game.setturn("You");
+        if(Packet.spectate){
+          game.setturn(Packet.Colour);
+        }else{
+          game.setturn("You");
+        }
+        
+
       }
       break;
       
@@ -118,7 +125,11 @@ function HandlePacketId(received_msg) {
       }
       break;
       case PacketId.ApponentTurn:{
-        game.setturn("Them");
+        if(Packet.spectate){
+          game.setturn(Packet.Colour);
+        }else{
+          game.setturn("Them");
+        }
 
         
       }
@@ -211,7 +222,8 @@ function HandlePacketId(received_msg) {
 }
 
 function HandleMovePacket(Packet) {
-  document.getElementById("tickaudio").play();
+ // document.getElementById("tickaudio").play();
+ console.log(Packet); 
   var selected = false;
   if(lastZone != null){
     lastZone.isLastMove = false;
@@ -226,7 +238,16 @@ function HandleMovePacket(Packet) {
       selected = true;
     }
     if(Packet.PlayerScored == true){
-      if(Packet.Id == MyPlayerId || Packet.Colour == ColourId.kBlue){
+      if(Packet.spectate){
+        if(Packet.Colour == ColourId.kBlue){
+          zone.isMine = true;
+          game.incrementselfscore();
+        }else{
+          zone.isApponentMine = true;
+          game.incrementapponentscore();
+        }
+      }
+      else if(Packet.Id == MyPlayerId){
         zone.isMine = true;
         game.incrementselfscore();
       }
