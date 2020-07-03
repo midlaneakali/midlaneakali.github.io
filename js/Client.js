@@ -105,7 +105,11 @@ function HandlePacketId(received_msg) {
       break;
       case PacketId.Turn:{
         if(Packet.spectate){
-          game.setturn(Packet.Colour);
+          if(Packet.Colour == 1)
+            game.setturn("Blue");
+          else if(Packet.Colour == 2){
+            game.setturn("Black");
+          }
         }else{
           game.setturn("You");
         }
@@ -126,7 +130,11 @@ function HandlePacketId(received_msg) {
       break;
       case PacketId.ApponentTurn:{
         if(Packet.spectate){
-          game.setturn(Packet.Colour);
+          if(Packet.Colour == 1)
+            game.setturn("Blue");
+          else if(Packet.Colour == 2){
+            game.setturn("Black");
+          }
         }else{
           game.setturn("Them");
         }
