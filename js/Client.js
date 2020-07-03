@@ -60,13 +60,14 @@ function HandlePacketId(received_msg) {
 
         ingame = true;
         alert("Game begun!");
-        document.getElementById("my-game-status").innerText = "In Game"
+        document.getElementById("my-game-status").innerText = "Game"
         var parent = document.getElementsByClassName("game-board")[0];
         while(parent.lastChild){
           parent.removeChild(parent.lastChild);
         }
         game = new Game('beginner');
         document.getElementById("join-leave-game-queue").innerText = "Leave";
+        document.getElementById("my-session-id").innerText = Packet.SessionId.toString(16);
       }
       break;
       case PacketId.Rejoin:{
@@ -95,7 +96,7 @@ function HandlePacketId(received_msg) {
       }
       break;
       case PacketId.Turn:{
-        game.setTurn("Mine");
+        game.setTurn("You");
       }
       break;
       case PacketId.LeaveGame:{
@@ -108,7 +109,9 @@ function HandlePacketId(received_msg) {
       }
       break;
       case PacketId.ApponentTurn:{
-        game.setTurn("Opponent");
+        game.setTurn("Them");
+
+        
       }
       break;
       case PacketId.ToggleRequests:{
@@ -256,6 +259,15 @@ function sendstringmessage(event){
   }
 
 }
+
+var ColourId = {
+  kBlack: 0,
+  kBlue: 1,
+  kRed: 2,
+  kGreen: 3,
+  kNone: 4
+
+}
 var PacketId = {
   Win:  0,
 	Lose: 1,
@@ -279,4 +291,8 @@ var PacketId = {
   AllPlayers: 19,
   Nop2: 20,
   sendstringmessage: 21,
+  Spectate: 22,
+  StopSpectate: 23,
+  SpectateStarted: 24,
+  SpectateStopped:25
 };
