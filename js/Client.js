@@ -84,9 +84,18 @@ function HandlePacketId(received_msg) {
       }
       break;
       case PacketId.Win:{
-        ingame = false;
+        if(!Packet.spectate){
+          ingame = false;
         alert("You win!");
         document.getElementById("join-leave-game-queue").innerText = "Join Queue";
+        }else{
+          if(Packet.Colour == ColourId.kBlue){
+            alert("Blue wins!");
+          }else if(Packet.Colour == ColourId.kBlack){
+            alert("Black wins!");
+          }
+        }
+        
       }
       break;
       case PacketId.Lose:{
