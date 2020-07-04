@@ -5,6 +5,9 @@ var ws;
 var MyPlayerId;
 var game;
 var lastZone;
+var interval;
+var timeremaining;
+var elapsed;
 function Connect() {
   //
   if ("WebSocket" in window) {
@@ -59,7 +62,7 @@ function HandlePacketId(received_msg) {
       case PacketId.InGame:{
 
         ingame = true;
-        alert("Game begun!");
+       // alert("Game begun!");
         document.getElementById("my-game-status").innerText = "Game"
         var parent = document.getElementsByClassName("game-board")[0];
         while(parent.lastChild){
@@ -70,6 +73,21 @@ function HandlePacketId(received_msg) {
         document.getElementById("my-session-id").innerText = Packet.SessionId.toString(16);
         game.destroystats();
         game.initgamestats();
+      }
+      break;
+      case PacketId.Time:{
+        
+        timeremaining =  Packet.Remaining;
+        elapsed = Date.now();
+        document.getElementById("time-value-id").textContent = Packet.Remaining;
+        clearInterval(interval);
+        interval = setInterval(() => {
+          let now = Date.now();
+          elapsed = now - elapsed;
+          timeremaining -=elapsed;
+          elapsed = now;
+          document.getElementById("time-value-id").textContent = timeremaining;
+        }, 10);
       }
       break;
       case PacketId.SpectateStarted:{
