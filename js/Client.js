@@ -79,15 +79,21 @@ function HandlePacketId(received_msg) {
         
         timeremaining =  Packet.Remaining;
         elapsed = Date.now();
-        document.getElementById("time-value-id").textContent = Packet.Remaining;
-        clearInterval(interval);
-        interval = setInterval(() => {
-          let now = Date.now();
-          elapsed = now - elapsed;
-          timeremaining -=elapsed;
-          elapsed = now;
-          document.getElementById("time-value-id").textContent = timeremaining;
-        }, 10);
+        let timeelement = document.getElementById("time-value-id");
+        if(timeelement != null ){
+          if(timeelement != undefined){
+            timeelement.textContent = Packet.Remaining;
+            clearInterval(interval);
+            interval = setInterval(() => {
+              let now = Date.now();
+              elapsed = now - elapsed;
+              timeremaining -=elapsed;
+              elapsed = now;
+              document.getElementById("time-value-id").textContent = (timeremaining/1000.0).toFixed(2);
+            }, 10);
+          }
+        }
+        
       }
       break;
       case PacketId.SpectateStarted:{
