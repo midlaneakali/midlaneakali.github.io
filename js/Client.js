@@ -134,6 +134,7 @@ function HandlePacketId(received_msg) {
         document.getElementById("my-game-status").innerText = "Lobby";
         document.getElementById("join-leave-game-queue").innerText = "Join Queue";
         game.destroystats();
+        clearInterval(interval);
       }
       break;
       case PacketId.Turn:{
