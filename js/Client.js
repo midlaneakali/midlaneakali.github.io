@@ -73,6 +73,7 @@ function HandlePacketId(received_msg) {
         document.getElementById("my-session-id").innerText = Packet.SessionId.toString(16);
         game.destroystats();
         game.initgamestats();
+        document.getElementById("tickaudio").play();
       }
       break;
       case PacketId.Time:{
@@ -237,7 +238,7 @@ function HandlePacketId(received_msg) {
           chatcontainer.appendChild(mymessage);
           document.getElementById("player-send-message").value = "";
         }else{
-        //  let notify = document.getElementById("notaudio");
+          let notify = document.getElementById("notaudio");
          // notify.play();
         //  notify.onended = function(){
             
@@ -264,7 +265,7 @@ function HandlePacketId(received_msg) {
 }
 
 function HandleMovePacket(Packet) {
- // document.getElementById("tickaudio").play();
+  document.getElementById("tickaudio").play();
  console.log(Packet); 
   var selected = false;
   if(lastZone != null){
