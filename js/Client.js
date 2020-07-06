@@ -73,7 +73,7 @@ function HandlePacketId(received_msg) {
         document.getElementById("my-session-id").innerText = Packet.SessionId.toString(16);
         game.destroystats();
         game.initgamestats();
-        document.getElementById("tickaudio").play();
+        document.getElementById("gamestartaudio").play();
       }
       break;
       case PacketId.Time:{
