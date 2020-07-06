@@ -10,9 +10,18 @@
 </head>
 
 <body onload="innitconnection()">
-    <audio id="tickaudio" src="tick.mp3"></audio>
-      <audio id="notaudio" src="not.mp3"></audio>
-      <audio id="gamestartaudio" src="gamestart.wav"></audio>
+    <audio id="tickaudio">
+        <source src="tick.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+      </audio>
+      <audio id="gamestartaudio">
+        <source src="gamestart.wav" type="audio/mpeg">
+            Your browser does not support the audio element.
+        </audio>
+        <audio id="bubbleaudio">
+            <source src="Bubble.wav" type="audio/mpeg">
+                Your browser does not support the audio element.
+            </audio>
     <h1>Minesweeper Flags</h1>
     <div class="left_side">
         <div class="messages">

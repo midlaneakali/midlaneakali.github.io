@@ -147,6 +147,7 @@ function HandlePacketId(received_msg) {
           }
         }else{
           game.setturn("You");
+          document.getElementById("bubbleaudio").play();
         }
         
 
@@ -265,7 +266,7 @@ function HandlePacketId(received_msg) {
 }
 
 function HandleMovePacket(Packet) {
-  document.getElementById("tickaudio").play();
+  //document.getElementById("tickaudio").play();
  console.log(Packet); 
   var selected = false;
   if(lastZone != null){
@@ -281,6 +282,7 @@ function HandleMovePacket(Packet) {
       selected = true;
     }
     if(Packet.PlayerScored == true){
+      document.getElementById("tickaudio").play();
       if(Packet.spectate){
         if(Packet.Colour == ColourId.kBlue){
           zone.isMine = true;
