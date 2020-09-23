@@ -1,170 +1,151 @@
-
 <!DOCTYPE html>
-<html lang="en">
+<html lang='en'>
+	<head>
+		<title>Reverse Sweeper</title>
+		<link rel="apple-touch-icon" href="mine.png">
+		<meta name="apple-mobile-web-app-title" content="Reverse Sweeper">
+		<!--<meta name="apple-itunes-app" content="app-id=903769553"/>-->
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0, minimal-ui"/>
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black" />
+		<meta name="mobile-web-app-capable" content="yes">
+		<link rel="icon" type="image/png" href="favicon.ico">
+		<link href='http://fonts.googleapis.com/css?family=Exo+2' rel='stylesheet' type='text/css'>
+		<link rel="stylesheet" href="style/fa/css/font-awesome.min.css">
+		<link rel="stylesheet" href="style/style.css">
+		<script type='text/javascript' src="https://unpkg.com/roughjs@4.3.1/bundled/rough.js"></script>
+		<script type='text/javascript' src="tile.js"></script>
+		<script type='text/javascript' src="gameboard.js"></script>
+		<script type='text/javascript' src="vendor/hammer.min.js"></script>
+		<script type='text/javascript' src="vendor/js.cookie.js"></script>
+		<script type='text/javascript' src="vendor/jsonfn.min.js"></script>
+		<script type='text/javascript' src="vendor/keypress.min.js"></script>
+		<script type='text/javascript' src="vendor/jquery.js"></script>
+		<script src="initialise.js"></script>
+		<script src="game.js"></script>
+		<script src="render.js"></script>
+		<script src="vendor/sweet-alert.min.js"></script>
+	</head>
+	<body>
+		
+		<div id="canvascontainer">
+			<canvas id="canvas"></canvas>
+		</div>
+		
 
-<head>
-    <meta charset="UTF-8">
-    <title>Minesweeper Flags</title>
-    <link rel="stylesheet" href="game.css">
-    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300' rel='stylesheet' type='text/css'>
-</head>
+<!--
+			<div class="section-title-full">
+			
+				<div class="section-block">
+					<p>Mines</p>
+				</div>
+				<div class="section-block">
+					<p>Turn</p>
+				</div>
+				<div class="section-block">
+					<p>You</p>
+				</div>
+				<div class="section-block">
+					<p>Them</p>
+				</div>
+				<div class="section-block">
+					<p>Time</p>
+				</div>
+		</div>
+		<div class="section-info-full">
+			
+			<div class="section-block">
+				<p id="mine-count">0</p>
+			</div>
+			<div class="section-block">
+				<p id="player-turn">You</p>
+			</div>
+			<div class="section-block">
+				<p id="score-you">0</p>
+			</div>
+			<div class="section-block">
+				<p id="score-them">0</p>
+			</div>
+			<div class="section-block">
+				<p id="turn-time">0</p>
+			</div>
+	</div>
+	<div class="section-buttons-full">
+			
+		<div class="section-block-buttons">
+			<button class="game-join-queue-button" id="join-leave-game-queue" >Queue</button>
+		</div>
+		<div class="section-block-buttons">
+			<button class="game-toggle-requests-button" id="toggle-requests-button">Toggle</button>
+		</div>
+		<div class="section-block-buttons">
+			<button class="game-request-challenge-button" id="request-challenge-button">Challenge</button>
+		</div>
+		<div class="section-block-buttons">
+			<input type="text" id="player-challenge-request" class="input-class-challenge" required minlength="0" maxlength="16" size="16" placeholder="Player Id">
+		</div>
+		
+</div>
+-->
 
-<body onload="innitconnection()">
-    <audio id="tickaudio">
-        <source src="tick.mp3" type="audio/mpeg">
-        Your browser does not support the audio element.
-      </audio>
-      <audio id="gamestartaudio">
-        <source src="gamestart.wav" type="audio/mpeg">
-            Your browser does not support the audio element.
-        </audio>
-        <audio id="bubbleaudio">
-            <source src="Bubble.wav" type="audio/mpeg">
-                Your browser does not support the audio element.
-            </audio>
-    <h1>Minesweeper Flags</h1>
-    <div class="left_side">
-        <div class="messages">
+<!--
+<div class="section-landscape">
+	<div class="grid-container">
+		<div class="grid-row">
+			<p>Mines</p>
+		</div>
+		<div class="grid-row">
+			<p id="mine-count">0</p>
+		</div>
+		<div class="grid-row">
+			<p>Turn</p>
+		</div>
+		<div class="grid-row">
+			<p>Your</p>
+		</div>
+		<div class="grid-row">
+			<p>You</p>
+		</div>
+		<div class="grid-row">
+			<p>0</p>
+		</div>
+		<div class="grid-row">
+			<p>Them</p>
+		</div>
+		<div class="grid-row">
+			<p>0</p>
+		</div>
+		<div class="grid-row">
+			<p>Time</p>
+		</div>
+		<div class="grid-row">
+			<p>0</p>
+		</div>
+		
+		<div class="grid-row">
+			<div class="section-block-buttons">
+				<button class="game-join-queue-button" id="join-leave-game-queue" >Queue</button>
+			</div>
+		</div>
+		<div class="grid-row">
+			<button class="game-toggle-requests-button" id="toggle-requests-button">Toggle</button>
+		</div>
+		<div class="grid-row">
+				<button class="game-request-challenge-button" id="request-challenge-button">Challenge</button>
+		</div>
 
-        </div>
-        <div class="inputbox">
-                <input class="round" type="text" id="player-send-message" required minlength="0" maxlength="100" size="50%" placeholder="Message" onkeypress="sendstringmessage(event)"> 
+	</div>
+	<input type="text" id="player-challenge-request" class="input-class-challenge" required minlength="0" maxlength="16" size="16" placeholder="Player Id">
 
-        </div>
-    </div>
-    <div class="rightside">
-        <div class="game-wrapper">
-            <!-- <div class="select-style">
-             <select class="game-level">
-                <option value="beginner" selected>Beginner</option>
-                <option value="intermediate">Intermediate</option>
-                <option value="advanced">Advanced</option>
-             </select>
-          </div> -->
-          
-            <div class="game-screen">
-                
-                <div class="game-header">
+</div>
+-->
 
-                </div>
-    
-    
-                <div class="game-board"></div>
-                <div class="game-lower-header">
-                        <div class="game-status">
-                            <div>
-                                Status
-                            </div>
-                                <div id="my-game-status">
-                                    Lobby
-                                </div>
-                                
-                            </div>
-                    <div class="player-count">
-                        <div>
-                            Online
-                        </div>
-                        <div id="online-player-count">
-                            0
-                        </div>
-                        
-                    </div>
-                    <div class="player-id">
-                        <div>
-                            Player Id
-                        </div>
-                        <div id="my-player-id">
-                            0
-                        </div>
-                        
-                    </div>
-                    <div class="sessiopn-id">
-                        <div>
-                            Session Id
-                        </div>
-                        <div id="my-session-id">
-                            0
-                        </div>
-                        
-                    </div>
-                    <div class="challenge-request">
-                        <div>
-                            Challenge/Spectate
-                        </div>
-                        <input type="text" id="player-challenge-request" required minlength="0" maxlength="16" size="16" placeholder="Player Id/Session Id">
-                        
-                    </div>
-                    <br>
-                    
-                </div>
-    
-                <div class="game-footer">
-                    <!-- <button class="game-restart-button">Restart</button> -->
-                    
-                    <button class="game-join-queue-button" id="join-leave-game-queue" onclick="joinqueue()">Join Queue</button>
-                    <!-- <button class="game-leave-game-button" id="leave-game-queue" onclick="leavegame()">Leave</button> -->
-                    <button class="game-toggle-requests-button" onclick="togglerequests()">Toggle Requests</button>
-                    <button class="game-request-spectate-button" onclick="requestspectate()">Spectate</button>
-                    <button class="game-request-challenge-button" onclick="requestchallenge()">Request Challenge</button>
-                    
-                </div>
-            </div>
-        </div>
-    </div>
-    
+			
+			
+			
 
-    <div class="clearfix"></div>
-
-    <!-- game objects -->
-    <script src="js/Zone.js"></script>
-    <script src="js/Board.js"></script>
-    <script>document.write('<script src="js/Game.js?dev=' + Math.floor(Math.random() * 100) + '"\><\/script>');</script>
-    <script>document.write('<script src="js/Client.js?dev=' + Math.floor(Math.random() * 100) + '"\><\/script>');</script>
-
-    <script>
-        var ingame = false;
-        function innitconnection() {
-            Connect();
-        }
-
-        function badalert() {
-     
-        }
-        function joinqueue(){
-            if(ingame == false){
-                send({PacketId: PacketId.Rejoin});
-                document.getElementById("my-game-status").innerText = "Queue"
-            }
-            else{
-                send({PacketId: PacketId.LeaveGame});
-                document.getElementById("my-game-status").innerText = "Lobby"
-            }
-            
-
-        }
-        function togglerequests(){
-            send({PacketId: PacketId.ToggleRequests});
-        }
-        function requestchallenge(){
-            var id = document.getElementById("player-challenge-request").value;
-            if( id == ""){
-                return;
-            }
-            
-            send({PacketId: PacketId.ChallengeRequest,Id: parseInt(id,16)});  
-
-
-        }
-        function requestspectate(){
-            var id = document.getElementById("player-challenge-request").value;
-            if( id == ""){
-                return;
-            }
-            
-            send({PacketId: PacketId.Spectate,Id: parseInt(id,16)});  
-
-        }
-    </script>
-</body>
-
+		<script> (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){ (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o), m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m) })(window,document,'script','//www.google-analytics.com/analytics.js','ga'); ga('create', 'UA-51272720-2', 'auto'); ga('send', 'pageview');
+		</script>
+		<script type="text/javascript" src='vendor/rrssb.min.js'></script>
+	</body>
 </html>
