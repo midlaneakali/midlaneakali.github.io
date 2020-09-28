@@ -11,26 +11,26 @@ class PlayerColourIdentifiers{
 class PacketIdentifiers{
     constructor(){
         this.kNothing = 0;
-        this.MOVE = 1;
-        this.TURN = 2;
-        this.IN_GAME = 3;
-        this.REJOIN = 4;
-        this.TIME = 5;
-        this.MYID = 6;
-        this.GAME_OVER = 7;
-        this.GAME_TERMINATED = 8;
-        this.LEAVE_GAME = 9;
-        this.LOAD_PAST_GAME = 10;
-        this.ALERT = 11;
-        this.CHALLENGE_REQUEST = 12;
-        this.TOGGLE_REQUESTS = 13;
-        this.ALL_PLAYERS = 14;
-        this.SERVER_REQUEST_INFO = 15;
-        this.STRING_MESSAGE = 16;
-        this.SPECTATE = 17;
-        this.STOP_SPECTATE = 18;
-        this.SPECTATE_STARTED = 19;
-        this.SPECTATE_STOPPED = 20;
+        this.kMove = 1;
+        this.kTurn = 2;
+        this.kInGame = 3;
+        this.kRejoin = 4;
+        this.kTime = 5;
+        this.kMyId = 6;
+        this.kGameOver = 7;
+        this.kGameTerminated = 8;
+        this.kLeaveGame = 9;
+        this.kLoadPastGame = 10;
+        this.kAlert = 11;
+        this.kChallengeRequest = 12;
+        this.kToggleRequest = 13;
+        this.kAllPlayers = 14;
+        this.kServerRequestInfo = 15;
+        this.kStringMessage = 16;
+        this.kSpectate = 17;
+        this.kStopSpectate = 18;
+        this.kSpectateStarted = 19;
+        this.kSpectateStopped = 20;
     }
 }
 class IdentifierConstants{

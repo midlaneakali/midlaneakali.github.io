@@ -3,7 +3,13 @@ $(document).ready(function() {
     let down = false;
 
     function packethandlercallback(packet){
+        let parsed = JSON.parse(packet);
+        switch(parsed.pid){
+            case connection.identifiers.packet.kMove:{
 
+            }
+            break;
+        }
     }
     function handleclicktap(x,y,mobile){
         var rect = window.canvas.getBoundingClientRect();
@@ -18,7 +24,11 @@ $(document).ready(function() {
                 alert(Math.floor(xtile)+":"+Math.floor(ytile));
             }
             */
-           connection.send({})
+           connection.send({
+               pid:connection.identifiers.packet.kMove,
+            yposition: ytile,
+        xposition: xtile});
+
         if(mobile){
             
         }else{
