@@ -1,6 +1,10 @@
 $(document).ready(function() {
+    let connection = new Connection(packethandlercallback);
     let down = false;
 
+    function packethandlercallback(packet){
+
+    }
     function handleclicktap(x,y,mobile){
         var rect = window.canvas.getBoundingClientRect();
             xCoordinate = x - rect.left;
@@ -14,8 +18,7 @@ $(document).ready(function() {
                 alert(Math.floor(xtile)+":"+Math.floor(ytile));
             }
             */
-           location.reload();
-           return false;
+           connection.send({})
         if(mobile){
             
         }else{
