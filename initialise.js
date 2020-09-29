@@ -23,7 +23,12 @@ $(document).ready(function() {
         let gridcontainer = document.createElement('div');
         gridcontainer.className = 'grid-container';
 
-        let item = createrowitem('p','Mines');
+        let item = createrowitem('p','Online');
+        gridcontainer.appendChild(item);
+        item = createrowitem('p','0','player-count');
+        gridcontainer.appendChild(item);
+
+        item = createrowitem('p','Mines');
         gridcontainer.appendChild(item);
         item = createrowitem('p','0','mine-count');
         gridcontainer.appendChild(item);
@@ -50,7 +55,7 @@ $(document).ready(function() {
         gridcontainer.appendChild(item);
 
         
-        item = createrowitem('button','Que','join-que-leave-game-button','join-que-button-class');
+        item = createrowitem('button','Que/Leave','join-que-leave-game-button','join-que-button-class');
         gridcontainer.appendChild(item);
 
         item = createrowitem('button','Toggle','toggle-requests-button','toggle-requests-button-class');
@@ -117,7 +122,10 @@ $(document).ready(function() {
         let sectiontitle = document.createElement('div');
         sectiontitle.className = 'section-title-full';
 
-        let item = createsectiontitleinfoitem('Mines');
+        let item = createsectiontitleinfoitem('Online');
+        sectiontitle.appendChild(item);
+
+        item = createsectiontitleinfoitem('Mines');
         sectiontitle.appendChild(item);
 
         item = createsectiontitleinfoitem('Turn');
@@ -134,6 +142,9 @@ $(document).ready(function() {
 
         let sectioninfo = document.createElement('div');
         sectioninfo.className = 'section-info-full';
+
+        item = createsectiontitleinfoitem('0','player-count');
+        sectioninfo.appendChild(item);
 
         item = createsectiontitleinfoitem('0','mine-count');
         sectioninfo.appendChild(item);
@@ -153,7 +164,7 @@ $(document).ready(function() {
         let buttons = document.createElement('div');
         buttons.className = 'section-buttons-full';
 
-        item = createsectionbuttonitem('Que','join-que-leave-game-button','join-que-button-class');
+        item = createsectionbuttonitem('Que/Leave','join-que-leave-game-button','join-que-button-class');
         buttons.appendChild(item);
 
         item = createsectionbuttonitem('Toggle','toggle-requests-button','toggle-requests-button-class');
@@ -293,6 +304,8 @@ function doOnOrientationChange() {
   
 window.addEventListener('orientationchange', doOnOrientationChange);
 
+document.getElementById('join-que-leave-game-button').addEventListener('click',e=>{
 
+},false);
 //doOnOrientationChange();
 });

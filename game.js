@@ -2,15 +2,6 @@ $(document).ready(function() {
     let connection = new Connection(packethandlercallback);
     let down = false;
 
-    function packethandlercallback(packet){
-        let parsed = JSON.parse(packet);
-        switch(parsed.pid){
-            case connection.identifiers.packet.kMove:{
-
-            }
-            break;
-        }
-    }
     function handleclicktap(x,y,mobile){
         var rect = window.canvas.getBoundingClientRect();
             xCoordinate = x - rect.left;
@@ -70,5 +61,29 @@ $(document).ready(function() {
     }else{
         window.sethandlersdesktop(handlemousedown,handlemousemove);
         
+    }
+
+
+    function packethandlercallback(packet){
+        let parsed = JSON.parse(packet);
+        console.log(parsed);
+        switch(parsed.pid){
+            case connection.identifiers.packet.kMove:{
+                
+            }
+            break;
+            case connection.identifiers.packet.kMyId:{
+                localStorage.setItem('playerid',parsed.playerid);
+            }
+            break;
+            case connection.identifiers.packet.kAllPlayers:{
+                document.getElementById('player-count').innerText = parsed.count;
+            }
+            break;
+            case connection.identifiers.packet.kInGame:{
+                
+            }
+            break;
+        }
     }
 });
