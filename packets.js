@@ -19,7 +19,7 @@ class PacketIdentifiers{
         this.kMyId = 6;
         this.kGameOver = 7;
         this.kGameTerminated = 8;
-        this.kLeaveGame = 9;
+
         this.kLoadPastGame = 10;
         this.kAlert = 11;
         this.kChallengeRequest = 12;
@@ -31,6 +31,8 @@ class PacketIdentifiers{
         this.kStopSpectate = 18;
         this.kSpectateStarted = 19;
         this.kSpectateStopped = 20;
+        this.kInQue = 21;
+        this.kInLobby = 22;
     }
 }
 class IdentifierConstants{

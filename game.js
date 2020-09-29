@@ -81,7 +81,14 @@ $(document).ready(function() {
             }
             break;
             case connection.identifiers.packet.kInGame:{
-                
+                document.getElementById('join-que-leave-game-button').innerText = "Leave";
+            }
+            break;
+            case connection.identifiers.packet.kInQue:{
+                document.getElementById('join-que-leave-game-button').innerText = "Leave";
+            }
+            case connection.identifiers.packet.kInLobby:{
+                document.getElementById('join-que-leave-game-button').innerText = "Que";
             }
             break;
         }

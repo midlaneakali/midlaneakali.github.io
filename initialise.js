@@ -55,7 +55,7 @@ $(document).ready(function() {
         gridcontainer.appendChild(item);
 
         
-        item = createrowitem('button','Que/Leave','join-que-leave-game-button','join-que-button-class');
+        item = createrowitem('button','Que','join-que-leave-game-button','join-que-button-class');
         gridcontainer.appendChild(item);
 
         item = createrowitem('button','Toggle','toggle-requests-button','toggle-requests-button-class');
@@ -164,7 +164,7 @@ $(document).ready(function() {
         let buttons = document.createElement('div');
         buttons.className = 'section-buttons-full';
 
-        item = createsectionbuttonitem('Que/Leave','join-que-leave-game-button','join-que-button-class');
+        item = createsectionbuttonitem('Que','join-que-leave-game-button','join-que-button-class');
         buttons.appendChild(item);
 
         item = createsectionbuttonitem('Toggle','toggle-requests-button','toggle-requests-button-class');
