@@ -80,17 +80,20 @@ $(document).ready(function() {
                 document.getElementById('player-count').innerText = parsed.count;
             }
             break;
-            case connection.identifiers.packet.kInGame:{
-                document.getElementById('join-que-leave-game-button').innerText = "Leave";
-            }
-            break;
+            case connection.identifiers.packet.kInGame:
             case connection.identifiers.packet.kInQue:{
                 document.getElementById('join-que-leave-game-button').innerText = "Leave";
             }
-            case connection.identifiers.packet.kInLobby:{
+            break;
+            case connection.identifiers.packet.kGameOver:
+            case connection.identifiers.packet.kInLobby:
+            case connection.identifiers.packet.kGameTerminated:{
                 document.getElementById('join-que-leave-game-button').innerText = "Que";
             }
             break;
         }
     }
+    document.getElementById('join-que-leave-game-button').addEventListener('click',e=>{
+        connection.send({pid:connection.identifiers.packet.kQueLeave});
+    },false);
 });

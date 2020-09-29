@@ -304,8 +304,6 @@ function doOnOrientationChange() {
   
 window.addEventListener('orientationchange', doOnOrientationChange);
 
-document.getElementById('join-que-leave-game-button').addEventListener('click',e=>{
 
-},false);
 //doOnOrientationChange();
 });

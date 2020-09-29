@@ -14,7 +14,7 @@ class PacketIdentifiers{
         this.kMove = 1;
         this.kTurn = 2;
         this.kInGame = 3;
-        this.kRejoin = 4;
+        this.kQueLeave = 4;
         this.kTime = 5;
         this.kMyId = 6;
         this.kGameOver = 7;
