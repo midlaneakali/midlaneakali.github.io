@@ -23,18 +23,19 @@ $(document).ready(function() {
     switch(packet.pid){
         case gamehandler.connection.identifiers.packet.kMove:{
             
-            if(packet.ismine){
+            if(packet.mine){
                 let tile = game.tiles[packet.yposition][packet.xposition];
                 tile.setowner(packet.player);
                 tile.setmine();
                 tile.disable();
-                
+                game.regeneratetile(packet.yposition,packet.xposition);
             }else{
                 for(let e of packet.tiles){
                     let tile = game.tiles[e.yposition][e.xposition];
                     tile.setowner(packet.player);
                     tile.setvalue(e.value);
                     tile.disable();
+                    game.regeneratetile(e.yposition,e.xposition);
                 }
             }
         }

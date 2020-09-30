@@ -35,4 +35,11 @@ class Gameboard{
             }
         }
     }
+    regeneratetile(y,x){
+        let tile = this.tiles[y][x];
+        let rect = window.rough.generator.rectangle(x*window.xpositionmultiplier,y*window.ypositionmultiplier,window.tilewidth,window.tileheight, {
+            fill: 'rgba(255,0,200,0.1)',
+          });
+          tile.generated = rect;
+    }
 }
