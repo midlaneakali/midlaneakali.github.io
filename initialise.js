@@ -17,7 +17,7 @@ $(document).ready(function() {
         return rowitem;
     }
     function createlandscapelayout(){
-        let body = document.body;
+        let body = document.getElementById('infocontainer');
         let landscapechild = document.createElement('div');
         landscapechild.className ='section-landscape';
         let gridcontainer = document.createElement('div');
@@ -118,7 +118,7 @@ $(document).ready(function() {
     }
 
     function createportraitlayout(){
-        let body = document.body;
+        let body = document.getElementById('infocontainer');
         let sectiontitle = document.createElement('div');
         sectiontitle.className = 'section-title-full';
 
@@ -190,6 +190,16 @@ $(document).ready(function() {
         body.appendChild(sectioninfo);
         body.appendChild(buttons);
     }
+    function recurseremovechildnodes(node){
+        
+        if(node.hasChildNodes()){
+            recurseremovechildnodes(node.lastChild);
+        }
+        while(node.hasChildNodes()){
+            console.log(node.lastChild);
+            node.removeChild(node.lastChild);
+        }
+    }
     const isInStandaloneMode = () => ('standalone' in window.navigator) && (window.navigator.standalone);
 	window.settings;
 if (/Android|webOS|iPhone|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
@@ -230,7 +240,9 @@ window.trueCanvas = {
     width: canvas.width,
     height: canvas.height
 };
+
 window.scaleCanvas = function() {
+    recurseremovechildnodes(document.getElementById('infocontainer'));
 	window.canvas.width = $(window).width()*1;
     window.canvas.height = $(window).height()*1;
     
