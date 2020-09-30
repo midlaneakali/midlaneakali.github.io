@@ -14,13 +14,29 @@ $(document).ready(function() {
     }
     requestAnimationFrame(renderloop);
    // renderloop(0);
-
+   window.scaletilescallback = function(){
+       game.regenerate();
+   }
 
    function packethandler(packet){
        console.log(packet);
     switch(packet.pid){
         case gamehandler.connection.identifiers.packet.kMove:{
             
+            if(packet.ismine){
+                let tile = game.tiles[packet.yposition][packet.xposition];
+                tile.setowner(packet.player);
+                tile.setmine();
+                tile.disable();
+                
+            }else{
+                for(let e of packet.tiles){
+                    let tile = game.tiles[e.yposition][e.xposition];
+                    tile.setowner(packet.player);
+                    tile.setvalue(e.value);
+                    tile.disable();
+                }
+            }
         }
         break;
         case gamehandler.connection.identifiers.packet.kMyId:{
@@ -44,4 +60,5 @@ $(document).ready(function() {
         break;
     }
    }
+
 });

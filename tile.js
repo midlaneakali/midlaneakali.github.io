@@ -30,12 +30,6 @@ class Tile{
     setmine(){
         this.mine = true;
     }
-    iszero(){
-        return this.zero;
-    }
-    setzero(){
-        this.zero = true;
-    }
     setvalue(value){
         this.value = value;
     }

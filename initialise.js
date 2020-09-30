@@ -222,7 +222,7 @@ if(/Android/i.test(navigator.userAgent)) {
 if(navigator.userAgent.match(/iPhone/i) || navigator.userAgent.match(/iPad/i) || navigator.userAgent.match(/iPod/i)){
     window.settings.os="ios";
 }
-
+window.scaletilescallback = null;
 window.canvas = document.getElementById('canvas');
 window.ctx = canvas.getContext('2d');
 window.rough = rough.canvas(window.canvas);
@@ -271,7 +271,10 @@ window.scaleCanvas = function() {
 			height: ch
 		};
 
-		ctx.scale(window.devicePixelRatio, window.devicePixelRatio);
+        ctx.scale(window.devicePixelRatio, window.devicePixelRatio);
+        if(window.scaletilescallback){
+            window.scaletilescallback();
+        }
 	}
    // setBottomContainer();
    // set_score_pos();

@@ -24,4 +24,15 @@ class Gameboard{
         }
         
     }
+    regenerate(){
+        for(let x = 0; x < xtilecount;++x){
+            for(let y = 0; y < ytilecount;++y){
+                let rect = window.rough.generator.rectangle(x*(window.trueCanvas.width/xtilecount),y*(window.trueCanvas.height/ytilecount),window.trueCanvas.width/xtilecount,window.trueCanvas.height/ytilecount, {
+                    fill: 'rgba(255,0,200,0.1)',
+                    fillStyle: 'solid',
+                  });
+                  this.tiles[x][y].generated = rect;
+            }
+        }
+    }
 }
