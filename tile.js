@@ -10,6 +10,7 @@ class Tile{
         this.value = -1;
         this.update = true;
         this.generated = generated;
+        this.owner = 0;
     }
     gety(){
         return y;
@@ -55,5 +56,11 @@ class Tile{
     }
     generate(generated){
         this.generated = generated;
+    }
+    getowner(){
+        return this.owner;
+    }
+    setowner(owner){
+        this.owner = owner;
     }
 }
