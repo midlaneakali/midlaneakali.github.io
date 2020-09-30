@@ -16,7 +16,7 @@ $(document).ready(function() {
     requestAnimationFrame(renderloop);
    // renderloop(0);
    window.scaletilescallback = function(){
-       game.regenerate();
+
    }
 
    function packethandler(packet){
@@ -29,14 +29,13 @@ $(document).ready(function() {
                 tile.setowner(packet.player);
                 tile.setmine();
                 tile.disable();
-                game.regeneratetile(packet.yposition,packet.xposition);
             }else{
                 for(let e of packet.tiles){
                     let tile = game.tiles[e.yposition][e.xposition];
                     tile.setowner(packet.player);
                     tile.setvalue(e.value);
                     tile.disable();
-                    game.regeneratetile(e.yposition,e.xposition);
+
                 }
             }
         }

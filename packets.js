@@ -1,16 +1,16 @@
 function getcolourforid(cid){
     switch(cid){
         case 1:
-            return 'blue';
+            return '#CCCCFF';
             break;
         case 2:
-            return 'black';
+            return '#FFCCFF';
             break;
         case 3:
-            return 'red';
+            return '#FFCCCC';
             break;
         case 4:
-            return 'green';
+            return '#660066';
             break;
     }
 }

@@ -1,7 +1,7 @@
 let ytilecount = 16;
 let xtilecount = 16;
 class Tile{
-    constructor(x,y,generated){
+    constructor(x,y){
         this.y = y;
         this.x = x;
         this.disabled = false;
@@ -9,7 +9,6 @@ class Tile{
         this.zero = false;
         this.value = -1;
         this.update = true;
-        this.generated = generated;
         this.owner = 0;
     }
     gety(){
@@ -44,12 +43,6 @@ class Tile{
     }
     getupdate(){
         return this.update;
-    }
-    getgenerated(){
-        return this.generated;
-    }
-    generate(generated){
-        this.generated = generated;
     }
     getowner(){
         return this.owner;
