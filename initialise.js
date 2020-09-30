@@ -267,7 +267,8 @@ window.scaleCanvas = function() {
 	window.trueCanvas = {
 		width: canvas.width,
 		height: canvas.height
-	};
+    };
+    
 
 	if (window.devicePixelRatio) {
 		var cw = $("#canvas").attr('width');
@@ -284,6 +285,10 @@ window.scaleCanvas = function() {
 		};
 
         ctx.scale(window.devicePixelRatio, window.devicePixelRatio);
+        window.xpositionmultiplier = (window.trueCanvas.width/xtilecount);
+        window.ypositionmultiplier = (window.trueCanvas.height/ytilecount);
+        window.tilewidth = window.trueCanvas.width/xtilecount;
+        window.tileheight = window.trueCanvas.height/ytilecount;
         if(window.scaletilescallback){
             window.scaletilescallback();
         }
