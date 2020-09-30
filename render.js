@@ -3,6 +3,7 @@ $(document).ready(function() {
 
     let game = new Gameboard(xtilecount,ytilecount);
     let gamehandler = new GameHandlers(packethandler);
+    let mycolour = 0;
     function renderloop(tick){
         requestAnimationFrame(renderloop);
 
@@ -49,14 +50,23 @@ $(document).ready(function() {
         }
         break;
         case gamehandler.connection.identifiers.packet.kInGame:
+            mycolour = packet.ingamecolour;
         case gamehandler.connection.identifiers.packet.kInQue:{
-            document.getElementById('join-que-leave-game-button').innerText = "Leave";
+            document.getElementById('join-que-leave-game-button').innerText = 'Leave';
         }
         break;
         case gamehandler.connection.identifiers.packet.kGameOver:
         case gamehandler.connection.identifiers.packet.kInLobby:
         case gamehandler.connection.identifiers.packet.kGameTerminated:{
-            document.getElementById('join-que-leave-game-button').innerText = "Que";
+            document.getElementById('join-que-leave-game-button').innerText = 'Que';
+        }
+        break;
+        case gamehandler.connection.identifiers.packet.kTurn:{
+            if(packet.playerturn == mycolour){
+                document.getElementById('player-turn').innerText = 'You';
+            }else{
+                document.getElementById('player-turn').innerText = 'Them';
+            }
         }
         break;
     }

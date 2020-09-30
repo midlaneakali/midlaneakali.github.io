@@ -1,3 +1,19 @@
+function getcolourforid(cid){
+    switch(cid){
+        case 1:
+            return 'blue';
+            break;
+        case 2:
+            return 'black';
+            break;
+        case 3:
+            return 'red';
+            break;
+        case 4:
+            return 'green';
+            break;
+    }
+}
 class PlayerColourIdentifiers{
     constructor(){
         this.kNone = 0;
@@ -7,6 +23,7 @@ class PlayerColourIdentifiers{
         this.kGreen = 4;
         this.kNoMoreColours = 5;
     }
+    
 }
 class PacketIdentifiers{
     constructor(){

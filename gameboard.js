@@ -8,7 +8,7 @@ class Gameboard{
             for(let y = 0; y < ytilecount;++y){
                 let rect = window.rough.generator.rectangle(x*window.xpositionmultiplier,y*window.ypositionmultiplier,window.tilewidth,window.tileheight, {
                     fill: 'rgba(255,0,200,0.1)',
-                    fillStyle: 'solid',
+                  
                   });
                 this.tiles[x][y] = new Tile(x,y,rect);
 
@@ -28,17 +28,18 @@ class Gameboard{
         for(let x = 0; x < xtilecount;++x){
             for(let y = 0; y < ytilecount;++y){
                 let rect = window.rough.generator.rectangle(x*window.xpositionmultiplier,y*window.ypositionmultiplier,window.tilewidth,window.tileheight, {
-                    fill: 'rgba(255,0,200,0.1)',
-                    fillStyle: 'solid',
+                    fill: this.tiles[x][y].getowner() == 0 ? 'rgba(255,0,200,0.1)' : getcolourforid(this.tiles[x][y].getowner()),
+                   
                   });
                   this.tiles[x][y].generated = rect;
             }
         }
     }
     regeneratetile(y,x){
-        let tile = this.tiles[y][x];
+        let tile = this.tiles[x][y];
         let rect = window.rough.generator.rectangle(x*window.xpositionmultiplier,y*window.ypositionmultiplier,window.tilewidth,window.tileheight, {
-            fill: 'rgba(255,0,200,0.1)',
+            fill: getcolourforid(tile.getowner()),
+            
           });
           tile.generated = rect;
     }
