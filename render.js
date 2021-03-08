@@ -58,6 +58,7 @@ $(document).ready(function() {
         case gamehandler.connection.identifiers.packet.kInLobby:
         case gamehandler.connection.identifiers.packet.kGameTerminated:{
             document.getElementById('join-que-leave-game-button').innerText = 'Que';
+            game = new Gameboard(xtilecount,ytilecount);
         }
         break;
         case gamehandler.connection.identifiers.packet.kTurn:{
