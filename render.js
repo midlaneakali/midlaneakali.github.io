@@ -50,6 +50,8 @@ $(document).ready(function() {
         break;
         case gamehandler.connection.identifiers.packet.kInGame:
             mycolour = packet.ingamecolour;
+            localStorage.setItem('gameid',packet.gameid);
+            localStorage.setItem('selfid',packet.selfid);
         case gamehandler.connection.identifiers.packet.kInQue:{
             document.getElementById('join-que-leave-game-button').innerText = 'Leave';
         }
@@ -59,6 +61,8 @@ $(document).ready(function() {
         case gamehandler.connection.identifiers.packet.kGameTerminated:{
             document.getElementById('join-que-leave-game-button').innerText = 'Que';
             game = new Gameboard(xtilecount,ytilecount);
+            localStorage.setItem('gameid',null);
+            localStorage.setItem('selfid',null);
         }
         break;
         case gamehandler.connection.identifiers.packet.kTurn:{
