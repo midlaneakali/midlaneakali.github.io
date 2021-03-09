@@ -14,8 +14,15 @@ class Connection{
     onopen(evt){
         let gameuid = localStorage.getItem('gameid');
         let selfuid = localStorage.getItem('selfid');
-        
-        this.send(json.stringify({pid:this.identifiers.packet.kSaveState,gameid:gameuid,selfid:selfuid}));
+        if(selfuid){
+            this.send(json.stringify({pid:this.identifiers.packet.kUuid,selfid:selfuid,noid:false}));
+        }else{
+            this.send(json.stringify({pid:this.identifiers.packet.kUuid,selfid:selfuid,noid:true}));
+        }
+        if(gameuid){
+            this.send(json.stringify({pid:this.identifiers.packet.kSaveState,gameid:gameuid}));
+
+        }
     }
     onclose(evt){
 
