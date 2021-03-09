@@ -12,7 +12,10 @@ class Connection{
         this.packethandlercallback(packet);
     }
     onopen(evt){
-
+        let gameuid = localStorage.getItem('gameid');
+        let selfuid = localStorage.getItem('selfid');
+        
+        this.send(json.stringify({pid:this.identifiers.packet.kSaveState,gameid:gameuid,selfid:selfuid}));
     }
     onclose(evt){
 
