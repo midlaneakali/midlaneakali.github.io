@@ -44,6 +44,10 @@ $(document).ready(function() {
             localStorage.setItem('playerid',packet.playerid);
         }
         break;
+        case gamehandler.connection.identifiers.packet.kUuid:{
+            localStorage.setItem('selfid',packet.selfid);
+        }
+        break;
         case gamehandler.connection.identifiers.packet.kAllPlayers:{
             document.getElementById('player-count').innerText = packet.count;
         }
@@ -51,7 +55,7 @@ $(document).ready(function() {
         case gamehandler.connection.identifiers.packet.kInGame:
             mycolour = packet.ingamecolour;
             localStorage.setItem('gameid',packet.gameid);
-            localStorage.setItem('selfid',packet.selfid);
+            console.log("Setting game id");
         case gamehandler.connection.identifiers.packet.kInQue:{
             document.getElementById('join-que-leave-game-button').innerText = 'Leave';
         }

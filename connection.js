@@ -12,16 +12,26 @@ class Connection{
         this.packethandlercallback(packet);
     }
     onopen(evt){
-        let gameuid = localStorage.getItem('gameid');
-        let selfuid = localStorage.getItem('selfid');
-        if(selfuid){
-            this.send(json.stringify({pid:this.identifiers.packet.kUuid,selfid:selfuid,noid:false}));
+        console.log("connected");
+        if(localStorage.hasOwnProperty('selfid')){
+            //key exists, check if it's null
+            let selfuid = localStorage.getItem('selfid');
+            if(selfuid=="null" || selfuid == "undefined"){
+                this.send({pid:this.identifiers.packet.kUuid,selfid:"null"});
+            }else{
+                this.send({pid:this.identifiers.packet.kUuid,selfid:selfuid});
+            }
         }else{
-            this.send(json.stringify({pid:this.identifiers.packet.kUuid,selfid:selfuid,noid:true}));
+            this.send({pid:this.identifiers.packet.kUuid,selfid:"null"});
         }
-        if(gameuid){
-            this.send(json.stringify({pid:this.identifiers.packet.kSaveState,gameid:gameuid}));
-
+        if(localStorage.hasOwnProperty('gameid')){
+            //key exists, check if it's null
+            let gameuid = localStorage.getItem('gameid');
+            if(gameuid=="null" || gameuid == "undefined"){
+                console.log('game uid is null');
+            }else{
+                this.send({pid:this.identifiers.packet.kSaveState,gameid:gameuid});
+            }
         }
     }
     onclose(evt){

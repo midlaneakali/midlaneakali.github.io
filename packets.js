@@ -36,14 +36,14 @@ class PacketIdentifiers{
         this.kInQue = 6;
         this.kInLobby = 7;
         this.kQueLeave = 8;
-        this.kInGame = 8;
-        this.kTurn = 9;
-        this.kMyId = 10;
-        this.kAllPlayers = 11;
-        this.kGameTerminated = 12;
-        this.kGameOver = 13;
-        this.kSaveState = 14;
-        this.kToggleRequests = 15;
+        this.kInGame = 9;
+        this.kTurn = 10;
+        this.kMyId = 11;
+        this.kAllPlayers = 12;
+        this.kGameTerminated = 13;
+        this.kGameOver = 14;
+        this.kSaveState = 15;
+        this.kToggleRequests = 16;
     }
 }
 class IdentifierConstants{
