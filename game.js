@@ -29,8 +29,8 @@ class GameHandlers{
             */
            this.connection.send({
                pid:this.connection.identifiers.packet.kMove,
-            yposition: Math.floor(xtile),
-        xposition: Math.floor(ytile)});
+            xposition: Math.floor(xtile),
+        yposition: Math.floor(ytile)});
 
         if(mobile){
             

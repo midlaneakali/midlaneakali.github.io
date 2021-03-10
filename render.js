@@ -18,14 +18,14 @@ $(document).ready(function() {
    window.scaletilescallback = function(){
 
    }
-   function setminefortile(yposition,xposition,owner){
-    let tile = game.tiles[yposition][xposition];
+   function setminefortile(xposition,yposition,owner){
+    let tile = game.tiles[xposition][yposition];
     tile.setowner(owner);
     tile.setmine();
     tile.disable();
    }
-   function setvaluefortile(yposition,xposition,owner,value){
-    let tile = game.tiles[yposition][xposition];
+   function setvaluefortile(xposition,yposition,owner,value){
+    let tile = game.tiles[xposition][yposition];
     tile.setowner(owner);
     tile.setvalue(value);
     tile.disable();
@@ -36,10 +36,10 @@ $(document).ready(function() {
         case gamehandler.connection.identifiers.packet.kMove:{
             
             if(packet.ismine){
-                setminefortile(packet.yposition,packet.xposition,packet.player);
+                setminefortile(packet.xposition,packet.yposition,packet.player);
             }else{
                 for(let e of packet.tiles){
-                    setvaluefortile(e.yposition,e.xposition,packet.player,e.value);
+                    setvaluefortile(e.xposition,e.yposition,packet.player,e.value);
                     
 
                 }
@@ -66,9 +66,9 @@ $(document).ready(function() {
             if(packet.tiles){
                 for(let e of packet.tiles){
                     if(e.ismine){
-                        setminefortile(e.yposition,e.xposition,e.owner);
+                        setminefortile(e.xposition,e.yposition,e.owner);
                     }else{
-                        setvaluefortile(e.yposition,e.xposition,e.owner,e.value);
+                        setvaluefortile(e.xposition,e.yposition,e.owner,e.value);
                     }
                 }
             }
