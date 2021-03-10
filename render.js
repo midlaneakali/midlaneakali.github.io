@@ -18,23 +18,29 @@ $(document).ready(function() {
    window.scaletilescallback = function(){
 
    }
-
+   function setminefortile(yposition,xposition,owner){
+    let tile = game.tiles[yposition][xposition];
+    tile.setowner(owner);
+    tile.setmine();
+    tile.disable();
+   }
+   function setvaluefortile(yposition,xposition,owner,value){
+    let tile = game.tiles[yposition][xposition];
+    tile.setowner(owner);
+    tile.setvalue(value);
+    tile.disable();
+   }
    function packethandler(packet){
        console.log(packet);
     switch(packet.pid){
         case gamehandler.connection.identifiers.packet.kMove:{
             
-            if(packet.mine){
-                let tile = game.tiles[packet.yposition][packet.xposition];
-                tile.setowner(packet.player);
-                tile.setmine();
-                tile.disable();
+            if(packet.ismine){
+                setminefortile(packet.yposition,packet.xposition,packet.player);
             }else{
                 for(let e of packet.tiles){
-                    let tile = game.tiles[e.yposition][e.xposition];
-                    tile.setowner(packet.player);
-                    tile.setvalue(e.value);
-                    tile.disable();
+                    setvaluefortile(e.yposition,e.xposition,packet.player,e.value);
+                    
 
                 }
             }
