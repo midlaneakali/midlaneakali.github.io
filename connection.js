@@ -30,7 +30,7 @@ class Connection{
             if(gameuid=="null" || gameuid == "undefined"){
                 console.log('game uid is null');
             }else{
-                this.send({pid:this.identifiers.packet.kSaveState,gameid:gameuid});
+                this.send({pid:this.identifiers.packet.kGameUuid,gameid:gameuid});
             }
         }
     }

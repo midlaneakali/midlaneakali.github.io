@@ -52,6 +52,7 @@ $(document).ready(function() {
         break;
         case gamehandler.connection.identifiers.packet.kUuid:{
             localStorage.setItem('selfid',packet.selfid);
+            
         }
         break;
         case gamehandler.connection.identifiers.packet.kAllPlayers:{
@@ -61,7 +62,7 @@ $(document).ready(function() {
         case gamehandler.connection.identifiers.packet.kInGame:
             mycolour = packet.ingamecolour;
             localStorage.setItem('gameid',packet.gameid);
-            console.log("Setting game id");
+            localStorage.setItem('selfid',packet.selfid);
             if(packet.tiles){
                 for(let e of packet.tiles){
                     if(e.ismine){
@@ -81,7 +82,6 @@ $(document).ready(function() {
             document.getElementById('join-que-leave-game-button').innerText = 'Que';
             game = new Gameboard(xtilecount,ytilecount);
             localStorage.setItem('gameid',null);
-            localStorage.setItem('selfid',null);
         }
         break;
         case gamehandler.connection.identifiers.packet.kTurn:{
