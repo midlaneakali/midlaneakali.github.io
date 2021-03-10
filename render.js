@@ -62,6 +62,15 @@ $(document).ready(function() {
             mycolour = packet.ingamecolour;
             localStorage.setItem('gameid',packet.gameid);
             console.log("Setting game id");
+            if(packet.tiles){
+                for(let e of packet.tiles){
+                    if(e.ismine){
+                        setminefortile(e.yposition,e.xposition,e.owner);
+                    }else{
+                        setvaluefortile(e.yposition,e.xposition,e.owner,e.value);
+                    }
+                }
+            }
         case gamehandler.connection.identifiers.packet.kInQue:{
             document.getElementById('join-que-leave-game-button').innerText = 'Leave';
         }
