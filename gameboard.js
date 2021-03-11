@@ -19,6 +19,10 @@ class Gameboard{
                window.ctx.fillStyle = 'rgba(255,0,200,0.1)';
                if(this.tiles[x][y].getowner()!=0){
                    window.ctx.fillStyle = getcolourforid(this.tiles[x][y].getowner());
+               }if(this.tiles[x][y].value ==0){
+                   window.ctx.fillStyle = 'rgb(75,75,78)';
+               }if(this.tiles[x][y].ismine()&&this.tiles[x][y].isdisabled()){
+                    window.ctx.fillStyle = 'rgb(205,54,200)';
                }
                window.ctx.fillRect(x*window.xpositionmultiplier,y*window.ypositionmultiplier,window.tilewidth,window.tileheight);
                window.ctx.strokeStyle ='rgb(42,42,44)';

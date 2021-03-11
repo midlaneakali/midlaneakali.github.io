@@ -3,7 +3,7 @@ $(document).ready(function() {
 
     let game = new Gameboard(xtilecount,ytilecount);
     let gamehandler = new GameHandlers(packethandler);
-    let mycolour = 0;
+    let minecount = 0;
     function renderloop(tick){
         requestAnimationFrame(renderloop);
 
@@ -19,6 +19,14 @@ $(document).ready(function() {
 
    }
    function setminefortile(xposition,yposition,owner){
+       ++minecount;
+       let myingamepid = localStorage.getItem('ingamepid');
+                if(owner==myingamepid){
+                    document.getElementById('score-you').innerText++;
+                }else{
+                    document.getElementById('score-them').innerText++;
+                }
+       document.getElementById('mine-count').innerText = minecount;
     let tile = game.tiles[xposition][yposition];
     tile.setowner(owner);
     tile.setmine();
@@ -37,6 +45,7 @@ $(document).ready(function() {
             
             if(packet.ismine){
                 setminefortile(packet.xposition,packet.yposition,packet.player);
+                
             }else{
                 for(let e of packet.tiles){
                     setvaluefortile(e.xposition,e.yposition,packet.player,e.value);
@@ -60,9 +69,19 @@ $(document).ready(function() {
         }
         break;
         case gamehandler.connection.identifiers.packet.kInGame:
-            mycolour = packet.ingamecolour;
+            
+
             localStorage.setItem('gameid',packet.gameid);
             localStorage.setItem('selfid',packet.selfid);
+            localStorage.setItem('ingamepid',packet.player);
+
+            if(packet.playerturn == packet.player){
+                document.getElementById('player-turn').innerText = 'You';
+            }else{
+                document.getElementById('player-turn').innerText = 'Them';
+            }
+            document.getElementById('score-you').innerText = 0;
+            document.getElementById('score-them').innerText = 0;
             if(packet.tiles){
                 for(let e of packet.tiles){
                     if(e.ismine){
@@ -80,12 +99,15 @@ $(document).ready(function() {
         case gamehandler.connection.identifiers.packet.kInLobby:
         case gamehandler.connection.identifiers.packet.kGameTerminated:{
             document.getElementById('join-que-leave-game-button').innerText = 'Que';
+            
             game = new Gameboard(xtilecount,ytilecount);
             localStorage.setItem('gameid',null);
+            localStorage.setitem('ingamepid',null);
         }
         break;
         case gamehandler.connection.identifiers.packet.kTurn:{
-            if(packet.playerturn == mycolour){
+            let ingameid = localStorage.getItem('ingamepid');
+            if(packet.playerturn == ingameid){
                 document.getElementById('player-turn').innerText = 'You';
             }else{
                 document.getElementById('player-turn').innerText = 'Them';
