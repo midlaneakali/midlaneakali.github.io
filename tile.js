@@ -1,7 +1,7 @@
 let ytilecount = 16;
 let xtilecount = 16;
 class Tile{
-    constructor(x,y){
+    constructor(x,y,element){
         this.y = y;
         this.x = x;
         this.disabled = false;
@@ -10,6 +10,10 @@ class Tile{
         this.value = -1;
         this.update = true;
         this.owner = 0;
+        this.element = element;
+    }
+    getelement(){
+        return this.element;
     }
     gety(){
         return y;
