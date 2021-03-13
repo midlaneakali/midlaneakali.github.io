@@ -151,7 +151,7 @@ window.addEventListener('DOMContentLoaded', (event) => {
                 rows.forEach(e => {
                     let cells = e.querySelectorAll('.cell');
                     cells.forEach(c => {
-                        c.classList.toggle();
+                        c.classList.toggle('.unclickable');
                     })
                 })
                 let ingameid = localStorage.getItem('ingamepid');
