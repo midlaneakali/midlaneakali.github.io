@@ -110,6 +110,7 @@ window.addEventListener('DOMContentLoaded', (event) => {
                 localStorage.setItem('selfid', packet.selfid);
                 localStorage.setItem('ingamepid', packet.player);
                 document.getElementById('session-id').innerText = 'Session Id: '+packet.gameid;
+                document.getElementById('que-button').innerText = 'In Game';
                 if (packet.playerturn == packet.player) {
                     document.getElementById('player-turn').innerText = 'You';
                 } else {
@@ -138,6 +139,7 @@ window.addEventListener('DOMContentLoaded', (event) => {
                 localStorage.setItem('gameid', null);
                 localStorage.setItem('ingamepid', null);
                 document.getElementById('session-id').innerText = 'Session Id: ';
+                document.getElementById('que-button').innerText = 'Que';
                 generateboard();
             }
                 break;
@@ -185,6 +187,7 @@ window.addEventListener('DOMContentLoaded', (event) => {
     }
     function queclickevent(e) {
         con.send({ pid: con.identifiers.packet.kQueLeave });
+        document.getElementById('que-button').innerText = 'In Que';
     }
     function toggleclickevent(e) {
         con.send({ pid: con.identifiers.packet.kToggleRequests });
@@ -192,6 +195,7 @@ window.addEventListener('DOMContentLoaded', (event) => {
     function leaveclickevent(e) {
         con.send({ pid: con.identifiers.packet.kQueLeave });
         generateboard();
+        document.getElementById('que-button').innerText = 'Que';
     }
     function challengeclickevent(e) {
 
