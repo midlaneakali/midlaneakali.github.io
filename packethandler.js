@@ -3,31 +3,79 @@ window.addEventListener('DOMContentLoaded', (event) => {
     let con = new Connection(packethandler);
     var game = null;
     generateboard();
+    var minecount = 0;
     function setminefortile(xposition, yposition, owner) {
         ++minecount;
         let myingamepid = localStorage.getItem('ingamepid');
+        let img = document.createElement('img');
         if (owner == myingamepid) {
-            document.querySelectorAll('.you p').innerText++;
+            //document.querySelectorAll('.you p').innerText++;
+            let p = document.querySelectorAll('.you p');
+            p.forEach(e=>{
+                e.innerText++;
+            })
+            img.setAttribute('src','assets/flagblue.png');
         } else {
-            document.querySelectorAll('.them p').innerText++;
+            let p = document.querySelectorAll('.them p');
+            p.forEach(e=>{
+                e.innerText++;
+            })
+            img.setAttribute('src','assets/flagblack.png');
         }
         document.getElementById('mine-count').innerText = minecount;
         let tile = game.tiles[xposition][yposition];
+        tile.getelement().classList.add('not-empty');
+      //  tile.getelement().setAttribute('style','background-image: url( "assets/flagblue.png" );');
+      
+      
+      tile.getelement().appendChild(img);
         tile.setowner(owner);
         tile.setmine();
         tile.disable();
     }
     function setvaluefortile(xposition, yposition, owner, value) {
         let tile = game.tiles[xposition][yposition];
+        let e = tile.getelement();
+        e.classList.add('not-empty');
+        switch(value){
+            case 1:
+                e.classList.add('one');
+                break;
+                case 2:
+                    e.classList.add('two');
+                    break;
+                    case 3:
+                        e.classList.add('three');
+                        break;
+                        case 4:
+                            e.classList.add('four');
+                            break;
+                            case 5:
+                                e.classList.add('five');
+                                break;
+                                case 6:
+                                    e.classList.add('six');
+                                    break;
+                                    case 7:
+                                        e.classList.add('seven');
+                                        break;
+                                        case 8:
+                                            e.classList.add('eight');
+                                            break;
+        }
+        if(value!=0)
+            e.innerText = value;
         tile.setowner(owner);
         tile.setvalue(value);
         tile.disable();
     }
-    function packethandler(packet) {
+    function packethandler(packetstring) {
+        
+        let packet = JSON.parse(packetstring);
         console.log(packet);
         switch (packet.pid) {
             case con.identifiers.packet.kMove: {
-
+                
                 if (packet.ismine) {
                     setminefortile(packet.xposition, packet.yposition, packet.player);
 
@@ -42,7 +90,8 @@ window.addEventListener('DOMContentLoaded', (event) => {
                 break;
             case con.identifiers.packet.kMyId: {
                 localStorage.setItem('playerid', packet.playerid);
-                document.getElementById('pid').innerText = 'Player id: ' + packet.playerid;
+                
+                document.getElementById("pid").innerText = 'Player id: ' + packet.playerid;
             }
                 break;
             case con.identifiers.packet.kUuid: {
@@ -87,7 +136,9 @@ window.addEventListener('DOMContentLoaded', (event) => {
 
 
                 localStorage.setItem('gameid', null);
-                localStorage.setitem('ingamepid', null);
+                localStorage.setItem('ingamepid', null);
+                document.getElementById('session-id').innerText = 'Session Id: ';
+                generateboard();
             }
                 break;
             case con.identifiers.packet.kTurn: {
@@ -108,6 +159,9 @@ window.addEventListener('DOMContentLoaded', (event) => {
         rows.forEach(e => {
             let cells = e.querySelectorAll('.cell');
             cells.forEach(c => {
+                if(c.hasChildNodes()){
+                    c.removeChild(c.firstChild);
+                }
                 c.remove();
             });
             e.remove();
@@ -125,7 +179,9 @@ window.addEventListener('DOMContentLoaded', (event) => {
         let cell = e.target;
         x = cell.getAttribute('x');
         y = cell.getAttribute('y');
-        con.send({ pid: con.identifiers.packet.kMove, xposition: x, yposition: y });
+        let packet = {pid: con.identifiers.packet.kMove, xposition: parseInt(x,10), yposition: parseInt(y,10)};
+        console.log(packet);
+        con.send(packet);
     }
     function queclickevent(e) {
         con.send({ pid: con.identifiers.packet.kQueLeave });
@@ -135,12 +191,12 @@ window.addEventListener('DOMContentLoaded', (event) => {
     }
     function leaveclickevent(e) {
         con.send({ pid: con.identifiers.packet.kQueLeave });
+        generateboard();
     }
     function challengeclickevent(e) {
 
     }
     // generateboard();
-
     document.getElementById('que-button').addEventListener('click', queclickevent);
     document.getElementById('toggle-button').addEventListener('click', toggleclickevent);
     document.getElementById('leave-button').addEventListener('click', leaveclickevent);

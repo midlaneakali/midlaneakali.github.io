@@ -30,6 +30,7 @@ class Connection{
             if(gameuid=="null" || gameuid == "undefined"){
                 console.log('game uid is null');
             }else{
+                document.getElementById('session-id').innerText = 'Session Id: '+gameuid;
                 this.send({pid:this.identifiers.packet.kGameUuid,gameid:gameuid});
             }
         }

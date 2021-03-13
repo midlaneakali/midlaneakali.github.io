@@ -31,17 +31,34 @@ body {
   box-shadow: inset 0 0 9px rgba(0, 0, 0, .25);
 }
 .one {
-  color: #00838B;
+  color: #2C9F68;
+  
 }
 .two{
-  color: #2C9F68;
+  color: #00838B;
 }
 .three{
-  color: #9F2C86;
+  color: #397EB8;
+  
 }
 .four{
+  color: #9F2C86;
+  
+}
+.five{
+  color: #EC3373;
+  
+}
+.six{
   color: #9F2C2C;
 }
+.seven{
+  color: #EC3349;
+}
+.eight{
+  color: #FF0000;
+}
+
 .que {
   background-color: #00838B;
 }
