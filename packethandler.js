@@ -11,27 +11,27 @@ window.addEventListener('DOMContentLoaded', (event) => {
         if (owner == myingamepid) {
             //document.querySelectorAll('.you p').innerText++;
             let p = document.querySelectorAll('.you p');
-            p.forEach(e=>{
+            p.forEach(e => {
                 e.innerText++;
             })
-            img.setAttribute('src','assets/flagblue.png');
+            img.setAttribute('src', 'assets/flagblue.png');
         } else {
             let p = document.querySelectorAll('.them p');
-            p.forEach(e=>{
+            p.forEach(e => {
                 e.innerText++;
             })
-            img.setAttribute('src','assets/flagblack.png');
+            img.setAttribute('src', 'assets/flagblack.png');
         }
-        if(minecount<9)
-            document.getElementById('mine-count').innerText = '0'+minecount;
+        if (minecount < 9)
+            document.getElementById('mine-count').innerText = '0' + minecount;
         else
-        document.getElementById('mine-count').innerText = minecount;
+            document.getElementById('mine-count').innerText = minecount;
         let tile = game.tiles[xposition][yposition];
         tile.getelement().classList.add('not-empty');
-      //  tile.getelement().setAttribute('style','background-image: url( "assets/flagblue.png" );');
-      
-      
-      tile.getelement().appendChild(img);
+        //  tile.getelement().setAttribute('style','background-image: url( "assets/flagblue.png" );');
+
+
+        tile.getelement().appendChild(img);
         tile.setowner(owner);
         tile.setmine();
         tile.disable();
@@ -40,45 +40,45 @@ window.addEventListener('DOMContentLoaded', (event) => {
         let tile = game.tiles[xposition][yposition];
         let e = tile.getelement();
         e.classList.add('not-empty');
-        switch(value){
+        switch (value) {
             case 1:
                 e.classList.add('one');
                 break;
-                case 2:
-                    e.classList.add('two');
-                    break;
-                    case 3:
-                        e.classList.add('three');
-                        break;
-                        case 4:
-                            e.classList.add('four');
-                            break;
-                            case 5:
-                                e.classList.add('five');
-                                break;
-                                case 6:
-                                    e.classList.add('six');
-                                    break;
-                                    case 7:
-                                        e.classList.add('seven');
-                                        break;
-                                        case 8:
-                                            e.classList.add('eight');
-                                            break;
+            case 2:
+                e.classList.add('two');
+                break;
+            case 3:
+                e.classList.add('three');
+                break;
+            case 4:
+                e.classList.add('four');
+                break;
+            case 5:
+                e.classList.add('five');
+                break;
+            case 6:
+                e.classList.add('six');
+                break;
+            case 7:
+                e.classList.add('seven');
+                break;
+            case 8:
+                e.classList.add('eight');
+                break;
         }
-        if(value!=0)
+        if (value != 0)
             e.innerText = value;
         tile.setowner(owner);
         tile.setvalue(value);
         tile.disable();
     }
     function packethandler(packetstring) {
-        
+
         let packet = JSON.parse(packetstring);
         console.log(packet);
         switch (packet.pid) {
             case con.identifiers.packet.kMove: {
-                
+
                 if (packet.ismine) {
                     setminefortile(packet.xposition, packet.yposition, packet.player);
 
@@ -93,7 +93,7 @@ window.addEventListener('DOMContentLoaded', (event) => {
                 break;
             case con.identifiers.packet.kMyId: {
                 localStorage.setItem('playerid', packet.playerid);
-                
+
                 document.getElementById("pid").innerText = 'Player id: ' + packet.playerid;
             }
                 break;
@@ -112,7 +112,7 @@ window.addEventListener('DOMContentLoaded', (event) => {
                 localStorage.setItem('gameid', packet.gameid);
                 localStorage.setItem('selfid', packet.selfid);
                 localStorage.setItem('ingamepid', packet.player);
-                document.getElementById('session-id').innerText = 'Session Id: '+packet.gameid;
+                document.getElementById('session-id').innerText = 'Session Id: ' + packet.gameid;
                 document.getElementById('que-button').innerText = 'In Game';
                 if (packet.playerturn == packet.player) {
                     document.getElementById('player-turn').innerText = 'You';
@@ -147,6 +147,13 @@ window.addEventListener('DOMContentLoaded', (event) => {
             }
                 break;
             case con.identifiers.packet.kTurn: {
+                rows = document.querySelectorAll('.row');
+                rows.forEach(e => {
+                    let cells = e.querySelectorAll('.cell');
+                    cells.forEach(c => {
+                        c.classList.toggle();
+                    })
+                })
                 let ingameid = localStorage.getItem('ingamepid');
                 if (packet.playerturn == ingameid) {
                     document.getElementById('player-turn').innerText = 'You';
@@ -164,7 +171,7 @@ window.addEventListener('DOMContentLoaded', (event) => {
         rows.forEach(e => {
             let cells = e.querySelectorAll('.cell');
             cells.forEach(c => {
-                if(c.hasChildNodes()){
+                if (c.hasChildNodes()) {
                     c.removeChild(c.firstChild);
                 }
                 c.remove();
@@ -184,7 +191,7 @@ window.addEventListener('DOMContentLoaded', (event) => {
         let cell = e.target;
         x = cell.getAttribute('x');
         y = cell.getAttribute('y');
-        let packet = {pid: con.identifiers.packet.kMove, xposition: parseInt(x,10), yposition: parseInt(y,10)};
+        let packet = { pid: con.identifiers.packet.kMove, xposition: parseInt(x, 10), yposition: parseInt(y, 10) };
         console.log(packet);
         con.send(packet);
     }
