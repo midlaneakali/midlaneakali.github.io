@@ -22,6 +22,9 @@ window.addEventListener('DOMContentLoaded', (event) => {
             })
             img.setAttribute('src','assets/flagblack.png');
         }
+        if(minecount<9)
+            document.getElementById('mine-count').innerText = '0'+minecount;
+        else
         document.getElementById('mine-count').innerText = minecount;
         let tile = game.tiles[xposition][yposition];
         tile.getelement().classList.add('not-empty');
