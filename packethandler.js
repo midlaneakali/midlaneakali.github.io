@@ -94,7 +94,7 @@ window.addEventListener('DOMContentLoaded', (event) => {
             case con.identifiers.packet.kMyId: {
                 localStorage.setItem('playerid', packet.playerid);
                 let playerid = packet.playerid;
-                document.getElementById("pid").innerText = 'Player id: ' + playerid.toSTring(16);
+                document.getElementById("pid").innerText = 'Player id: ' + playerid.toString(16);
             }
                 break;
             case con.identifiers.packet.kUuid: {
@@ -158,7 +158,7 @@ window.addEventListener('DOMContentLoaded', (event) => {
                 case con.identifiers.packet.kChallenge:{
                     //notify player they are recieving a challenge
                     //allow them to accept/deny
-                    
+
                 }
                 break;
             case 50: {
