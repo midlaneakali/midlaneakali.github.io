@@ -149,44 +149,68 @@ window.addEventListener('DOMContentLoaded', (event) => {
                 break;
             case con.identifiers.packet.kTurn: {
                 let ingameid = localStorage.getItem('ingamepid');
+
                 if (packet.playerturn == ingameid) {
                     document.getElementById('player-turn').innerText = 'You';
+                    let rows = document.querySelectorAll('.row');
+                    rows.forEach(e => {
+                        let cells = e.querySelectorAll('.cell');
+                        cells.forEach(c => {
+
+                            if(c.classList.contains('unclickable')){
+                                c.classList.remove('unclickable');
+                            }
+                            
+                        })
+                    })
+                    
                 } else {
                     document.getElementById('player-turn').innerText = 'Them';
+                    let rows = document.querySelectorAll('.row');
+                    rows.forEach(e => {
+                        let cells = e.querySelectorAll('.cell');
+                        cells.forEach(c => {
+
+                            if(!c.classList.contains('unclickable')){
+                                c.classList.add('unclickable');
+                            }
+                            
+                        })
+                    })
                 }
-                
+
             }
                 break;
             case con.identifiers.packet.kChallenge: {
                 //notify player they are recieving a challenge
                 //allow them to accept/deny
 
-                toastr.info("<button type=\"button\" id='accept-challenge-button' class=\"btn btn-primary\">accept</button>",'Challenge request from: '+packet.playerid.toString(16),
-                {
-                    closeButton: false,
-                    debug: false,
-                    newestOnTop: false,
-                    progressBar: true,
-                    positionClass: "toast-bottom-right",
-                    preventDuplicates: false,
-                    onclick: null,
-                    showDuration: "5000",
-                    hideDuration: "1000",
-                    timeOut:"5000",
-                    extendedTimeOut:"1000",
-                    showEasing: "swing",
-                    hideEasing :"linear",
-                    showMethod: "fadeIn",
-                    hideMethod: "fadeOut",
-                    onShown : function(toast){
-                        document.querySelector('#accept-challenge-button').addEventListener('click',acceptchallenge);
-                        function acceptchallenge(){
-                            con.send({pid:con.identifiers.packet.kChallengeAccept,playerid:packet.playerid});
+                toastr.info("<button type=\"button\" id='accept-challenge-button' class=\"btn btn-primary\">accept</button>", 'Challenge request from: ' + packet.playerid.toString(16),
+                    {
+                        closeButton: false,
+                        debug: false,
+                        newestOnTop: false,
+                        progressBar: true,
+                        positionClass: "toast-bottom-right",
+                        preventDuplicates: false,
+                        onclick: null,
+                        showDuration: "5000",
+                        hideDuration: "1000",
+                        timeOut: "5000",
+                        extendedTimeOut: "1000",
+                        showEasing: "swing",
+                        hideEasing: "linear",
+                        showMethod: "fadeIn",
+                        hideMethod: "fadeOut",
+                        onShown: function (toast) {
+                            document.querySelector('#accept-challenge-button').addEventListener('click', acceptchallenge);
+                            function acceptchallenge() {
+                                con.send({ pid: con.identifiers.packet.kChallengeAccept, playerid: packet.playerid });
+                            }
                         }
-                    }
 
-                });
-                }
+                    });
+            }
                 break;
             case 50: {
                 packet.Position.forEach(element => {

@@ -21,6 +21,11 @@ body {
   display: none;
 }
 /* Utility Classes */
+.unclickable:hover{
+  cursor: not-allowed !important;
+  background-color: #E07146 !important;
+  filter: drop-shadow(1px 2px 4px #E07146) !important;
+}
 .visible {
   display: block !important;
   animation: fadein .2s;
@@ -330,11 +335,7 @@ body {
   .cell {
     transform: scale(1.2);
   }
-  .unclickable:hover{
-    cursor: not-allowed !important;
-    background-color: #E07146 !important;
-    filter: drop-shadow(1px 2px 4px #E07146) !important;
-  }
+  
   .heading {
     display: flex;
     justify-content: space-between;
