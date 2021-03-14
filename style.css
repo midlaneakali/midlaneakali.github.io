@@ -35,6 +35,11 @@ body {
   filter: none !important;
   box-shadow: inset 0 0 9px rgba(0, 0, 0, .25);
 }
+.last-move{
+    background-color: #9cdcfe !important; 
+  filter: none !important;
+  box-shadow: inset 0 0 9px rgba(0, 0, 0, .25);
+}
 .one {
   color: #2C9F68;
   

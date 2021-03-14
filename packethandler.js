@@ -2,6 +2,7 @@ window.addEventListener('DOMContentLoaded', (event) => {
     // let con = null;
     let con = new Connection(packethandler);
     var game = null;
+    var lasttile = null;
     generateboard();
     var minecount = 0;
     function setminefortile(xposition, yposition, owner) {
@@ -39,7 +40,12 @@ window.addEventListener('DOMContentLoaded', (event) => {
     function setvaluefortile(xposition, yposition, owner, value) {
         let tile = game.tiles[xposition][yposition];
         let e = tile.getelement();
+        if(lasttile!=null)
+            lasttile.classList.remove('last-move');
+        lasttile = e;
+        
         e.classList.add('not-empty');
+        e.classList.add('last-move');
         switch (value) {
             case 1:
                 e.classList.add('one');
@@ -78,7 +84,7 @@ window.addEventListener('DOMContentLoaded', (event) => {
         console.log(packet);
         switch (packet.pid) {
             case con.identifiers.packet.kMove: {
-
+                
                 if (packet.ismine) {
                     setminefortile(packet.xposition, packet.yposition, packet.player);
 
@@ -124,6 +130,7 @@ window.addEventListener('DOMContentLoaded', (event) => {
                 generateboard();
                 document.querySelectorAll('.them p').innerText = 0;
                 document.querySelectorAll('.you p').innerText = 0;
+                
                 if (packet.tiles) {
                     for (let e of packet.tiles) {
                         if (e.ismine) {
@@ -138,7 +145,7 @@ window.addEventListener('DOMContentLoaded', (event) => {
             case con.identifiers.packet.kInLobby:
             case con.identifiers.packet.kGameTerminated: {
 
-
+                lasttile = null;
                 localStorage.setItem('gameid', null);
                 localStorage.setItem('ingamepid', null);
                 document.getElementById('session-id').innerText = 'Session Id: ';
