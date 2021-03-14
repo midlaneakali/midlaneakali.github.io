@@ -37,7 +37,7 @@ class Connection{
     }
     onclose(evt){
         setTimeout(() => {
-            location.reload();
+           // location.reload();
         }, 3000);
     }
     send(packet){
