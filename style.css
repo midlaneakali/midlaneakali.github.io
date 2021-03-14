@@ -23,7 +23,7 @@ body {
 /* Utility Classes */
 .visible {
   display: block !important;
-  animation: fadein .5s;
+  animation: fadein .2s;
 }
 .not-empty { /* Apply this to a button when its values is not 0 */
   background-color: #EFDCA6 !important; 

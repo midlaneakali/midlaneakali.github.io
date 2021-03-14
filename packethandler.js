@@ -154,6 +154,7 @@ window.addEventListener('DOMContentLoaded', (event) => {
                 } else {
                     document.getElementById('player-turn').innerText = 'Them';
                 }
+            ]
             }
                 break;
             case con.identifiers.packet.kChallenge: {
