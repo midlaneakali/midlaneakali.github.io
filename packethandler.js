@@ -156,10 +156,35 @@ window.addEventListener('DOMContentLoaded', (event) => {
                 }
             }
                 break;
-                case con.identifiers.packet.kChallenge:{
-                    //notify player they are recieving a challenge
-                    //allow them to accept/deny
+            case con.identifiers.packet.kChallenge: {
+                //notify player they are recieving a challenge
+                //allow them to accept/deny
 
+                toastr.info("<button type=\"button\" id='accept-challenge-button' class=\"btn btn-primary\">accept</button>",'Challenge request from: '+packet.playerid.toString(16),
+                {
+                    closeButton: false,
+                    debug: false,
+                    newestOnTop: false,
+                    progressBar: true,
+                    positionClass: "toast-bottom-right",
+                    preventDuplicates: false,
+                    onclick: null,
+                    showDuration: "5000",
+                    hideDuration: "1000",
+                    timeOut:"5000",
+                    extendedTimeOut:"1000",
+                    showEasing: "swing",
+                    hideEasing :"linear",
+                    showMethod: "fadeIn",
+                    hideMethod: "fadeOut",
+                    onShown : function(toast){
+                        document.querySelector('#accept-challenge-button').addEventListener('click',acceptchallenge);
+                        function acceptchallenge(){
+                            con.send({pid:con.identifiers.packet.kChallengeAccept,playerid:packet.playerid});
+                        }
+                    }
+
+                });
                 }
                 break;
             case 50: {
@@ -215,19 +240,18 @@ window.addEventListener('DOMContentLoaded', (event) => {
         document.getElementById('que-button').innerText = 'Que';
     }
     function challengeclickevent(e) {
-        var playerid = document.getElementById('challenge-id').value;
-        if (id == "") {
+        var pid = document.getElementById('challenge-id').value;
+        if (pid == "") {
             return;
         }
 
-        send({ pid: con.identifiers.packet.kChallenge, playerid: parseInt(id, 16) });
+        con.send({ pid: con.identifiers.packet.kChallenge, playerid: parseInt(pid, 16) });
     }
     // generateboard();
     document.getElementById('que-button').addEventListener('click', queclickevent);
     document.getElementById('toggle-button').addEventListener('click', toggleclickevent);
     document.getElementById('leave-button').addEventListener('click', leaveclickevent);
     document.getElementById('challenge-button').addEventListener('click', challengeclickevent);
-
 
     (function () {
         var timestamp = new Date().getTime();
