@@ -277,7 +277,14 @@ window.addEventListener('DOMContentLoaded', (event) => {
     document.getElementById('toggle-button').addEventListener('click', toggleclickevent);
     document.getElementById('leave-button').addEventListener('click', leaveclickevent);
     document.getElementById('challenge-button').addEventListener('click', challengeclickevent);
-
+    var mobile = false;
+    if(/Android/i.test(navigator.userAgent)) {
+        mobile = true;
+    }
+    
+    if(navigator.userAgent.match(/iPhone/i) || navigator.userAgent.match(/iPad/i) || navigator.userAgent.match(/iPod/i)){
+        mobile = true;
+    }
     (function () {
         var timestamp = new Date().getTime();
 
@@ -295,6 +302,8 @@ window.addEventListener('DOMContentLoaded', (event) => {
     })();
     addEventListener("resume", function () {
         //  alert('Resuming this webapp');
-        //location.reload();
+        //
+        if(mobile)
+            location.reload();
     });
 });
