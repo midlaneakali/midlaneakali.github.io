@@ -155,6 +155,12 @@ window.addEventListener('DOMContentLoaded', (event) => {
                 }
             }
                 break;
+                case 50:{
+                    packet.Position.forEach(element => {
+                        game.tiles[element.XPosition][element.YPosition].getelement().classList.add('not-empty');
+                    });
+                }
+                break;
         }
     }
     function generateboard() {
@@ -227,6 +233,6 @@ window.addEventListener('DOMContentLoaded', (event) => {
     })();   
     addEventListener("resume", function() {
       //  alert('Resuming this webapp');
-      location.reload();
+      //location.reload();
     });
 });
