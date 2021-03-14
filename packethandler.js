@@ -143,6 +143,7 @@ window.addEventListener('DOMContentLoaded', (event) => {
                 localStorage.setItem('ingamepid', null);
                 document.getElementById('session-id').innerText = 'Session Id: ';
                 document.getElementById('que-button').innerText = 'Que';
+                document.getElementById('que-button').disabled = false;
                 generateboard();
             }
                 break;
@@ -203,6 +204,7 @@ window.addEventListener('DOMContentLoaded', (event) => {
     function queclickevent(e) {
         con.send({ pid: con.identifiers.packet.kQueLeave });
         document.getElementById('que-button').innerText = 'In Que';
+        document.getElementById('que-button').disabled = true;
     }
     function toggleclickevent(e) {
         con.send({ pid: con.identifiers.packet.kToggleRequests });
