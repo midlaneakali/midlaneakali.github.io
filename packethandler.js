@@ -147,13 +147,6 @@ window.addEventListener('DOMContentLoaded', (event) => {
             }
                 break;
             case con.identifiers.packet.kTurn: {
-                rows = document.querySelectorAll('.row');
-                rows.forEach(e => {
-                    let cells = e.querySelectorAll('.cell');
-                    cells.forEach(c => {
-                        c.classList.toggle('.unclickable');
-                    })
-                })
                 let ingameid = localStorage.getItem('ingamepid');
                 if (packet.playerturn == ingameid) {
                     document.getElementById('player-turn').innerText = 'You';
