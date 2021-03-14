@@ -41,6 +41,8 @@ class PacketIdentifiers{
         this.kGameTerminated = 15;
         this.kGameOver = 16;
         this.kToggleRequests = 17;
+        this.kChallenge = 18;
+        this.kChallengeAccept = 19;
     }
 }
 class IdentifierConstants{

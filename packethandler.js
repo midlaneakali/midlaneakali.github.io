@@ -93,8 +93,8 @@ window.addEventListener('DOMContentLoaded', (event) => {
                 break;
             case con.identifiers.packet.kMyId: {
                 localStorage.setItem('playerid', packet.playerid);
-
-                document.getElementById("pid").innerText = 'Player id: ' + packet.playerid;
+                let playerid = packet.playerid;
+                document.getElementById("pid").innerText = 'Player id: ' + playerid.toSTring(16);
             }
                 break;
             case con.identifiers.packet.kUuid: {
@@ -155,11 +155,17 @@ window.addEventListener('DOMContentLoaded', (event) => {
                 }
             }
                 break;
-                case 50:{
-                    packet.Position.forEach(element => {
-                        game.tiles[element.XPosition][element.YPosition].getelement().classList.add('not-empty');
-                    });
+                case con.identifiers.packet.kChallenge:{
+                    //notify player they are recieving a challenge
+                    //allow them to accept/deny
+                    
                 }
+                break;
+            case 50: {
+                packet.Position.forEach(element => {
+                    game.tiles[element.XPosition][element.YPosition].getelement().classList.add('not-empty');
+                });
+            }
                 break;
         }
     }
@@ -207,7 +213,12 @@ window.addEventListener('DOMContentLoaded', (event) => {
         document.getElementById('que-button').innerText = 'Que';
     }
     function challengeclickevent(e) {
+        var playerid = document.getElementById('challenge-id').value;
+        if (id == "") {
+            return;
+        }
 
+        send({ pid: con.identifiers.packet.kChallenge, playerid: parseInt(id, 16) });
     }
     // generateboard();
     document.getElementById('que-button').addEventListener('click', queclickevent);
@@ -216,9 +227,9 @@ window.addEventListener('DOMContentLoaded', (event) => {
     document.getElementById('challenge-button').addEventListener('click', challengeclickevent);
 
 
-    (function() {
+    (function () {
         var timestamp = new Date().getTime();
-    
+
         function checkResume() {
             var current = new Date().getTime();
             if (current - timestamp > 4000) {
@@ -228,11 +239,11 @@ window.addEventListener('DOMContentLoaded', (event) => {
             }
             timestamp = current;
         }
-    
+
         window.setInterval(checkResume, 1000);
-    })();   
-    addEventListener("resume", function() {
-      //  alert('Resuming this webapp');
-      //location.reload();
+    })();
+    addEventListener("resume", function () {
+        //  alert('Resuming this webapp');
+        //location.reload();
     });
 });
