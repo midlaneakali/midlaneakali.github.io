@@ -208,4 +208,25 @@ window.addEventListener('DOMContentLoaded', (event) => {
     document.getElementById('toggle-button').addEventListener('click', toggleclickevent);
     document.getElementById('leave-button').addEventListener('click', leaveclickevent);
     document.getElementById('challenge-button').addEventListener('click', challengeclickevent);
+
+
+    (function() {
+        var timestamp = new Date().getTime();
+    
+        function checkResume() {
+            var current = new Date().getTime();
+            if (current - timestamp > 4000) {
+                var event = document.createEvent("Events");
+                event.initEvent("resume", true, true);
+                document.dispatchEvent(event);
+            }
+            timestamp = current;
+        }
+    
+        window.setInterval(checkResume, 1000);
+    })();   
+    addEventListener("resume", function() {
+      //  alert('Resuming this webapp');
+      location.reload();
+    });
 });
