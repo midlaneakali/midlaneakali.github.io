@@ -6,11 +6,13 @@ class Connection{
         this.ws.onopen = this.onopen.bind(this);
         this.ws.onclose = this.onclose.bind(this);
         this.identifiers = new IdentifierConstants();
+        /*
         setInterval(() => {
             if(this.ws.readyState==1){
-                this.ws.send(true);
+                this.ws.send("1");
             }
         }, 10000);
+        */
     }
     onmessage(evt){
         let packet = evt.data;
