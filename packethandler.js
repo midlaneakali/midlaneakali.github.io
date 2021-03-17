@@ -115,6 +115,27 @@ window.addEventListener('DOMContentLoaded', (event) => {
             case con.identifiers.packet.kInGame:
 
 
+                toastr.success('Game has begun!',
+                {
+                    closeButton: true,
+                    debug: false,
+                    newestOnTop: false,
+                    progressBar: true,
+                    positionClass: "toast-bottom-right",
+                    preventDuplicates: false,
+                    onclick: null,
+                    showDuration: "5000",
+                    hideDuration: "1000",
+                    timeOut: "5000",
+                    extendedTimeOut: "1000",
+                    showEasing: "swing",
+                    hideEasing: "linear",
+                    showMethod: "fadeIn",
+                    hideMethod: "fadeOut",
+                    onShown: function (toast) {
+                    }
+
+                });
                 localStorage.setItem('gameid', packet.gameid);
                 localStorage.setItem('selfid', packet.selfid);
                 localStorage.setItem('ingamepid', packet.player);
@@ -142,6 +163,52 @@ window.addEventListener('DOMContentLoaded', (event) => {
                 }
                 break;
             case con.identifiers.packet.kGameOver:
+                let myingamepid = localStorage.getItem('ingamepid');
+                if(packet.winner==myingamepid){
+                    toastr.success('YOU WON!',
+                {
+                    closeButton: true,
+                    debug: false,
+                    newestOnTop: false,
+                    progressBar: true,
+                    positionClass: "toast-bottom-right",
+                    preventDuplicates: false,
+                    onclick: null,
+                    showDuration: "5000",
+                    hideDuration: "1000",
+                    timeOut: "5000",
+                    extendedTimeOut: "1000",
+                    showEasing: "swing",
+                    hideEasing: "linear",
+                    showMethod: "fadeIn",
+                    hideMethod: "fadeOut",
+                    onShown: function (toast) {
+                    }
+
+                });
+                }else{
+                    toastr.error('AWE YOU LOSt!',
+                {
+                    closeButton: true,
+                    debug: false,
+                    newestOnTop: false,
+                    progressBar: true,
+                    positionClass: "toast-bottom-right",
+                    preventDuplicates: false,
+                    onclick: null,
+                    showDuration: "5000",
+                    hideDuration: "1000",
+                    timeOut: "5000",
+                    extendedTimeOut: "1000",
+                    showEasing: "swing",
+                    hideEasing: "linear",
+                    showMethod: "fadeIn",
+                    hideMethod: "fadeOut",
+                    onShown: function (toast) {
+                    }
+
+                });
+                }
             case con.identifiers.packet.kInLobby:
             case con.identifiers.packet.kGameTerminated: {
 
@@ -151,7 +218,8 @@ window.addEventListener('DOMContentLoaded', (event) => {
                 document.getElementById('session-id').innerText = 'Session Id: ';
                 document.getElementById('que-button').innerText = 'Que';
                 document.getElementById('que-button').disabled = false;
-                generateboard();
+                //generateboard(); keep the board state after game is over
+                
             }
                 break;
             case con.identifiers.packet.kTurn: {
